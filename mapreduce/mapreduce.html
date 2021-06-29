@@ -438,7 +438,7 @@
                   </a>
                 
                 
-                <h1 id="mapreduce-simplified-data-processing-on-large-clusters">MapReduce: Simplified Data Processing on Large Clusters</h1>
+                <h1 id="mapreduce-simplified-data-processing-on-large-clusters"><a href="http://nil.csail.mit.edu/6.824/2020/papers/mapreduce.pdf">MapReduce: Simplified Data Processing on Large Clusters</a></h1>
 <p><em>A programming model and an associated implementation for processing and generating large data sets.</em></p>
 <p><a href="http://nil.csail.mit.edu/6.824/2020/papers/mapreduce.pdf">MapReduce Paper</a></p>
 <h2 id="introduction">Introduction</h2>
@@ -462,11 +462,10 @@ reduce (k2,list(v2)) → list(v2)
 <h3 id="master-data-structures">Master Data Structures</h3>
 <ul>
 <li>stores state(idle, in-progress, competed) and identity of the worker machine for each task (non idle).</li>
-<li>for each complted map task: locations and sizes of the R intermediate file regions. The information is pushed incrementally to in-progress reduce workers.</li>
+<li>for each completed map task: locations and sizes of the R intermediate file regions. The information is pushed incrementally to in-progress reduce workers.</li>
 </ul>
 <h3 id="fault-tolerance">Fault Tolerance</h3>
 <ul>
-<li>Master stores state(idle, in-progress, competed) and identity of the worker machine for each task (non idle).</li>
 <li>For worker failure, master periodically pings workers and marks the worker that has no response for a certain amount of time as failed. Completed and in-progress map tasks are reset to idle and reduce workers executing are notified.</li>
 <li>Completed map tasks and any in-progress tasks on that worker are rescheduled to other workers; no need to re-execute completed reduce tasks because output is stored in global file system instead of worker's local disk.</li>
 <li>For master failure, the computation is just aborted and it is client's responsibility to check and retry.</li>
