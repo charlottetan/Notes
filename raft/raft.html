@@ -14,7 +14,7 @@
     
     
       
-        <title>tao - RKK1995's notes</title>
+        <title>raft - RKK1995's notes</title>
       
     
     
@@ -90,7 +90,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              tao
+              raft
             
           </span>
         </div>
@@ -312,14 +312,12 @@
             
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
       
       <label class="md-nav__link" for="__nav_2_1_1">
         Storage
@@ -347,19 +345,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="tao.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../tao/tao.html" class="md-nav__link">
         tao
       </a>
-      
     </li>
   
 
@@ -412,12 +402,14 @@
             
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" checked>
       
       <label class="md-nav__link" for="__nav_2_1_3">
         Misc
@@ -433,11 +425,19 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../raft/raft.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="raft.html" class="md-nav__link md-nav__link--active">
         raft
       </a>
+      
     </li>
   
 
@@ -472,69 +472,105 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/tao/tao.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/raft/raft.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="tao-facebooks-distributed-data-store-for-the-social-graph">TAO: Facebook’s Distributed Data Store for the Social Graph</h1>
-<p><em>A geographically distributed data store that provides efficient and timely access to the social graph.</em></p>
-<h2 id="background">Background</h2>
+                <h1 id="raft-in-search-of-an-understandable-consensus-algorithm"><a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-extended.pdf">Raft: In Search of an Understandable Consensus Algorithm</a></h1>
+<p><em>A consensus algorithm for managing a replicated log</em></p>
+<h2 id="raft-basics">Raft Basics</h2>
 <ul>
-<li>The content Facebook presents to each user is highly tailored, so we have to perform filtering and aggregation when the content is viewed instead of when the content is created.</li>
-<li>Facebook was originally built with MySQL/PHP/memcache. This look-aside key-value cache architecture has problems like inefficient edge lists, distributed control logic and expensive read-after-write consistency.</li>
-<li>TAO is designed to handle the workload of read-mostly access to a constantly changing graph. Efficiency and availability are explicitly favored over consistency.</li>
+<li>Properties<ul>
+<li><strong>Election Safety</strong>: at most one leader can be elected in a given term.</li>
+<li><strong>Leader Append-Only</strong>: a leader never overwrites or deletes entries in its log; it only appends new entries.</li>
+<li><strong>Log Matching</strong>: if two logs contain an entry with the same index and term, then the logs are identical in all entries up through the given index.</li>
+<li><strong>Leader Completeness</strong>: if a log entry is committed in a given term, then that entry will be present in the logs of the leaders for all higher-numbered terms.</li>
+<li><strong>State Machine Safety</strong>: if a server has applied a log entry at a given index to its state machine, no other server will ever apply a different log entry for the same index.</li>
 </ul>
-<h2 id="data-model-and-api">Data Model and API</h2>
-<div class="highlight"><pre><span></span><code>Object:(id) -&gt; (otype, (key -&gt; value))
-Association: (id1, atype, id2) -&gt; (time, (key -&gt; value)*)
-Association List: (id1, atype) -&gt; [a1, a2, ..., an]
-</code></pre></div>
+</li>
+</ul>
 <ul>
-<li>Objects are typed nodes. Each object has a globally unique id.</li>
-<li>Associations are typed directed edges between objects; at most one association can exist between two objects.</li>
-<li>Both objects and associations may contain data as key-&gt;value pairs.</li>
-<li>Bidirectional edges are modeled as two associations. TAO keeps associations in sync with their inverses.</li>
-<li>TAO's association queries are organized around association lists(associations in descending order by the "time" field).</li>
-<li>A per-atype upper bound for each query is enforced(<code>assoc_ranage(id1, atype, pos, limit)</code>), so the client must issue multiple queries to enumerate a longer association list.</li>
+<li>Raft divides time into terms of arbitrary length. Used extensively in leader election and log matching. </li>
 </ul>
-<h2 id="architecture">Architecture</h2>
-<h3 id="basics">Basics</h3>
+<p float="left">
+  <img src="images/figure4.png" width="400" />
+  <img src="images/figure5.png" width="400" /> 
+</p>
+
+<h2 id="leader-election">Leader Election</h2>
+<ol>
+<li>When servers start up, they begin as followers</li>
+<li>Leader sends periodic heartbeats (AppendEntries RPC with no log entries) to all followers to maintain authority.</li>
+<li>If follower receives no communication over <code>election timeout</code>, then it assumes there is no viable leader and begins an election to choose a new leader.</li>
+<li>Begin an election: follower increments its current term and transitions to candidate state, votes for itself and issue RequestVoteRPCs in parallel to each else</li>
+<li>Candidate continue in this state until one of three things happens: a. it wins b. other wins c. no one wins</li>
+<li>Candidate wins if it receives the majority of votes, voting is first-come-first-served. </li>
+<li>While waiting for votes, a candidate may receive an AppendEntries RPC from another server claiming to be leader. If its term is larger or equal than itself's, the candidate recognizes the leader as legit and returns to follower state</li>
+<li>Case : No one wins -&gt; after timeout, new election (150ms - 300ms) - Raft uses randomized election timeouts to ensure that split votes are rare.</li>
+</ol>
+<h2 id="log-replication">Log Replication</h2>
+<h3 id="steps">Steps</h3>
+<ol>
+<li>Leader appends log entry to its own log</li>
+<li>Send AppendEntry to every server</li>
+<li>When the entry has been safely replicated (as described below), the leader applies the entry to its state machine and returns the result of that execution to the client.</li>
+</ol>
+<h3 id="commit">Commit</h3>
+<ol>
+<li>A log entry is committed once the leader that created the entry has replicated it on a majority of the servers<ol>
+<li>Raft guarantees that committed entries are durable and will eventually be executed by all of the available state machines</li>
+<li>This also commits all preceding entries in the leader's log, including entries created by previous leaders</li>
+</ol>
+</li>
+<li>Leader keep tracks of the highest index it knows to be committed, and it includes that index in future AppendEntries RPCs. Once a follower learns that a log entry is committed, it applies the entry to its local state machine.</li>
+</ol>
+<h3 id="inconsistency-handling">Inconsistency Handling</h3>
+<ol>
+<li>Leader maintains a <code>nextIndex</code> fields for each follower.</li>
+<li>It initializes <code>nextIndex</code> values to the index just after the last one in its log.</li>
+<li>If follower's log is inconsistent with the leader's, the AppendEntries RPC consistency check will fail in the next AppendEntries RPC. </li>
+<li>After a rejection, the leader decrements nextIndex and retries the AppendEntries RPC </li>
+</ol>
+<h2 id="safety">Safety</h2>
 <ul>
-<li>TAO uses MySQL as persistent storage. Data is divided into logical shards and each database server is responsible for one or more shards.</li>
-<li>Each object id has an embedded shard_id(fixed for entire lifetime). An association is stored on the shard of its id1.</li>
-<li>Multiple caching servers together form a tier. Shards are mapped onto cache servers with consistent hashing.</li>
-<li>The TAO in-memory cache contains objects, association lists and association counts. Cache servers understand the semantics of the contents and can use them to answer queries not processed before(example: cache count zero for range query).</li>
-<li>Client issues requests directly to the appropriate cache server, which will complete the read/write request(contact other cache servers/databases if necessary).</li>
-<li>For write operation on an association with inverse, the cache server for id1 will contact the cache server for id2 and issue write to database after the inverse write is complete. TAO does not provide atomicity between two updates; hanging associations are repaired by an asynchronous job.</li>
+<li>Ensure each state machine executes same commands in the same order</li>
 </ul>
-<h3 id="scaling">Scaling</h3>
-<p><strong>Leader and Follower Tiers</strong></p>
+<h3 id="i-election-restriction">I. Election Restriction</h3>
+<ol>
+<li>Candidate only elected as leader when its log is at least as up-to-date as any other log in that majority</li>
+<li>Raft determines which of two logs is more up-to-date by comparing the index and term of the last entries in the logs.<ol>
+<li>Term1 &gt; Term2 -&gt; Term1 wins</li>
+<li>Term1 == Term2 -&gt; Log with greater length wins</li>
+</ol>
+</li>
+</ol>
+<h3 id="ii-committing-entries-from-previous-terms">II. Committing entries from previous terms</h3>
+<p float="left">
+  <img src="images/figure7Part1.png" width="400" />
+  <img src="images/figure7Part2.png" width="400" /> 
+</p>
+
+<ol>
+<li>Never commits log entries from previous terms by counting replicas.</li>
+<li>Only log entries from the leader's current term are committed by counting replicas</li>
+<li>Once an entry from the current term has been committed in this way, then all prior entries are committed indirectly because of the Log Matching Property.  </li>
+</ol>
+<h2 id="log-compaction">Log Compaction</h2>
+<h3 id="installsnapshot-rpc">InstallSnapshot RPC</h3>
 <ul>
-<li>Larger tiers are problematic because they are prone to hot spots and have O(N^2) growth in all-to-all connections.</li>
-<li>We split the cache into two levels: a leader tier and multiple follow tiers. Leaders behave as the basic case, while followers will instead forward read misses and writes to leaders.</li>
-<li>To keep cache consistent, leaders asynchronously send cache maintenance messages to followers. A version number in message allows it to be ignored when arriving late.</li>
+<li>As Raft log grows without bound, it occupies more space and takes more time to replay on server startup.</li>
+<li>Snapshotting - saves entire system state to a <em>snapshot</em> on stable storage and the entire log up to that point is discarded.</li>
+<li>Each server takes snapshots independently covering just the committed entries in its log.</li>
+<li>Although servers normally take snapshots independently, the leader must occasionally send snapshots to followers that lag behind. This happens when the leader has already discarded the next log entry that it needs to send to a follower.</li>
 </ul>
-<p><strong>Geographically</strong></p>
-<ul>
-<li>Cluster data center locations into a few regions where the intra-region latency is small. Store one copy of the social graph per region.</li>
-<li>Followers behave identically in all regions, forwarding read misses and writes to the local region's tier leader.</li>
-<li>Leaders query the local region's database regardless of whether master or slave. Writes are forwarded by the local leader to the leader in the master region.</li>
-<li>Master region is controlled separately for each shard and is automatically switched to recover from database failure. We prefer to locate all of the master databases in a single region, otherwise inverse write may introduce inter-region latency.</li>
-</ul>
-<p><img alt="architecture" src="images/architecture.jpg" /></p>
-<h2 id="consistency">Consistency</h2>
-<ul>
-<li>After a write, TAO guarantees the eventual delivery of an invalidation or refill to all tiers.</li>
-<li>TAO reads marked as critical will be proxied to the master region for stronger consistency.</li>
-</ul>
-<h2 id="fault-tolerance">Fault Tolerance</h2>
-<ul>
-<li><strong>Database failures:</strong> When a master database is down, one of its slave is promoted to be the new master. When a slave database is down, cache misses are redirected to leaders in the master region.</li>
-<li><strong>Leader failures:</strong> Followers reroute read misses directly to the database and writes to a random replacement leader.</li>
-<li><strong>Invalidation and refill failures:</strong> If a follower is unreachable, leader persists messages and redeliver them later. If these messages are lost due to permanent leader failure, a bulk invalidation operation is used to invalidate all data of specific shard in followers.</li>
-<li><strong>Follower failures:</strong> Client requests are failed over to followers in other tiers.</li>
-</ul>
+<p float="left">
+  <img src="images/figure13Part1.png" width="400" />
+  <img src="images/figure13Part2.png" width="400" /> 
+</p>
+
+<h2 id="summary">Summary</h2>
+<p><img src="images/overview.png" alt="drawing" width="900"/></p>
                 
               
               
@@ -558,7 +594,7 @@ Association List: (id1, atype) -&gt; [a1, a2, ..., an]
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../gfs/gfs.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: gfs" rel="prev">
+        <a href="../mapreduce/mapreduce.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: mapreduce" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -567,26 +603,11 @@ Association List: (id1, atype) -&gt; [a1, a2, ..., an]
               <span class="md-footer__direction">
                 Previous
               </span>
-              gfs
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../mapreduce/mapreduce.html" class="md-footer__link md-footer__link--next" aria-label="Next: mapreduce" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
               mapreduce
             </div>
           </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
         </a>
+      
       
     </nav>
   
