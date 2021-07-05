@@ -14,7 +14,7 @@
     
     
       
-        <title>gfs - RKK1995's notes</title>
+        <title>zookeeper - RKK1995's notes</title>
       
     
     
@@ -90,7 +90,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              gfs
+              zookeeper
             
           </span>
         </div>
@@ -188,7 +188,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="gfs.html" class="md-tabs__link md-tabs__link--active">
+      <a href="../gfs/gfs.html" class="md-tabs__link md-tabs__link--active">
         Papers
       </a>
     </li>
@@ -312,14 +312,12 @@
             
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
       
       <label class="md-nav__link" for="__nav_2_1_1">
         Storage
@@ -335,19 +333,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="gfs.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../gfs/gfs.html" class="md-nav__link">
         gfs
       </a>
-      
     </li>
   
 
@@ -412,12 +402,14 @@
             
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" checked>
       
       <label class="md-nav__link" for="__nav_2_1_3">
         Cluster Management
@@ -445,11 +437,19 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../zookeeper/zookeeper.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="zookeeper.html" class="md-nav__link md-nav__link--active">
         zookeeper
       </a>
+      
     </li>
   
 
@@ -484,119 +484,83 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/gfs/gfs.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/zookeeper/zookeeper.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="the-google-file-system"><a href="http://nil.csail.mit.edu/6.824/2020/papers/gfs.pdf">The Google File System</a></h1>
-<p><em>A scalable distributed file system for large distributed data-intensive applications.</em></p>
-<h2 id="introduction">Introduction</h2>
+                <h1 id="zookeeper-wait-free-coordination-for-internet-scale-systems"><a href="http://nil.csail.mit.edu/6.824/2020/papers/zookeeper.pdf">ZooKeeper: Wait-free coordination for Internet-scale systems</a></h1>
+<p><em>A service for coordinating processes of distributed applications.</em></p>
+<p>MIT <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-zookeeper.txt">Notes</a> , <a href="http://nil.csail.mit.edu/6.824/2020/papers/zookeeper-faq.txt">FAQ</a></p>
+<h2 id="basics">Basics</h2>
 <ul>
-<li>The design is driven by key observations different from earlier file system assumptions: frequent component failures, huge files (GB+), most files are mutated by appending rather than overwriting.</li>
-<li>GFS provides a POSIX-like file system interface. It supports snapshot and record append operations(useful for multi-way merge and consumer/producer).</li>
+<li>ZooKeeper provides a coordination kernel for clients to implement primitives for configuration, group membership, leader election and distributed lock.</li>
+<li>ZooKeeper implements non-blocking API, so a client can have multiple outstanding operations at a time.</li>
+<li>ZooKeeper target workload read to write ration is 2:1 to 100:1. <strong>Best for Read Heavy applications</strong></li>
+<li>ZooKeeper guarantees 1) linearizable writes and 2) FIFO client ordering for all operations </li>
 </ul>
-<h2 id="architecture">Architecture</h2>
-<p><center> Figure 1 </center>
-<center> <img alt="architecture" src="images/architecture.png" /> </center></p>
+<h2 id="service-overview">Service Overview</h2>
+<h3 id="znode">znode</h3>
 <ul>
-<li>A GFS cluster consists of a single master and multiple chunkservers and is accessed by multiple clients.</li>
-<li>Files are divided into fixed-sized chunks(64 MB, larger than typical) and each chunk has an immutable and globally unique id. Chunkservers store chunks as local Linux files and the master maintains all file system metadata.</li>
-<li>The master stores in memory three majors types of metadata: the file and chunk namespaces, the mapping from files to chunks and the locations of each chunk's replicas. The first two are also persisted in a replicated operation log(with checkpoints); the last one is polled from chunkservers at start time and kept up-to-date via heartbeat messages.</li>
-<li><strong>Reads</strong><ol>
-<li>Using the fixed chunk size, the client translates the file name and byte offset into a chunk index within the file.</li>
-<li>Sends the master a request containing the file name and chunk index. </li>
-<li>The master replies with the corresponding chunk handle and locations of the replicas. </li>
-<li>The client caches this information using the file name and chunk index as the key.</li>
-<li>The client then sends a request to one of the replicas,most likely the closest one. The request specifies the chunk handle and a byte range within that chunk. Further reads
-of the same chunk require no more client-master interaction until the cached information expires.</li>
-</ol>
-</li>
+<li>ZooKeeper provides the abstraction of a set of data nodes(znodes) organized by hierarchical namespaces.</li>
+<li>znodes are in-memory data node stored in ZooKeeper. A znode can be regular or ephemeral(automatically removed when corresponding session terminates).</li>
+<li>znodes are not for general data storage. Instead, they are used to store metadata or configuration of applications(typically 1MB).</li>
 </ul>
-<h3 id="chunk-size">Chunk Size</h3>
+<p><img alt="znode" src="images/znode.jpg" /></p>
+<h3 id="client-api">Client API</h3>
 <ul>
-<li>Key design parameters, Large chunk chosen : 64MB</li>
-<li><strong>Advantages</strong><ul>
-<li>Reduces clients' need to interact with the master</li>
-<li>Operations are more likely to target at the same chunk, can reduce network overhead by keeping a persistent TCP connection to the chunkserver over an extended period of time</li>
-<li>Reduces metadata size, easier for master to store in memory</li>
+<li>ZooKeeper provides API for client to manipulating znodes like in a file system.</li>
+<li>For read methods, ZooKeeper implements watches to allow client to receive notification of changes.  Watches are one-time triggers associated with a session(for example, <code>getData(path, watch)</code>).</li>
+<li>For write methods, ZooKeeper accepts an optional expected version number(for example, <code>setData(path, data, version)</code>). If set, the write succeeds only if the actual version number of znode matches the expected one.</li>
+<li>ZooKeeper client maintains session with ZooKeeper through heartbeat messages.</li>
 </ul>
-</li>
-<li><strong>Disadvantages</strong><ul>
-<li>Small files -&gt; small # of chunks -&gt; the chunkserver becomes a hot spot</li>
-</ul>
-</li>
-</ul>
-<h3 id="operation-log">Operation Log</h3>
+<h2 id="implementation">Implementation</h2>
 <ul>
-<li>Contains a historical record of critical metadata changes. Replicated on multiple remote machines.</li>
-<li>Respond to a client operation only after flushing the corresponding log record to disk both locally and remotely.</li>
-<li>Recovers file system by replaying the log.</li>
-<li>Master checkpoints its state in a compact B-tree like form whenever the log grows beyond a certain size.</li>
-<li>Only keeps latest complete checkpoint and subsequent log files.</li>
+<li>ZooKeeper service comprises an ensemble of servers that each has replicated ZooKeeper data. One is leader and the rest are followers.</li>
+<li>Read requests are handled locally at each server, so it may return stale data since some committed transactions are not applied on that server yet.</li>
+<li>Write requests are forwarded to leader. Leader (1) calculates the new system state to transform write requests into idempotent transactions and (2) broadcast the state changes to other servers through atomic broadcast protocol ZAB.</li>
+<li>ZooKeeper uses TCP so message order is maintained by network.</li>
+<li>ZooKeeper uses replay log and periodic snapshots for recoverability. ZooKeeper state is not locked when taking the snapshot, but idempotent transactions can be applied twice as long as in order.</li>
 </ul>
-<p><center> Figure 2 </center>
-<center> <img alt="architecture" src="images/architecture2.png" /> </center></p>
-<h2 id="system-interactions">System Interactions</h2>
-<h3 id="leases-and-mutation-order">Leases and Mutation Order</h3>
+<p><img alt="components" src="images/components.jpg" /></p>
+<h3 id="atomic-broadcast">Atomic Broadcast</h3>
 <ul>
-<li>For mutations to a chunk, the master grants an extendable chunk lease to one of the replicas. The primary will pick a serial order for all mutations to the chunk and all replicas will follow this order.</li>
-<li>Control and data flows are decoupled to use the network efficiently. Control flows from the client to the primary and then to all secodaries. Data is pushed linearly along a carefully picked chain of chunkservers in a pipelined fashion.</li>
-<li>GFS provides at-least-once semantics. A client retries when mutation fails, so replicas of the same chunk may contain different data including duplicates or paddings(not bytewise identical).</li>
-<li><strong>Writes</strong><ol>
-<li>Client asks the master which chunkserver holds the current lease for the chunk and replica locations.</li>
-<li>Master replies with primary and secondaries locations. Caches this until primary unavailable/no longer has lease.</li>
-<li>Client pushes the data to all the replicas. Each chunkserver will store the data in an internal LRU buffer cache.</li>
-<li>After all the replicas ack, client sends a write request to the primary. Primary assigns write order to all mutations it receives.</li>
-<li>Primary forwards the write request to all secondary replicas with mutation order.</li>
-<li>Secondaries ack to primary on completion.</li>
-<li>Primary replies to client. Failure -&gt; client retry.</li>
-</ol>
-</li>
+<li>Zab is an atomic broadcast protocol, uses simple majority quorums to decide on a proposal.</li>
+<li>Leader executes the requests and broadcasts the change to the ZooKeeper state through Zab.</li>
+<li>Zab guarantees the changes broadcast by a leader are delivered in order they were sent and all changes from previous leaders are delivered to an established leader before it broadcasts its own changes.</li>
+<li>TCP for transport so message order is maintained by the network.</li>
+<li>Use log to keep track of proposals as the write-ahead log for the in-memory database.</li>
+<li></li>
 </ul>
-<h2 id="master-operations">Master Operations</h2>
+<h3 id="client-server-interactions">Client Server Interactions</h3>
 <ul>
-<li>GFS namespace is represented as a lookup table(with prefix compression) from full pathnames to metadata. Each file or directory has a read-write lock to ensure proper searialization.</li>
-<li>The master create chunk replicas for initial creation, re-replication and rebalancing. It considers various factors when placing the replica, to maximizing data reliability/availability/network bandwidth utilization.</li>
-<li>When a file is deleted, the master logs the deletion immediately but deletes metadata after some delay(3 days, etc). Each chunkserver reports a subset of chunks in heartbeat messages, and the master replies whether these chunks can be deleted. This lazy approach is simple and reliable in a large-scale distributed system.</li>
-<li>The master maintains a version number for each chunk. Whenever the master grants a new lease on the chunk, it increases the version number and informs all the up-to-date replicas.</li>
-<li>For high availability, we have (1) monitoring infrastructure outside GFS to start a master and (2) "shadow" masters for read-only operations.</li>
+<li>Read is handled locally in memory. Each read request is processed and tagged with a zxid that corresponds to the last transaction seen by the server.</li>
+<li>Zxid defines the partial order of the read requests with respect to the write requests.</li>
+<li>Drawback: not guaranteeing precedence order for read operations, read may return a stale vlue. Should use sync flag to indicate follower to sync with leader.</li>
+<li>Sync: place sync operation at the end of the queue of requests between the leader and the server executing the call to sync.</li>
+<li>If pending queue is empty, the leader needs to issue a null transaction to commit and orders the sync after that transaction. </li>
+<li>Heartbeat: send heartbeat after the session has been idle for s/3 ms and switch to a new server if it has not heard from a server for 2s/3 ms. s is session timeout in ms.</li>
 </ul>
-<h2 id="fault-tolerance">Fault Tolerance</h2>
+<h3 id="use-cases">Use Cases</h3>
 <ul>
-<li><strong>High Availability</strong><ul>
-<li>Fast Recovery - Both the master and the chunkserver are designed to restore their state and start in seconds.</li>
-<li>Chunk Replication - default 3 replications per chunk.</li>
-<li>Master Replication - Operation log and checkpoints replicated on multiple machines. "Shadow" masters above.</li>
+<li>Dynamic Configuration In A Distributed Application.<ul>
+<li>Processes startup with the full pathname of z<sub>c</sub>, a znode storing dynamic configuration.</li>
+<li>Set watch flag to true, read config file, upon notified and read new configuration, again set the watch flag to true</li>
 </ul>
 </li>
-<li><strong>Data Integrity</strong><ul>
-<li>Breaks each 64 MB chunk into blocks of 64 KB, each with its own 32-bit checksum stored in memory and written to the log.</li>
-<li>For reads, the chunkserver verifies the checksum of datablocks that overlap the read range before returning any data to the requester<ul>
-<li>If a block does not match the recorded checksum, the chunkserver returns an error and and reports the mismatch to the master. </li>
-<li>In response, the requestor will read from other replicas, while the master will clone the chunk from another replica. </li>
-<li>After a valid new replica is in place, the master instructs the chunkserver that reported the mismatch to delete its replica.</li>
+<li>Rendezvous<ul>
+<li>Client creates rendezvous node, z<sub>r</sub> and the full pathnameof z<sub>r</sub> as a startup parameter of the master and worker processes.</li>
+<li>When the master starts it fills in zr with information about addresses and ports it is using.</li>
+<li>When workers start, they read zr with watch set to true.</li>
 </ul>
 </li>
+<li>Group Membership<ul>
+<li>Designate node, z<sub>g</sub> to represent the group. </li>
+<li>When a process member of the group starts, it creates an ephemeral child znode under z<sub>g</sub>.</li>
+<li>Processes can obtain group information by simply listing the children of z<sub>g</sub>.</li>
 </ul>
 </li>
-</ul>
-<h2 id="summary">Summary</h2>
-<ul>
-<li><strong>Good Ideas</strong><ul>
-<li>High Availability through fast recovery of master and chunkserver.</li>
-<li>Separation of naming (master) from storage (chunkserver).</li>
-<li>Sharding (chunk replication) for parallel throughput.</li>
-<li>Primary to sequence writes.</li>
-<li>Leases to prevent split-brain chunkserver primaries.</li>
-</ul>
-</li>
-<li><strong>Not So Good</strong><ul>
-<li>Single master performance : Ran out of RAM and CPU as file count increased 1000x</li>
-<li>Chunkservers not very efficient for small files</li>
-<li>Lack of automatic fail-over to master replica</li>
-</ul>
-</li>
+<li>Simple Locks Without Herd Effect</li>
 </ul>
                 
               
@@ -621,7 +585,7 @@ of the same chunk require no more client-master interaction until the cached inf
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+        <a href="../raft/raft.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: raft" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -630,26 +594,11 @@ of the same chunk require no more client-master interaction until the cached inf
               <span class="md-footer__direction">
                 Previous
               </span>
-              Home
+              raft
             </div>
           </div>
         </a>
       
-      
-        
-        <a href="../tao/tao.html" class="md-footer__link md-footer__link--next" aria-label="Next: tao" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              tao
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
       
     </nav>
   

@@ -442,6 +442,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zookeeper/zookeeper.html" class="md-nav__link">
+        zookeeper
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -479,10 +491,15 @@
                 
                 <h1 id="raft-in-search-of-an-understandable-consensus-algorithm"><a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-extended.pdf">Raft: In Search of an Understandable Consensus Algorithm</a></h1>
 <p><em>A consensus algorithm for managing a replicated log</em></p>
-<p>MIT Notes <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft.txt">Part1</a> <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft2.txt">Part2</a></p>
+<p>MIT Notes <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft.txt">Part1</a> <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft2.txt">Part2</a>
+MIT FAQ <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-faq.txt">Part1</a> <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft2-faq.txt">Part2</a></p>
 <h2 id="raft-basics">Raft Basics</h2>
+<p><strong>Raft decomposes the consensus problem into three relatively independent subproblems</strong>
+- Leader Election
+- Log replication
+- Safety</p>
 <ul>
-<li>Properties<ul>
+<li><strong>Properties</strong><ul>
 <li><strong>Election Safety</strong>: at most one leader can be elected in a given term.</li>
 <li><strong>Leader Append-Only</strong>: a leader never overwrites or deletes entries in its log; it only appends new entries.</li>
 <li><strong>Log Matching</strong>: if two logs contain an entry with the same index and term, then the logs are identical in all entries up through the given index.</li>
@@ -609,6 +626,21 @@
           </div>
         </a>
       
+      
+        
+        <a href="../zookeeper/zookeeper.html" class="md-footer__link md-footer__link--next" aria-label="Next: zookeeper" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              zookeeper
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
