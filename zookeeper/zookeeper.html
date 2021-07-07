@@ -523,6 +523,7 @@
 <li>For write methods, ZooKeeper accepts an optional expected version number(for example, <code>setData(path, data, version)</code>). If set, the write succeeds only if the actual version number of znode matches the expected one.</li>
 <li>ZooKeeper client maintains session with ZooKeeper through heartbeat messages.</li>
 </ul>
+<h4 id="operations">Operations</h4>
 <ol>
 <li>create(path, data, flags(regular, ephemeral, sequential))</li>
 <li>delete(path, version): deletes if version matches</li>
