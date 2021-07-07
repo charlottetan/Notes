@@ -496,13 +496,14 @@
 <ul>
 <li>ZooKeeper provides a coordination kernel for clients to implement primitives for dynamic configuration, group membership, leader election and distributed lock.</li>
 <li>ZooKeeper implements non-blocking API, so a client can have multiple outstanding operations at a time.</li>
-<li>ZooKeeper relaxes the conditions provided by Raft. Reads are eventually consistent Zookeeper guarantees :  <ul>
+<li>ZooKeeper relaxes the conditions provided by Raft: reads are eventually consistent and can be served by replicas which increases read throughput.</li>
+<li>Zookeeper guarantees :  <ul>
 <li>1) linearizable writes</li>
 <li>2) FIFO client ordering for all operations, all requests from a given client are executed in the order that they were sent by the client.</li>
 </ul>
 </li>
 <li>ZooKeeper target workload read to write ratio is 2:1 to 100:1 with data in the MB range. <ul>
-<li>Best for Read Heavy applications such as storing configuration information since many servers will read this data and the data is small. Also, servers will pass a <em>watch</em> on the configuration files and will be notified whenever they change.</li>
+<li>Best for Read Heavy applications such as storing configuration information since many servers will read this data and the data is small. Also, servers will pass a <em>watch</em> flag on reads on the configuration files and will be notified whenever they change.</li>
 </ul>
 </li>
 </ul>
@@ -528,7 +529,7 @@
 </ul>
 <h4 id="operations">Operations</h4>
 <ol>
-<li>create(path, data, flags(regular, ephemeral, sequential))</li>
+<li>create(path, data, flags(regular, ephemeral, sequential)): returns error if alraedy exists unless sequential create</li>
 <li>delete(path, version): deletes if version matches</li>
 <li>exists(path, watch): watch is bool</li>
 <li>getData(path, watch)</li>
@@ -537,6 +538,7 @@
 <li>sync(path): waits for all pending writes to complete</li>
 </ol>
 <h2 id="implementation">Implementation</h2>
+<p><img alt="components" src="images/components.jpg" /></p>
 <ul>
 <li>ZooKeeper service comprises an ensemble of servers that each has replicated ZooKeeper data. One is leader and the rest are followers.</li>
 <li>Read requests are handled locally at each server, so it may return stale data since some committed transactions are not applied on that server yet.</li>
@@ -544,7 +546,6 @@
 <li>ZooKeeper uses TCP so message order is maintained by network.</li>
 <li>ZooKeeper uses replay log and periodic snapshots for recoverability. Snapshots are fuzzy since ZooKeeper state is not locked when taking the snapshot. After reboot, ZooKeeper constructs a consistent snapshot by replaying all log entries from the point at which the snapshot started. Because updates in Zookeeper are idempotent and delivered in the same order, the application-state will be correct after reboot.</li>
 </ul>
-<p><img alt="components" src="images/components.jpg" /></p>
 <h3 id="atomic-broadcast">Atomic Broadcast</h3>
 <ul>
 <li>Zab is an atomic broadcast protocol, uses simple majority quorums to decide on a proposal.</li>
@@ -552,7 +553,6 @@
 <li>Zab guarantees the changes broadcast by a leader are delivered in order they were sent and all changes from previous leaders are delivered to an established leader before it broadcasts its own changes.</li>
 <li>TCP for transport so message order is maintained by the network.</li>
 <li>Use log to keep track of proposals as the write-ahead log for the in-memory database.</li>
-<li></li>
 </ul>
 <h3 id="client-server-interactions">Client Server Interactions</h3>
 <ul>
@@ -582,7 +582,13 @@
 <li>Processes can obtain group information by simply listing the children of z<sub>g</sub>.</li>
 </ul>
 </li>
-<li>Simple Locks Without Herd Effect</li>
+<li>Mini Transactions - Effect is that we can achieve atomic operations. Example of atomic counter:
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="n">true</span><span class="p">:</span>
+  <span class="n">x</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">getData</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">setData</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="k">break</span>
+  <span class="n">sleep</span> 
+</code></pre></div></li>
+<li>Simple Locks Without Herd Effect (Scalable Locks)</li>
 </ul>
                 
               
