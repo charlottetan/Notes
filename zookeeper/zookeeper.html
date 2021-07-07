@@ -496,10 +496,13 @@
 <ul>
 <li>ZooKeeper provides a coordination kernel for clients to implement primitives for dynamic configuration, group membership, leader election and distributed lock.</li>
 <li>ZooKeeper implements non-blocking API, so a client can have multiple outstanding operations at a time.</li>
-<li>ZooKeeper target workload read to write ratio is 2:1 to 100:1 with data in the MB range. <strong>Best for Read Heavy applications (Ideal for storing configuration information)</strong></li>
 <li>ZooKeeper relaxes the conditions provided by Raft. Reads are eventually consistent Zookeeper guarantees :  <ul>
 <li>1) linearizable writes</li>
 <li>2) FIFO client ordering for all operations, all requests from a given client are executed in the order that they were sent by the client.</li>
+</ul>
+</li>
+<li>ZooKeeper target workload read to write ratio is 2:1 to 100:1 with data in the MB range. <ul>
+<li>Best for Read Heavy applications such as storing configuration information since many servers will read this data and the data is small. Also, servers will pass a <em>watch</em> on the configuration files and will be notified whenever they change.</li>
 </ul>
 </li>
 </ul>
