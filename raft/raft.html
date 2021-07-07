@@ -491,13 +491,15 @@
                 
                 <h1 id="raft-in-search-of-an-understandable-consensus-algorithm"><a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-extended.pdf">Raft: In Search of an Understandable Consensus Algorithm</a></h1>
 <p><em>A consensus algorithm for managing a replicated log</em></p>
-<p>MIT Notes <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft.txt">Part1</a> <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft2.txt">Part2</a>
+<p>MIT Notes <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft.txt">Part1</a> <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft2.txt">Part2</a><br />
 MIT FAQ <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-faq.txt">Part1</a> <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft2-faq.txt">Part2</a></p>
 <h2 id="raft-basics">Raft Basics</h2>
-<p><strong>Raft decomposes the consensus problem into three relatively independent subproblems</strong>
-- Leader Election
-- Log replication
-- Safety</p>
+<p>Raft decomposes the consensus problem into three relatively independent subproblems  </p>
+<ol>
+<li>Leader Election</li>
+<li>Log replication</li>
+<li>Safety</li>
+</ol>
 <ul>
 <li><strong>Properties</strong><ul>
 <li><strong>Election Safety</strong>: at most one leader can be elected in a given term.</li>
@@ -516,7 +518,7 @@ MIT FAQ <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-faq.txt">Part1<
   <img src="images/figure5.png" width="400" /> 
 </p>
 
-<h2 id="leader-election">Leader Election</h2>
+<h2 id="1-leader-election">1. Leader Election</h2>
 <ol>
 <li>When servers start up, they begin as followers</li>
 <li>Leader sends periodic heartbeats (AppendEntries RPC with no log entries) to all followers to maintain authority.</li>
@@ -527,14 +529,14 @@ MIT FAQ <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-faq.txt">Part1<
 <li>While waiting for votes, a candidate may receive an AppendEntries RPC from another server claiming to be leader. If its term is larger or equal than itself's, the candidate recognizes the leader as legit and returns to follower state</li>
 <li>Case : No one wins -&gt; after timeout, new election (150ms - 300ms) - Raft uses randomized election timeouts to ensure that split votes are rare.</li>
 </ol>
-<h2 id="log-replication">Log Replication</h2>
-<h3 id="steps">Steps</h3>
+<h2 id="2-log-replication">2. Log Replication</h2>
+<h3 id="i-steps">I. Steps</h3>
 <ol>
 <li>Leader appends log entry to its own log</li>
 <li>Send AppendEntry to every server</li>
 <li>When the entry has been safely replicated (as described below), the leader applies the entry to its state machine and returns the result of that execution to the client.</li>
 </ol>
-<h3 id="commit">Commit</h3>
+<h3 id="ii-commit">II. Commit</h3>
 <ol>
 <li>A log entry is committed once the leader that created the entry has replicated it on a majority of the servers<ol>
 <li>Raft guarantees that committed entries are durable and will eventually be executed by all of the available state machines</li>
@@ -543,14 +545,14 @@ MIT FAQ <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-faq.txt">Part1<
 </li>
 <li>Leader keep tracks of the highest index it knows to be committed, and it includes that index in future AppendEntries RPCs. Once a follower learns that a log entry is committed, it applies the entry to its local state machine.</li>
 </ol>
-<h3 id="inconsistency-handling">Inconsistency Handling</h3>
+<h3 id="iii-inconsistency-handling">III. Inconsistency Handling</h3>
 <ol>
 <li>Leader maintains a <code>nextIndex</code> fields for each follower.</li>
 <li>It initializes <code>nextIndex</code> values to the index just after the last one in its log.</li>
 <li>If follower's log is inconsistent with the leader's, the AppendEntries RPC consistency check will fail in the next AppendEntries RPC. </li>
 <li>After a rejection, the leader decrements nextIndex and retries the AppendEntries RPC </li>
 </ol>
-<h2 id="safety">Safety</h2>
+<h2 id="3-safety">3. Safety</h2>
 <ul>
 <li>Ensure each state machine executes same commands in the same order</li>
 </ul>
@@ -572,7 +574,7 @@ MIT FAQ <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-faq.txt">Part1<
 <ol>
 <li>Never commits log entries from previous terms by counting replicas.</li>
 <li>Only log entries from the leader's current term are committed by counting replicas</li>
-<li>Once an entry from the current term has been committed in this way, then all prior entries are committed indirectly because of the Log Matching Property.  </li>
+<li>Once an entry from the current term has been committed in this way, then all prior entries are committed indirectly because of the Log Matching Property.</li>
 </ol>
 <h2 id="log-compaction">Log Compaction</h2>
 <h3 id="installsnapshot-rpc">InstallSnapshot RPC</h3>
