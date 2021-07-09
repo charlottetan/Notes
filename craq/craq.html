@@ -14,7 +14,7 @@
     
     
       
-        <title>raft - RKK1995's notes</title>
+        <title>craq - RKK1995's notes</title>
       
     
     
@@ -90,7 +90,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              raft
+              craq
             
           </span>
         </div>
@@ -312,12 +312,14 @@
             
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" checked>
       
       <label class="md-nav__link" for="__nav_2_1_1">
         Storage
@@ -357,11 +359,19 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../craq/craq.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="craq.html" class="md-nav__link md-nav__link--active">
         craq
       </a>
+      
     </li>
   
 
@@ -414,14 +424,12 @@
             
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
       
       <label class="md-nav__link" for="__nav_2_1_3">
         Cluster Management
@@ -437,19 +445,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="raft.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../raft/raft.html" class="md-nav__link">
         raft
       </a>
-      
     </li>
   
 
@@ -496,113 +496,78 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/raft/raft.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/craq/craq.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="raft-in-search-of-an-understandable-consensus-algorithm"><a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-extended.pdf">Raft: In Search of an Understandable Consensus Algorithm</a></h1>
-<p><em>A consensus algorithm for managing a replicated log</em></p>
-<p>MIT Notes <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft.txt">Part1</a> <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-raft2.txt">Part2</a><br />
-MIT FAQ <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-faq.txt">Part1</a> <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft2-faq.txt">Part2</a></p>
-<h2 id="raft-basics">Raft Basics</h2>
-<p>Raft decomposes the consensus problem into three relatively independent subproblems  </p>
-<ol>
-<li>Leader Election</li>
-<li>Log replication</li>
-<li>Safety</li>
-</ol>
+                <h1 id="object-storage-on-craq"><a href="http://nil.csail.mit.edu/6.824/2020/papers/craq.pdf">Object Storage on CRAQ</a></h1>
+<p><em>High-throughput chain replication for read-mostly workloads.</em></p>
+<p>MIT <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-craq.txt">Notes</a> , <a href="http://nil.csail.mit.edu/6.824/2020/papers/craq-faq.txt">FAQ</a></p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p><strong>Chain Replication with Apportioned Queries (CRAQ)</strong> is an improvement to chain replication. It distributes the load on all object copies to greatly improve read throughput while maintaining strong consistency.     </p>
+<p>This article mainly summarizes the chain replication, the principle of <strong>CRAQ</strong>, and the consistency model of <strong>CRAQ</strong>.</p>
+<h3 id="11-chain-replication">1.1 Chain Replication</h3>
+<p><strong>Chain Replication (CR)</strong> is a method of replicating data across multiple nodes:</p>
+<p><img alt="" src="images/figure1.png" /></p>
 <ul>
-<li><strong>Properties</strong><ul>
-<li><strong>Election Safety</strong>: at most one leader can be elected in a given term.</li>
-<li><strong>Leader Append-Only</strong>: a leader never overwrites or deletes entries in its log; it only appends new entries.</li>
-<li><strong>Log Matching</strong>: if two logs contain an entry with the same index and term, then the logs are identical in all entries up through the given index.</li>
-<li><strong>Leader Completeness</strong>: if a log entry is committed in a given term, then that entry will be present in the logs of the leaders for all higher-numbered terms.</li>
-<li><strong>State Machine Safety</strong>: if a server has applied a log entry at a given index to its state machine, no other server will ever apply a different log entry for the same index.</li>
+<li>The nodes form a chain of length <em>C</em></li>
+<li>The head node of the chain handles all write operations from the client</li>
+<li>When a node receives a write operation, it will propagate to every node in the chain</li>
+<li>Once the write reaches the tail node, it is applied to all copies in the chain and is considered committed</li>
+<li>When the tail node submits a write operation, it will notify up the chain and head will respond to the client</li>
+<li>The tail node handles all read operations, so only the submitted value can be returned by the read operation</li>
 </ul>
-</li>
-</ul>
+<p>Chain replication achieves <strong>strong consistency</strong>: Since all read operations are performed at the tail, and all write operations are committed at the tail, the chain tail can simply apply a total sequence to all operations.</p>
+<p>The simple topology of chain replication makes write operations less expensive than other protocols that provide strong consistency. For example, in <em>Raft</em>, <em>leader</em> needs to send each write operation to all <em>follower</em>, but in <em>CRAQ</em>, <em>head</em> only needs to send each write operation once; and in <em>Raft</em><em> The leader</em> needs to handle read and write operations, while the <em>head</em> in <em>CRAQ</em> only needs to handle write operations.</p>
+<p><strong>Failure recovery</strong> for chain replication:</p>
 <ul>
-<li>Raft divides time into terms of arbitrary length. Used extensively in leader election and log matching. </li>
+<li>When the head node fails: the subsequent node replaces it as the head node, and there is no missing committed write operation</li>
+<li>When the tail node fails: the previous node replaces it as the tail node, and there is no lost write operation</li>
+<li>When the intermediate node fails: removed from the chain, the previous node needs to resend the most recent write operation</li>
 </ul>
+<p><strong>Limitations</strong>: All reads of an object must go to the tail node, resulting in heavy load.</p>
+<hr />
+<h2 id="2-craq">2. CRAQ</h2>
 <p float="left">
-  <img src="images/figure4.png" width="400" />
-  <img src="images/figure5.png" width="400" /> 
+  <img src="images/figure2.png" width="400" />
+  <img src="images/figure3.png" width="400" /> 
 </p>
 
-<h2 id="1-leader-election">1. Leader Election</h2>
-<ol>
-<li>When servers start up, they begin as followers</li>
-<li>Leader sends periodic heartbeats (AppendEntries RPC with no log entries) to all followers to maintain authority.</li>
-<li>If follower receives no communication over <code>election timeout</code>, then it assumes there is no viable leader and begins an election to choose a new leader.</li>
-<li>Begin an election: follower increments its current term and transitions to candidate state, votes for itself and issue RequestVoteRPCs in parallel to each else</li>
-<li>Candidate continue in this state until one of three things happens: a. it wins b. other wins c. no one wins</li>
-<li>Candidate wins if it receives the majority of votes, voting is first-come-first-served. </li>
-<li>While waiting for votes, a candidate may receive an AppendEntries RPC from another server claiming to be leader. If its term is larger or equal than itself's, the candidate recognizes the leader as legit and returns to follower state</li>
-<li>Case : No one wins -&gt; after timeout, new election (150ms - 300ms) - Raft uses randomized election timeouts to ensure that split votes are rare.</li>
-</ol>
-<h2 id="2-log-replication">2. Log Replication</h2>
-<h3 id="i-steps">I. Steps</h3>
-<ol>
-<li>Leader appends log entry to its own log</li>
-<li>Send AppendEntry to every server</li>
-<li>When the entry has been safely replicated (as described below), the leader applies the entry to its state machine and returns the result of that execution to the client.</li>
-</ol>
-<h3 id="ii-commit">II. Commit</h3>
-<ol>
-<li>A log entry is committed once the leader that created the entry has replicated it on a majority of the servers<ol>
-<li>Raft guarantees that committed entries are durable and will eventually be executed by all of the available state machines</li>
-<li>This also commits all preceding entries in the leader's log, including entries created by previous leaders</li>
-</ol>
-</li>
-<li>Leader keep tracks of the highest index it knows to be committed, and it includes that index in future AppendEntries RPCs. Once a follower learns that a log entry is committed, it applies the entry to its local state machine.</li>
-</ol>
-<h3 id="iii-inconsistency-handling">III. Inconsistency Handling</h3>
-<ol>
-<li>Leader maintains a <code>nextIndex</code> fields for each follower.</li>
-<li>It initializes <code>nextIndex</code> values to the index just after the last one in its log.</li>
-<li>If follower's log is inconsistent with the leader's, the AppendEntries RPC consistency check will fail in the next AppendEntries RPC. </li>
-<li>After a rejection, the leader decrements nextIndex and retries the AppendEntries RPC </li>
-</ol>
-<h2 id="3-safety">3. Safety</h2>
+<h3 id="21-craq-principles">2.1 CRAQ Principles</h3>
+<p><strong>CRAQ</strong> is an improvement of chain replication, which allows any node in the chain to perform read operations:</p>
 <ul>
-<li>Ensure each state machine executes same commands in the same order</li>
+<li><em>CRAQ</em> Each node can store multiple versions of an object, and each version contains a monotonically increasing version number and an additional attribute (identifying <code>clean</code> or <code>dirty</code>)</li>
 </ul>
-<h3 id="i-election-restriction">I. Election Restriction</h3>
-<ol>
-<li>Candidate only elected as leader when its log is at least as up-to-date as any other log in that majority</li>
-<li>Raft determines which of two logs is more up-to-date by comparing the index and term of the last entries in the logs.<ol>
-<li>Term1 &gt; Term2 -&gt; Term1 wins</li>
-<li>Term1 == Term2 -&gt; Log with greater length wins</li>
-</ol>
-</li>
-</ol>
-<h3 id="ii-committing-entries-from-previous-terms">II. Committing entries from previous terms</h3>
-<p float="left">
-  <img src="images/figure7Part1.png" width="400" />
-  <img src="images/figure7Part2.png" width="400" /> 
-</p>
-
-<ol>
-<li>Never commits log entries from previous terms by counting replicas.</li>
-<li>Only log entries from the leader's current term are committed by counting replicas</li>
-<li>Once an entry from the current term has been committed in this way, then all prior entries are committed indirectly because of the Log Matching Property.</li>
-</ol>
-<h2 id="log-compaction">Log Compaction</h2>
-<h3 id="installsnapshot-rpc">InstallSnapshot RPC</h3>
 <ul>
-<li>As Raft log grows without bound, it occupies more space and takes more time to replay on server startup.</li>
-<li>Snapshotting - saves entire system state to a <em>snapshot</em> on stable storage and the entire log up to that point is discarded.</li>
-<li>Each server takes snapshots independently covering just the committed entries in its log.</li>
-<li>Although servers normally take snapshots independently, the leader must occasionally send snapshots to followers that lag behind. This happens when the leader has already discarded the next log entry that it needs to send to a follower.</li>
+<li>When a node receives a new version of an object (via a write operation that propagates down), the node appends this latest version to the list of the object<ul>
+<li>If the node is not the tail node, mark the version as <code>dirty</code> and pass the write operation to subsequent nodes</li>
+<li>If the node is the tail node, the version is marked as <code>clean</code>, at this time the write operation is <code>committed</code>. Then, the tail node sends <code>ACK</code> back in the chain to notify other nodes to submit</li>
 </ul>
-<p float="left">
-  <img src="images/figure13Part1.png" width="400" />
-  <img src="images/figure13Part2.png" width="400" /> 
-</p>
-
-<h2 id="summary">Summary</h2>
-<p><img src="images/overview.png" alt="drawing" width="900"/></p>
+</li>
+<li>When the <code>ACK</code> of the object version arrives at the node, the node will mark the object version as <code>clean</code>. The node can then delete all previous versions of the object</li>
+<li>When the node receives a read request from the object:
+  -If the latest known version of the requested object is clean, the node will return this value
+  -Otherwise, the node will contact the tail node and ask for the last submitted version number of the object on the tail node, and then the node will return this version of the object</li>
+</ul>
+<h3 id="22-performance-improvement">2.2 Performance Improvement</h3>
+<p><strong>CRAQ</strong>'s throughput improvement over <strong>CR</strong> occurs in two different situations:</p>
+<ul>
+<li><strong>Read-intensive workload</strong>: Read operations can be performed on all nodes, so throughput is linearly proportional to chain length</li>
+<li><strong>Write-intensive workload</strong>: In workloads with a large number of write operations, it is easier to read <code>dirty</code> data, so there are more query requests for tail nodes. However, the workload of querying the tail node is much lower than that of all read requests performed by the tail node, so the throughput of <em>CRAQ</em> is higher than that of <em>CR</em>.</li>
+</ul>
+<h3 id="23-consistency-model">2.3 Consistency Model</h3>
+<p>For read operations, <em>CRAQ</em> supports three consistency models:</p>
+<ul>
+<li><strong>Strong Consistency</strong>: The read operation described in <em>4.1</em> enables the latest written data to be read for each read, thus providing strong consistency</li>
+<li><strong>Eventual consistency</strong>: Allow nodes to return uncommitted new data, that is, allow <em>client</em> to read inconsistent object versions from different nodes. But for a <em>client</em>, since it establishes a session with the node, its read operation is guaranteed to be monotonous and consistent.</li>
+<li><strong>Eventual consistency with maximum inconsistency boundary</strong>: Nodes are allowed to return uncommitted new data, but there is a limit of inconsistency. This limit can be based on version or time. For example, it is allowed to return newly written but uncommitted data within a period of time.</li>
+</ul>
+<h3 id="31-zookeeper-coordination-service">3.1 ZooKeeper Coordination Service</h3>
+<p>If the network connection between two adjacent nodes is disconnected, the subsequent node will want to become the head node, which will result in two head nodes.</p>
+<p><strong>CRAQ</strong> itself will not solve such a problem, so an external distributed coordination service is needed to solve this problem, such as using <strong>ZooKeeper</strong>. <em>ZooKeeper</em> determines the composition of the chain, determines which node is the head and tail, and monitors which node has failed. When a network failure occurs, <em>ZooKeeper</em> determines the new composition of the chain, not based on each node's own perception of the network situation.</p>
+<p>Through the use of Zookeper <em>watch flags</em>, CRAQ nodes are guaranteed to receive a notification when nodes are added to or removed from a group. Similarly, a node can be notified when metadata in which it has expressed interest changes.</p>
+<p>During initialization, a CRAQ node creates an ephemeral file in <code>/nodes/dc_name/node_id</code>. CRAQ nodes can query /nodes/dc_name to determine the membership list for its datacenter, but instead of having to periodically check the list for changes, ZooKeeper provides processes with the ability to create a watch on a file. A CRAQ node, after creating an ephemeral file to notify other nodes it has joined the system, creates a watch on the children list of <code>/nodes/dc_name</code>, thereby guaranteeing that it receives a notification when a node is added or removed.</p>
                 
               
               
@@ -626,7 +591,7 @@ MIT FAQ <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-faq.txt">Part1<
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../mapreduce/mapreduce.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: mapreduce" rel="prev">
+        <a href="../tao/tao.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: tao" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -635,20 +600,20 @@ MIT FAQ <a href="http://nil.csail.mit.edu/6.824/2020/papers/raft-faq.txt">Part1<
               <span class="md-footer__direction">
                 Previous
               </span>
-              mapreduce
+              tao
             </div>
           </div>
         </a>
       
       
         
-        <a href="../zookeeper/zookeeper.html" class="md-footer__link md-footer__link--next" aria-label="Next: zookeeper" rel="next">
+        <a href="../mapreduce/mapreduce.html" class="md-footer__link md-footer__link--next" aria-label="Next: mapreduce" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              zookeeper
+              mapreduce
             </div>
           </div>
           <div class="md-footer__button md-icon">
