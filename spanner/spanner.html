@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>mapreduce - RKK1995's notes</title>
+        <title>spanner - RKK1995's notes</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -66,7 +66,7 @@
 </li>
             
 <li>
-    <a href="../spanner/spanner.html" class="dropdown-item">spanner</a>
+    <a href="spanner.html" class="dropdown-item active">spanner</a>
 </li>
     </ul>
   </li>
@@ -76,7 +76,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="mapreduce.html" class="dropdown-item active">mapreduce</a>
+    <a href="../mapreduce/mapreduce.html" class="dropdown-item">mapreduce</a>
 </li>
             
 <li>
@@ -109,17 +109,17 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../spanner/spanner.html" class="nav-link">
+                                <a rel="prev" href="../frangipani/frangipani.html" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../distributedTransactions/distributedTransactions.html" class="nav-link">
+                                <a rel="next" href="../mapreduce/mapreduce.html" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/rkk1995/Notes/edit/master/docs/mapreduce/mapreduce.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/rkk1995/Notes/edit/master/docs/spanner/spanner.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -139,17 +139,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#mapreduce-simplified-data-processing-on-large-clusters" class="nav-link">MapReduce: Simplified Data Processing on Large Clusters</a>
+            <li class="nav-item" data-level="1"><a href="#spanner-googles-globally-distributed-database" class="nav-link">Spanner: Google’s Globally-Distributed Database</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#implementation" class="nav-link">Implementation</a>
+            <li class="nav-item" data-level="2"><a href="#system-architecture" class="nav-link">System Architecture</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#refinements" class="nav-link">Refinements</a>
+            <li class="nav-item" data-level="2"><a href="#truetime" class="nav-link">TrueTime</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#concurrency-control" class="nav-link">Concurrency Control</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -160,47 +164,43 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="mapreduce-simplified-data-processing-on-large-clusters"><a href="http://nil.csail.mit.edu/6.824/2020/papers/mapreduce.pdf">MapReduce: Simplified Data Processing on Large Clusters</a></h1>
-<p><em>A programming model and an associated implementation for processing and generating large data sets.</em></p>
+<h1 id="spanner-googles-globally-distributed-database"><a href="http://nil.csail.mit.edu/6.824/2020/papers/spanner.pdf">Spanner: Google’s Globally-Distributed Database</a></h1>
+<p><em>Google’s scalable, multi-version, globally-distributed and synchronously-replicated database.</em></p>
+<p>MIT <a href="">Notes</a> <a href="">FAQ</a></p>
 <h2 id="introduction">Introduction</h2>
 <ul>
-<li>Many computation tasks are conceptually straightforward, but given the size of input data, the computations have to be distributed across machines to finish in a reasonable amount of time.</li>
-<li>MapReduce is an abstraction that can express many computation tasks while hiding details of parallelization, fault-tolerance, data distribution and load balancing.</li>
-<li>Users specify a map function that processes a key/value pair to generate a set of intermediate key/value pairs, and a reduce function that merges all intermediate values associated with the same intermediate key.</li>
+<li>Bigtable is hard to use for applications need complex, evolving schemas or strong consistency in wide-area replication, so Spanner evolved into a temporal, multi-version, semi-relational database.</li>
+<li>With a new TrueTime API that exposes clock uncertainty, Spanner assigns globally-meaningful commit timestamp to even distributed transactions.</li>
+<li>Spanner shards data across many sets of Paxos state machines in data centers spread all over the world.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>map (k1,v1) → list(k2,v2)
-reduce (k2,list(v2)) → list(v2)
-</code></pre></div>
-<p><center><img alt="execution" src="images/execution.jpg" /></center></p>
-<h2 id="implementation">Implementation</h2>
-<h3 id="execution">Execution</h3>
+<p><img alt="overview" src="images/overview.png" /></p>
+<h2 id="system-architecture">System Architecture</h2>
 <ul>
-<li>A single master assigns tasks to workers; there are M map tasks and R reduce tasks in total.</li>
-<li>For map task, worker reads input, applies user-defined Map function and periodically writes intermediate results buffered in memory to local disk partitioned into R regions. The locations of these buffered pairs on disk are passed back to the master, who forwards these locations to the reduce workers.</li>
-<li>For reduce task, worker uses rpcs to read intermediate results on map workers' local disks, sorts intermediate results to group occurrences of the same key, applies user-defined Reduce function and writes final results to a global file system.</li>
-<li>Master is responsible of propagating the locations of intermediate files from map tasks to reduce tasks.</li>
+<li>A Spanner zone has one zonemaster and many spanservers. The former assigns data to spanservers; the latter serve data to clients.</li>
+<li>A spanserver is responsible for 100~1000 tablets. Each tablet contains a bag of mappings <script type="math/tex">(key:string, timestamp:int64)\rightarrow string</script> from multiple partitions of the row space(data colocation). A tablet's state is stored in a set of B-tree like files and a write-ahead log on Colossus.</li>
+<li>A spanserver implements a Paxos state machine on each tablet; each Paxos state machine stores metadata and log in corresponding tablet.</li>
+<li>At every replica that is a leader, each spanserver implements a lock table and a transaction table to support distributed transactions(two-phase commit on mutliple Paxos groups).</li>
 </ul>
-<h3 id="master-data-structures">Master Data Structures</h3>
+<p><img alt="spanserver" src="images/spanserver.png" /></p>
+<h2 id="truetime">TrueTime</h2>
 <ul>
-<li>stores state(idle, in-progress, competed) and identity of the worker machine for each task (non idle).</li>
-<li>for each completed map task: locations and sizes of the R intermediate file regions. The information is pushed incrementally to in-progress reduce workers.</li>
+<li>Main method <script type="math/tex">TT.now()</script> returns an interval [earliest, latest] that is guaranteed to contain the absolute time when <script type="math/tex">TT.now()</script> is invoked. <script type="math/tex">TT.after(t)</script> and <script type="math/tex">TT.before(t)</script> are convenience wrappers.</li>
+<li>TrueTime uses two forms of time references, GPS and atomic clocks, as they have different failure modes.</li>
+<li>TrueTime is implemented by a set of time master machines per data center and a time slave daemon per machine.</li>
+<li>Each daemon polls a variety of masters, apply Marzullo's algorithm to detect liars and synchronize the local machine clock to non-liars.</li>
+<li>Between synchronizations, a daemon advertises a slowly increasing time uncertainty <script type="math/tex">\epsilon</script> (average 4ms in production) derived from worst-case local clock drift, time master uncertainty and communication delay to the time masters.</li>
 </ul>
-<h3 id="fault-tolerance">Fault Tolerance</h3>
+<h2 id="concurrency-control">Concurrency Control</h2>
 <ul>
-<li>For worker failure, master periodically pings workers and marks the worker that has no response for a certain amount of time as failed. Completed and in-progress map tasks are reset to idle and reduce workers executing are notified.</li>
-<li>Completed map tasks and any in-progress tasks on that worker are rescheduled to other workers; no need to re-execute completed reduce tasks because output is stored in global file system instead of worker's local disk.</li>
-<li>For master failure, the computation is just aborted and it is client's responsibility to check and retry.</li>
+<li>Spanner supports read-write transactions, read-only transactions and snapshot reads. Read-only transactions and snapshot reads execute at a specific timestamp without locking.</li>
+<li>Spanner maintains following invariants:<ul>
+<li><strong>disjointness:</strong>* within a Paxos group, each Paxos leader's lease interval is disjoint from every other leader's.</li>
+<li><strong>monotonicity:</strong> within a Paxos group, Paxos writes have monotonically increasing timestamp.</li>
+<li><strong>external consistency:</strong> if the start of a transaction <script type="math/tex">T_2</script> occurs after the commit of a transaction <script type="math/tex">T_1</script>, then the commit timestamp of  <script type="math/tex">T_2</script> must be greater than the commit timestamp of <script type="math/tex">T_1</script>.</li>
 </ul>
-<h3 id="miscellaneous">Miscellaneous</h3>
-<ul>
-<li><strong>Locality:</strong> master attempts to schedule map tasks on or close to the machines that contains corresponding input data(input data managed by GFS is also stored in the cluster).</li>
-<li><strong>Task granularity:</strong> ideally M and R should be large to improve load balancing and speed up failure recovery, but there are practical bounds since master needs to keep <script type="math/tex">O(M\times R)</script> states in memory and each reduce task produces a separate output file.</li>
-<li><strong>Backup tasks:</strong> when the MapReduce is close to completion, master schedules backup executions for remaining in-progress tasks to alleviate the problem of stragglers. MR takes 44% longer without backup tasks.</li>
-</ul>
-<h2 id="refinements">Refinements</h2>
-<ul>
-<li><strong>Partitioning Function:</strong> Typically<code>hash(key) mod R</code> is used for hashing. However, it is useful to allow custom partitioning function so that for example users can have all URLs from the same host end up in the same output file.</li>
-<li><strong>Combiner Function:</strong> In some cases, there is significant repetition in the intermediate keys produced by each map task. For example, word count map produces<code>&lt;word, 1&gt;</code> for each word. All of these counts will be sent over RPC. Better allow user to specify optional Combiner that does partial merging of data before sent to reducers.</li>
+</li>
+<li>For RW transactions, the coordinator assigns a commit timestamp <script type="math/tex">S_i</script> no later than <script type="math/tex">TT.now().latest</script> computed after receiving the commit request, and waits until <script type="math/tex">TT.after(S_i)</script> is true to apply the commit("commit wait").</li>
+<li>For RO transactions and snapshot reads, every replica tracks <script type="math/tex">t_{safe}</script> for the maximum at which the replica is up-to-date, which depends on the Paxos state machine and if there are prepared but not committed transactions. </li>
 </ul></div>
             </div>
         </div>
