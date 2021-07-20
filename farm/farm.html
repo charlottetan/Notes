@@ -14,7 +14,7 @@
     
     
       
-        <title>aurora - RKK1995's notes</title>
+        <title>farm - RKK1995's notes</title>
       
     
     
@@ -94,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              aurora
+              farm
             
           </span>
         </div>
@@ -187,7 +187,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="aurora.html" class="md-tabs__link md-tabs__link--active">
+      <a href="../aurora/aurora.html" class="md-tabs__link md-tabs__link--active">
         Papers
       </a>
     </li>
@@ -309,19 +309,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="aurora.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../aurora/aurora.html" class="md-nav__link">
         aurora
       </a>
-      
     </li>
   
 
@@ -389,11 +381,19 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../farm/farm.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="farm.html" class="md-nav__link md-nav__link--active">
         farm
       </a>
+      
     </li>
   
 
@@ -528,146 +528,118 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/aurora/aurora.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/farm/farm.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="amazon-aurora-design-considerations-for-high-throughput-cloud-native-relational-databases"><a href="http://nil.csail.mit.edu/6.824/2020/papers/aurora.pdf">Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases</a></h1>
-<p><em>A cloud-native relational database service for OLTP workloads.</em></p>
-<p>MIT <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-aurora.txt">Notes</a> <a href="http://nil.csail.mit.edu/6.824/2020/papers/aurora-faq.txt">FAQ</a></p>
+                <h1 id="farm-distributed-transactions-with-consistency-availability-and-performance"><a href="http://nil.csail.mit.edu/6.824/2020/papers/farm-2015.pdf">FaRM: Distributed Transactions With Consistency, Availability, and Performance</a></h1>
+<p><em>Design of new transaction, replication, and recovery protocols from first principles to leverage commodity networks with RDMA and a new, inexpensive approach to providing non-volatile DRAM.</em></p>
+<p>MIT <a href="http://nil.csail.mit.edu/6.824/2020/notes/l-farm.txt">Notes</a> <a href="http://nil.csail.mit.edu/6.824/2020/papers/farm-faq.txt">FAQ</a></p>
 <h2 id="overview">Overview</h2>
 <ul>
-<li>We believe the central constraint in high throughput data processing has moved from compute and storage to the network.</li>
-<li>Aurora uses a novel architecture with a fleet of database instances and storage service. Several database functions(redo logging, crash recovery, etc) are offloaded to the storage service, which is like a virtualized segmented redo log (shared-disk architecture).</li>
-<li><strong>Aurora uses two big ideas</strong>:<ul>
-<li>Quorum writes for better fault-tolerance without too much waiting</li>
-<li>Storage servers understand how to apply DB's log to data pages, so only need to send (small) log entries, not (big) dirty pages. Sending to many replicas, but not much data.<ul>
-<li>The log is the database; any page that the storage system materializes are simply a cache of log application.</li>
+<li>FaRM provides distributed ACID transactions with strict serializability, high availability, high throughput and low latency</li>
+<li>FaRM uses optimistic concurrency control with a four phase commit protocol (lock, validation, commit backup, and commit primary)</li>
 </ul>
-</li>
-</ul>
-</li>
-<li><strong>Three advantages over traditional approaches to traditional distributed databases</strong><ul>
-<li>First, by building storage as an independent faulttolerant and self-healing service across multiple data-centers, we protect the database from performance variance and transient or permanent failures at either the networking or storage tiers.</li>
-<li>Second, by only writing redo log records to storage, we are able to reduce network IOPS by an order of magnitude</li>
-<li>Third, we move some of the most complex and critical functions (backup and redo recovery) from one-time expensive operations in the database engine to continuous asynchronous operations amortized across a large distributed fleet. This yields near-instant crash recovery without checkpointing as well as inexpensive backups that do not interfere with foreground processing. </li>
-</ul>
-</li>
-</ul>
-<h2 id="hld-of-architecture">HLD of Architecture</h2>
+<p><img src="images/figure3.png" width="400" /></p>
+<h3 id="nvram">NVRAM</h3>
 <ul>
-<li>To tolerate AZ failure, Aurora replicates each data item 6 ways across 3AZs with 2 copies in each AZ.</li>
-<li>Database volume is partitioned into 10GB segments. Each segment is replicated 6 times into a Protection Group.</li>
-<li>The only writes that cross the network are redo log records, so network load is drastically reduced despite amplifying write for replication.</li>
-<li>Storage nodes gossips with peers to fill gaps in received log records. Durable log application happens at the storage nodes continuously and  asynchronously.</li>
-<li>Each log record has a monotonically-increasing Log Sequence Number(LSN).</li>
-<li>Instead of 2PC protocol, Aurora maintains points of consistency and durability and advances them when receiving acknowledgements for storage requests.<ul>
-<li>Durability: the highest LSN at which all prior log records are available.</li>
-<li>Consistency: each transaction is broken up to mini-transactions, and the final log record in a mini-transaction is a consistency point.</li>
+<li>FaRM writes go to RAM, not disk -- eliminates a huge bottleneck</li>
+<li>RAM write takes 200 ns, hard drive write takes 10 ms, SSD write 100 us, ns = nanosecond, ms = millisecond, us = microsecond</li>
+<li>RAM is normally volatile so NV achieved by attaching batteries to power supply units and writing the contents of DRAM to SSD when the power fails.<ul>
+<li>What if crash prevents s/w from writing SSD?</li>
+<li>FaRM copes with single-machine crashes by copying data from RAM of machines' replicas to other machines to ensure always f+1 copies</li>
 </ul>
 </li>
-<li>Normally  read quorum is not needed since the database feeds log records to storage nodes and tracks progress.</li>
 </ul>
-<p><img alt="architecture" src="images/figure3.png" />:</p>
-<h2 id="durability">Durability</h2>
+<p><img src="images/tcpvsrdma.jpg" width="700" /> </p>
+<p><strong>FaRM uses two networking ideas:</strong><br />
+- Kernel bypass<br />
+- RDMA</p>
+<h3 id="kernel-bypass">Kernel bypass</h3>
 <ul>
-<li>V nodes, read quorum <code>V_r</code>, write quorum <code>V_w</code><ul>
-<li>To ensure each write is aware of the most recent write: <code>V_w &gt; V/2</code></li>
-<li>Read = max_version(all nodes), so <code>V_r + V_w &gt; V</code>, it can ensure the request must be accepted by a node with most update data. Because each log entry have an index/version, we only pick the date with the most updated log.</li>
+<li>[diagram: FaRM user program, CPU cores, DMA queues, NIC]</li>
+<li>application directly interacts with NIC -- no system calls, no kernel</li>
+<li>NIC DMAs into/out of user RAM</li>
+<li>FaRM s/w polls DMA areas to check for new messages</li>
+<li>CPU operations is what limits RPC (100,000 bits/), not wire between machines (10 gb/s)</li>
 </ul>
-</li>
-<li>AZ (availability zone) level failure tolerance<ul>
-<li>Losing an entire AZ and one additional node (AZ+1) without losing data</li>
-<li>Losing an entire AZ without impacting the ability to write data<ul>
-<li><code>AZ = 3, V = 6, V_w = 4, V_r = 3</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Database volume is partitioned into 10GB segments. Each segment is replicated 6 times into a Protection Group.</li>
-</ul>
-<p><strong>Advantages of storage server based on quorum mechanism</strong>:</p>
+<h3 id="rdma">RDMA</h3>
 <ul>
-<li>Smoother handling of server failures, slow execution or network partition problems, because each operation does not require a response from all replica servers (for example, as opposed to chain replication, chain replication needs to wait for write operations to be completed on all replicas)</li>
-<li>Under the premise of satisfying <script type="math/tex">W+R>V</script>, <em>W</em> and <em>R</em> can be adjusted. For different read and write load conditions, if the read load is relatively large, <em>R</em> can be reduced, and vice versa</li>
-</ul>
-<p><strong>Raft</strong> also uses the <em>quorum</em> mechanism: <em>leader</em> will submit the <em>log entry</em> only after most copies are written to the <em>log entry</em>, but <strong>Raft</strong> is more powerful: it can handle more complex operations (due to its sequential operations); <em>leader</em> can be automatically re-elected when a <em>split-brain</em> problem occurs</p>
-<h2 id="the-log-is-the-database">The Log Is The Database</h2>
-<h3 id="database-execution-process">Database execution process</h3>
-<p>Paper assumes you know how DB works, how it uses storage. Let's describe the execution process of the write operation of a single-machine general transaction database. </p>
-<ul>
-<li>The data is stored in the <em>B-Tree</em> of the hard disk, and there are cached data pages in the database.</li>
-<li>Take the transaction <code>x=x+10</code> <code>y=y-10</code> as an example:</li>
-<li>First lock <code>x</code> and <code>y</code></li>
-<li>DB server modifies only cached data pages as transaction runs and appends update info to <strong>Write-Ahead Log</strong> (redo log)</li>
-<li>At this time <em>log entry</em> can be expressed as:   <table>
-<thead>
-<tr>
-<th>LSID</th>
-<th>TID</th>
-<th>Key</th>
-<th>old</th>
-<th>new</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>101</td>
-<td>7</td>
-<td>x</td>
-<td>500</td>
-<td>510</td>
-<td>x=x+10</td>
-</tr>
-<tr>
-<td>102</td>
-<td>7</td>
-<td>y</td>
-<td>750</td>
-<td>740</td>
-<td>y=y-10</td>
-</tr>
-<tr>
-<td>103</td>
-<td>7</td>
-<td>commit</td>
-<td></td>
-<td></td>
-<td>transaction finished</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<ul>
-<li>Release the locks of <code>x</code> and <code>y</code> after <em>WAL</em> is written to the hard disk, and reply to <em>client</em> </li>
-<li><strong>Log Applicator</strong> acts on the modification of the <em>log entry</em> on the before image of the cached data page, which will generate an after image.<ul>
-<li>Delayed writing can optimize performance because the data page is large</li>
-</ul>
-</li>
-<li><strong>Crash Recovery</strong><ul>
-<li>Replay all committed transactions in <em>log</em> (<strong>redo</strong>)</li>
-<li>Roll back all uncommitted transactions in <em>log</em> (<strong>undo</strong>)</li>
+<li>[src host, NIC, switch, NIC, target memory, target CPU]</li>
+<li>remote NIC directly reads/writes memory<ul>
+<li>Sender provides memory address</li>
+<li>Remote CPU is not involved!</li>
+<li>This is "one-sided RDMA"</li>
+<li>Reads an entire cache line, atomically</li>
 </ul>
 </li>
 </ul>
-<h3 id="aurora-log-processing">Aurora Log Processing</h3>
-<p>In <strong>Aurora</strong>, <strong>Log Procesing</strong> is pushed down to the storage layer to generate data pages in the background or on-demand. The write data transmitted through the network is only <strong>REDO</strong> logs, thus reducing the network load , And provides considerable performance and durability.</p>
-<p float="left">
-  <img src="images/figure1.png" width="400" />
-  <img src="images/figure2.png" width="400" />
-</p>
-
-<p float="left">
-  <img src="images/figure4.png" width="400" />
-  <img src="images/figure5.png" width="400" />
-</p>
-<h2 id="extra-notes">Extra Notes</h2>
+<h2 id="distributed-transactions-and-replication">Distributed transactions and replication</h2>
+<p><img src="images/figure3.png" width="400" /> </p>
+<p>FaRM uses fewer messages than traditional protocols, and exploits one-sided RDMA reads and writes for CPU efficiency and low latency. FaRM uses primary-backup replication in non-volatile DRAM for both data and transaction logs, and uses unreplicated transaction coordinators that communicate directly with primaries and backups. FaRM uses optimistic concurrency control with read validation.</p>
 <ul>
-<li>In shared-disk architecture, all data is shared by all nodes. In shared-nothing architecture, each node manages a subset of data.</li>
-<li>It is hard to use change buffer in shared-disk architecture, so writes are penalized when there are secondary indexes.*</li>
+<li>Transactions use one-sided RDMA to read objects and they buffer writes locally. </li>
+<li>The coordinator also records the addresses and versions of all objects accessed</li>
+<li>At the end of the execution, FaRM attempts to commit the transaction by executing the following steps:</li>
+</ul>
+<ol>
+<li><strong>Lock</strong><ol>
+<li>TC writes a LOCK record to the log on each machine that is a primary for any written object, containing versions and new values of all written objects on that primary as well as the list of all regions with written objects.</li>
+<li>Primaries attempt to lock the objects at the specified versions using compare-and-swap. Locking can fail if :<br />
+     1. Any object version changed since it was read by the transaction.<br />
+     2. If the object is currently locked by another transaction.<br />
+     3. In this case, the coordinator aborts the transaction. It writes an abort record to all primaries and returns an error to the application.</li>
+</ol>
+</li>
+<li><strong>Validate</strong><ol>
+<li>TC performs read validation by reading, from their primaries, the versions of all objects that were read but not written by the transaction. </li>
+<li>If any object has changed, validation fails and the transaction is aborted. </li>
+<li>Validation uses one-sided RDMA reads by default. For primaries that hold more than <script type="math/tex"> t_r </script> objects, validation is done over RPC. The threshold <script type="math/tex">t_r</script> (currently 4) reflects the CPU cost of an RPC relative to an RDMA read.</li>
+</ol>
+</li>
+<li><strong>Commit backups</strong><ol>
+<li>TC writes a COMMITBACKUP record to the non-volatile logs at each backup and waits for an ack from the NIC hardware.</li>
+</ol>
+</li>
+<li><strong>Commit primaries</strong><ol>
+<li>TC writes a COMMITPRIMARY record to the logs at each primary.</li>
+<li>Primaries process these records by updating the objects in place, incrementing their versions, and unlocking them, which exposes the writes committed by the transaction.</li>
+</ol>
+</li>
+</ol>
+<h2 id="how-does-farm-differ-from-spanner">How does FaRM differ from Spanner?</h2>
+<ul>
+<li>both replicate and use two-phase commit (2pc) for transactions</li>
+<li>Spanner:<ul>
+<li>a deployed system</li>
+<li>focuses on geographic replication<ul>
+<li>e.g. copies on East and West coasts, in case data centers fail</li>
+</ul>
+</li>
+<li>is most innovative for read-only transactions -- TrueTime</li>
+<li>performance: r/w xaction takes 10 to 100 ms (Tables 3 and 6)</li>
+</ul>
+</li>
+<li>FaRM<ul>
+<li>a research prototype, to explore potential of RDMA</li>
+<li>all replicas are in same data center (wouldn't make sense otherwise)</li>
+<li>RDMA restricts design options: thus Optimistic Concurrency Control (OCC)</li>
+<li>performance: 58 microseconds for simple transactions (6.3, Figure 7)<ul>
+<li>i.e. 100 times faster than Spanner</li>
+</ul>
+</li>
+<li>performance: throughput of 100 million/second on 90 machines (Figure 7)<ul>
+<li>extremely impressive, particularly for transactions+replication</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>They target different bottlenecks:<ul>
+<li>Spanner: speed of light and network delays</li>
+<li>FaRM: CPU time on servers</li>
+</ul>
+</li>
 </ul>
                 
               
@@ -692,7 +664,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+        <a href="../spanner/spanner.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: spanner" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -701,20 +673,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Home
+              spanner
             </div>
           </div>
         </a>
       
       
         
-        <a href="../gfs/gfs.html" class="md-footer__link md-footer__link--next" aria-label="Next: gfs" rel="next">
+        <a href="../mapreduce/mapreduce.html" class="md-footer__link md-footer__link--next" aria-label="Next: mapreduce" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              gfs
+              mapreduce
             </div>
           </div>
           <div class="md-footer__button md-icon">
