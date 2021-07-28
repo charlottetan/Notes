@@ -14,7 +14,7 @@
     
     
       
-        <title>distributed transactions - RKK1995's notes</title>
+        <title>memcached - RKK1995's notes</title>
       
     
     
@@ -94,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              distributed transactions
+              memcached
             
           </span>
         </div>
@@ -284,14 +284,16 @@
             
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
       
       <label class="md-nav__link" for="__nav_2_1">
         Storage
@@ -391,11 +393,19 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../memcache/memcache.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="memcache.html" class="md-nav__link md-nav__link--active">
         memcached
       </a>
+      
     </li>
   
 
@@ -409,16 +419,14 @@
             
   
   
-    
-  
   
     
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
       
       <label class="md-nav__link" for="__nav_2_2">
         Compute
@@ -446,19 +454,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="distributedTransactions.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../distributedTransactions/distributedTransactions.html" class="md-nav__link">
         distributed transactions
       </a>
-      
     </li>
   
 
@@ -540,188 +540,172 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/distributedTransactions/distributedTransactions.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/memcache/memcache.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="distributed-transactions"><a href="https://ocw.mit.edu/resources/res-6-004-principles-of-computer-system-design-an-introduction-spring-2009/online-textbook/">Distributed Transactions</a></h1>
-<p>MIT <a href="https://pdos.csail.mit.edu/6.824/notes/l-2pc.txt">Notes</a> <a href="http://nil.csail.mit.edu/6.824/2020/papers/chapter9-faq.txt">FAQ</a></p>
-<h2 id="background">Background</h2>
-<p>Problem: lots of data records, sharded on multiple servers, lots of clients</p>
-<p>Correct behavior of a xactions: ACID</p>
+                <h1 id="scaling-memcache-at-facebook"><a href="http://nil.csail.mit.edu/6.824/2020/papers/memcache-fb.pdf">Scaling Memcache at Facebook</a></h1>
+<p><em>How Facebook scaled a distributed key-value store that supports the world’s largest social network</em></p>
+<h2 id="history-of-application-scaling">History of Application Scaling</h2>
+<p>Typical story of evolution over time:</p>
 <ul>
-<li>A: Atomicity, all writes or none, despite failures</li>
-<li>C: obeys application-specific invariants</li>
-<li>I: Isolation, no interference between xactions -- serializable</li>
-<li>D: Durability, committed writes are permanent</li>
+<li>Single machine w/ web server + application + DB<ul>
+<li>DB provides persistent storage, crash recovery, transactions, SQL</li>
+<li>application queries DB, formats HTML, &amp;c</li>
+<li>but: as load grows, application takes too much CPU time</li>
 </ul>
-<p>Distributed Transactions have two big components:
-- concurrency control (to provide isolation/serializability)
-- atomic commit (to provide atomicity despite failure)</p>
-<h3 id="serializable">Serializable</h3>
+</li>
+<li>Many web FEs, one shared DB<ul>
+<li>an easy change, since web server + app already separate from storage</li>
+<li>FEs are stateless, all sharing (and concurrency control) via DB stateless -&gt; any FE can serve any request, no harm from FE crash</li>
+<li>but: as load grows, need more FEs, soon single DB server is bottleneck</li>
+</ul>
+</li>
+<li>Many web FEs, data sharded over cluster of DBs<ul>
+<li>partition data by key over the DBs; app looks at key (e.g. user), chooses the right DB</li>
+<li>good DB parallelism if no data is super-popular</li>
+<li>painful -- cross-shard transactions and queries probably don't work
+  hard to partition too finely
+  but: DBs are slow, even for reads, why not cache read requests?</li>
+</ul>
+</li>
+<li>Many web FEs, many caches for reads, many DBs for writes<ul>
+<li>cost-effective b/c read-heavy and memcached 10x faster than a DB; memcached just an in-memory hash table, very simple</li>
+<li>complex b/c DB and memcacheds can get out of sync</li>
+<li>fragile b/c cache misses can easily overload the DB
+  (next bottleneck will be DB writes -- hard to solve)</li>
+</ul>
+</li>
+</ul>
+<p>Will partition or replication yield most mc throughput? </p>
 <ul>
-<li>Definition : there exists some serial order of those concurrent transactions that would, if followed, lead to the same ending state.*</li>
-<li>an easy model for programmers: they can write complex transactions while ignoring concurrency</li>
-<li>It allows parallel execution of transactions on different records</li>
-<li>example transactions
-<div class="highlight"><pre><span></span><code>  x and y are bank balances -- records in database tables
-  x and y are on different servers (maybe at different banks)
-  x and y start out as $10
-  T1 and T2 are transactions
-    T1: transfer $1 from x to y
-    T2: audit, to check that no money is lost
-  T1:             T2:
-  begin_xaction   begin_xaction
-    add(x, 1)       tmp1 = get(x)
-    add(y, -1)      tmp2 = get(y)
-  end_xaction       print tmp1, tmp2
-                  end_xaction
-</code></pre></div></li>
+<li>partition: divide keys over mc servers</li>
+<li>replicate: divide clients over mc servers </li>
+<li>partition: <ul>
+<li>(+) more memory-efficient (one copy of each k/v) </li>
+<li>(+) works well if no key is very popular </li>
+<li>(-) each web server must talk to many mc servers (overhead) </li>
 </ul>
+</li>
+<li>replication: <ul>
+<li>(+) good if a few keys are very popular </li>
+<li>(+) fewer TCP connections </li>
+<li>(-)  less total data can be cached</li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p><img alt="overview" src="images/figure1.png" /></p>
 <ul>
-<li>execute concurrent transactions T1 and T2
-<div class="highlight"><pre><span></span><code>T1; T2 : x=11 y=9 &quot;11,9&quot;
-T2; T1 : x=11 y=9 &quot;10,10&quot;
-the results for the two differ; either is OK
-</code></pre></div></li>
+<li>FB uses mc as a "look-aside" cache</li>
+<li>application determines relationship of mc to DB mc doesn't know anything about DB</li>
+<li>important to read your own writes</li>
 </ul>
-<h2 id="concurrency-control">Concurrency Control</h2>
-<p>Distributed transactions have two big components:   </p>
+<p><img alt="overview" src="images/figure2.png" /></p>
 <ul>
-<li>concurrency control (to provide isolation/serializability)</li>
-<li>atomic commit (to provide atomicity despite failure)</li>
+<li>Q: what is the point of regions -- multiple complete replicas? <ul>
+<li>lower RTT to users (east coast, west coast) </li>
+<li>quick local reads, from local mc and DB (though writes are expensive: must be sent to primary) </li>
+<li>maybe hot replica for main site failure?  </li>
 </ul>
-<p>Two classes of concurrency control for transactions:  </p>
+</li>
+<li>Q: why not partition users over regions? <ul>
+<li>i.e. why not east-coast users' data in east-coast region, &amp;c </li>
+<li>then no need to replicate: might cut hardware costs in half! </li>
+<li>but: social net -&gt; not much locality; might work well for e.g. e-mail </li>
+</ul>
+</li>
+<li>Q: why OK performance despite all writes forced to go to the primary region? <ul>
+<li>writes are much rarer than reads </li>
+<li>perhaps 100ms to send write to primary, not so bad for human users </li>
+<li>users do not wait for all effects of writes to finish; i.e. for all stale cached values to be deleted</li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-cluster-latency-and-load">In a Cluster: Latency and Load</h2>
+<h3 id="reducing-latency">Reducing Latency</h3>
 <ul>
-<li>pessimistic:<ul>
-<li>lock records before use</li>
-<li>conflicts cause delays (waiting for locks)</li>
+<li>Items are distributed in mc through consistent hashing. Thus web servers have to communicate with many mc servers. N^2 (each web to each mc) (all to all pattern)</li>
+<li>Important practical networking problems: <ul>
+<li>N^2 TCP connections is too much state; thus UDP for client get()s </li>
+<li>UDP is not reliable or orderedl; thus TCP for client set()s and mcrouter to reduce n in n^2 </li>
 </ul>
 </li>
-<li>optimistic:<ul>
-<li>use records without locking</li>
-<li>commit checks if reads/writes were serializable</li>
-<li>conflict causes abort+retry</li>
-<li>called Optimistic Concurrency Control (OCC)</li>
+<li>single request per packet is not efficient (for TCP or UDP) 
+    -  per-packet overhead (interrupt &amp;c) is too high 
+    -  thus mcrouter batches many requests into each packet</li>
 </ul>
-</li>
-<li>pessimistic is faster if conflicts are frequent</li>
-<li>optimistic is faster if conflicts are rare</li>
-</ul>
-<h3 id="two-phase-locking">Two-Phase locking</h3>
-<p><em>Two-phase locking</em> is a pessimistic form of concurrency control and one way to achieve serializability:</p>
+<h3 id="reducing-load">Reducing Load</h3>
 <ul>
-<li>a transaction must acquire a record's lock before using it</li>
-<li>a transaction must hold its locks until <em>after</em> commit or abort</li>
-<li>can result in deadlock. Systems must be smart enough to detect and abort.</li>
+<li>Leases to address two problems: stale sets and thundering herds</li>
+<li>MC gives a lease bound to a specific k to a client to set data back into the cache when the client experiences a cache miss</li>
+<li>Client provides the lease token when setting k in mc</li>
+<li>MC invalidates leases if it receives a delete request </li>
+<li>Thundering herds:<ul>
+<li>one client updates DB and delete()s a key</li>
+<li>lots of clients get() but miss <ul>
+<li>they all fetch from DB</li>
+<li>they all set()</li>
 </ul>
-<h2 id="atomic-commit-two-phase-commit">Atomic Commit - Two Phase Commit</h2>
-<p>A bunch of computers are cooperating on some task, each computer has a different role. We want to ensure atomicity: all execute, or none execute.</p>
-<p>Challenges : failure and performance</p>
-<h3 id="process">Process:</h3>
+</li>
+<li>not good: needless DB load </li>
+<li>mc gives just the first missing client a "lease" <ul>
+<li>lease = permission to refresh from DB </li>
+<li>mc tells others "try get() again in a few milliseconds" </li>
+</ul>
+</li>
+<li>effect: only one client reads the DB and does set() <ul>
+<li>others re-try get() later and hopefully hit</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-region-replication">In a Region: Replication</h2>
 <ul>
-<li>Data is sharded among multiple servers</li>
-<li>Transactions run on "transaction coordinators" (TCs)</li>
-<li>For each read/write, TC sends RPC to relevant shard server<ul>
-<li>Each is a "participant" who manages locks for its shard of the data</li>
+<li>Why multiple clusters per region? <ul>
+<li>why not add more and more mc servers to a single cluster? </li>
+<li>(1) adding mc servers to cluster doesn't help single popular keys replicating (one copy per cluster) does help </li>
+<li>(2) more mcs in cluster -&gt; each client req talks to more servers and more in-cast congestion at requesting web servers client requests fetch 20 to 500 keys! over many mc servers MUST request them in parallel (otherwise total latency too large) so all replies come back at the same time network switches, NIC run out of buffers </li>
+<li>(3) hard to build network for single big cluster uniform client/server access so cross-section b/w must be large -- expensive two clusters -&gt; 1/2 the cross-section b/w</li>
 </ul>
 </li>
-<li>There may be many concurrent transactions, many TCs<ul>
-<li>TC assigns unique transaction ID (TID) to each transaction</li>
-<li>Every message, every table entry tagged with TID to avoid confusion</li>
+<li>But replicating is a waste of RAM for less-popular items!<ul>
+<li>"regional pool" shared by all clusters</li>
+<li>unpopular objects (no need for many copies)</li>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>TC             A           B
-|----put------&gt;|(lock data)
-|-----------get----------&gt;|(lock data)
-|
-|
-|---prepare---&gt;|
-|----------prepare--------&gt;|
-|
-|&lt;---yes/no----|
-|&lt;-----------yes/no--------|
-|
-|
-|-commit/abort-&gt;|(commit/abort and release lock)
-|---------commit/abort----&gt;|(commit/abort and release lock)
-|&lt;----ack-----|
-|&lt;-------------ack---------|
-</code></pre></div>
-<p>Why is this correct so far?
-- Neither A or B can commit unless they both agreed.</p>
-<h3 id="failure-tolerance">Failure tolerance</h3>
+<h3 id="new-clusters">New Clusters</h3>
 <ul>
-<li>What if B crashes and restarts?<ul>
-<li>If B sent YES before crash, B must remember (since it wrote to log despite crash)! Because A might have received a COMMIT and committed. So B must be able to commit (or not) even after a reboot.</li>
-</ul>
-</li>
-<li>What if TC crashes and restarts?<ul>
-<li>If TC might have sent COMMIT before crash, TC must remember! Since one worker may already have committed.<ul>
-<li>write log to disk before sending COMMIT msgs.</li>
-<li>repeat COMMIT if it crashes and reboots, or if a participants asks.</li>
+<li>Bringing up new mc cluster is a performance problem as new cluster has 0% hit rate. Clients that use it will generate a big spike in DB load. If originally 1% miss rate, adding new cluster will cause misses for 50% -&gt; 50x spike in DB load.</li>
+<li>thus the clients of new cluster first get() from existing cluster and set() into new cluster<ul>
+<li>basically lazy copy of existing cluster to new cluster</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>What if TC never gets a YES/NO from B?<ul>
-<li>Perhaps B crashed and didn't recover; perhaps network is broken.<ul>
-<li>TC can time out, and abort (since has not sent any COMMIT msgs).</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>What if B times out or crashes while waiting for PREPARE from TC?<ul>
-<li>B has not yet responded to PREPARE, so TC can't have decided commit<ul>
-<li>B can unilaterally abort, and release locks</li>
-<li>respond NO to future PREPARE</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>What if B replied YES to PREPARE, but doesn't receive COMMIT or ABORT?<ul>
-<li>B cannot decide to abort it, because TC might have gotten YES from both, and sent out COMMIT to A, but crashed before sending to B.<ul>
-<li>cannot do anything, just wait for TC came back</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="two-phase-commit-perspective">Two-phase commit perspective</h3>
+<h2 id="across-regions-consistency">Across Regions: Consistency</h2>
+<p><img alt="overview" src="images/figure6.png" /></p>
 <ul>
-<li>Used in sharded DBs when a transaction uses data on multiple shards</li>
-<li>Bad reputation - Thus usually used only in a single small domain<ul>
-<li>slow: multiple rounds of messages</li>
-<li>slow: disk writes</li>
-<li>locks are held over the prepare/commit exchanges; blocks other xactions</li>
-<li>TC crash can cause indefinite blocking, with locks held</li>
+<li>Writes go direct to primary DB, with transactions, so writes are consistent </li>
+<li>Reads eventually consistent but Read-your-own-writes</li>
+<li>How do they keep mc content consistent w/ DB content?<ul>
+<li>DBs send invalidates (delete()s) to all mc servers that might cache; this is McSqueal in Figure 6</li>
+<li>writing client also invalidates mc in local cluster for read-your-own-writes</li>
 </ul>
 </li>
-<li>TC crash can cause indefinite blocking, with locks held</li>
-</ul>
-<h3 id="raft-comparison">Raft Comparison</h3>
-<p>Raft and two-phase commit solve different problems!</p>
-<ul>
-<li>Use Raft to get high availability by replicating<ul>
-<li>i.e. to be able to operate when some servers are crashed</li>
-<li>the servers all do the <em>same</em> thing</li>
+<li>Writes from a master region<ul>
+<li>To avoid a race condition in which an invalidation arrives to a replica mc before the data has been replicated from the master region, mcsqueal implemented so that each DB will notify mcs in its region to invalidate instead of master sending invalidates to all regions</li>
 </ul>
 </li>
-<li>Use 2PC when each participant does something different<ul>
-<li>And <em>all</em> of them must do their part</li>
+<li>Writes from a non-master region<ul>
+<li>Consider a user who updates his data from a non-master region when replication lag is excessively large. When this user tries to fetch data, it hits regional replica DB and may see stale data</li>
+<li>Employs a <em>remote marker</em> mechanism to minimalize stale data reads. </li>
+<li>When a web server wishes to update data that affects a key k, that server (1) sets a remote marker <script type="math/tex">r_k</script> in the region (2) performs the write to the master embedding <script type="math/tex">k</script> and <script type="math/tex">r_k</script> to be invalidated in the SQL statement (3) deletes <script type="math/tex">k</script> in the local cluster.</li>
+<li>On a subsequent request for k, a web server will be unable to find the cached data, check whether <script type="math/tex">r_k</script> exists, and direct its query to the master or local region depending on the presence of <script type="math/tex">r_k</script>. </li>
 </ul>
 </li>
-<li>2PC does not help availability since all servers must be up to get anything done</li>
-<li>Raft does not ensure that all servers do something since only a majority have to be alive</li>
-</ul>
-<p>What if you want high availability <em>and</em> atomic commit?</p>
-<ul>
-<li>The TC and servers should each be replicated with Raft</li>
-<li>Run two-phase commit among the replicated services</li>
-<li>Then you can tolerate failures and still make progress</li>
-<li>Whats described is basically <strong>Spanner</strong></li>
 </ul>
                 
               
@@ -746,7 +730,7 @@ the results for the two differ; either is OK
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../mapreduce/mapreduce.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: mapreduce" rel="prev">
+        <a href="../farm/farm.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: farm" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -755,20 +739,20 @@ the results for the two differ; either is OK
               <span class="md-footer__direction">
                 Previous
               </span>
-              mapreduce
+              farm
             </div>
           </div>
         </a>
       
       
         
-        <a href="../raft/raft.html" class="md-footer__link md-footer__link--next" aria-label="Next: raft" rel="next">
+        <a href="../mapreduce/mapreduce.html" class="md-footer__link md-footer__link--next" aria-label="Next: mapreduce" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              raft
+              mapreduce
             </div>
           </div>
           <div class="md-footer__button md-icon">
