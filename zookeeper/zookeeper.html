@@ -25,7 +25,7 @@
         
           
           
-          <meta name="theme-color" content="#2094f3">
+          <meta name="theme-color" content="">
         
       
     
@@ -39,8 +39,6 @@
       
     
     
-    
-      <link rel="stylesheet" href="../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../stylesheets/headingNumbers.css">
     
@@ -58,7 +56,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="red">
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="dark-grey" data-md-color-accent="red">
   
     
     <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
@@ -200,6 +198,22 @@
 
   
 
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../hashtable/hashtable.html" class="md-tabs__link">
+        System Design
+      </a>
+    </li>
   
 
       
@@ -572,6 +586,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        System Design
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Design" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          System Design
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hashtable/hashtable.html" class="md-nav__link">
+        hashtable
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -683,11 +739,15 @@
 </ul>
 </li>
 <li>Mini Transactions - Effect is that we can achieve atomic operations. Example of atomic counter:
-<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="n">true</span><span class="p">:</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="n">true</span><span class="p">:</span>
   <span class="n">x</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">getData</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
   <span class="k">if</span> <span class="n">setData</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="k">break</span>
   <span class="n">sleep</span> 
-</code></pre></div></li>
+</code></pre></div>
+</td></tr></table></li>
 <li>Simple Locks Without Herd Effect (Scalable Locks)</li>
 </ul>
                 
@@ -727,6 +787,21 @@
           </div>
         </a>
       
+      
+        
+        <a href="../hashtable/hashtable.html" class="md-footer__link md-footer__link--next" aria-label="Next: hashtable" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              hashtable
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   

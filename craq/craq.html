@@ -25,7 +25,7 @@
         
           
           
-          <meta name="theme-color" content="#2094f3">
+          <meta name="theme-color" content="">
         
       
     
@@ -39,8 +39,6 @@
       
     
     
-    
-      <link rel="stylesheet" href="../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../stylesheets/headingNumbers.css">
     
@@ -58,7 +56,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="red">
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="dark-grey" data-md-color-accent="red">
   
     
     <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
@@ -200,6 +198,22 @@
 
   
 
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../hashtable/hashtable.html" class="md-tabs__link">
+        System Design
+      </a>
+    </li>
   
 
       
@@ -572,6 +586,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        System Design
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Design" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          System Design
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hashtable/hashtable.html" class="md-nav__link">
+        hashtable
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -674,10 +730,13 @@
 fraction (shard) of the objects. Suppose you have three servers (S1,
 S2, and S3) and three chains (C1, C2, C3). Then you can have the three
 chains be:</p>
-<p><div class="highlight"><pre><span></span><code>  C1: S1 S2 S3
+<p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  C1: S1 S2 S3
   C2: S2 S3 S1
   C3: S3 S1 S2
 </code></pre></div>
+</td></tr></table>
 Now, assuming activity on the three chains is roughly equal, the load on
 the three servers will also be roughly equal. In particular the load of
 serving client requests (head and tail) will be roughly equally divided

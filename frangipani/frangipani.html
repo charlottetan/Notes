@@ -25,7 +25,7 @@
         
           
           
-          <meta name="theme-color" content="#2094f3">
+          <meta name="theme-color" content="">
         
       
     
@@ -39,8 +39,6 @@
       
     
     
-    
-      <link rel="stylesheet" href="../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../stylesheets/headingNumbers.css">
     
@@ -58,7 +56,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="red">
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="dark-grey" data-md-color-accent="red">
   
     
     <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
@@ -200,6 +198,22 @@
 
   
 
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../hashtable/hashtable.html" class="md-tabs__link">
+        System Design
+      </a>
+    </li>
   
 
       
@@ -572,6 +586,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        System Design
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Design" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          System Design
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hashtable/hashtable.html" class="md-nav__link">
+        hashtable
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -627,41 +683,61 @@ WS1 crashes while creating a file</p>
 <h2 id="components">Components</h2>
 <p><strong>Petal</strong>: block storage service; replicated</p>
 <p><strong>Lock Server (LS)</strong>, with one lock per <strong>file/directory</strong>, the locks are named by files/directories (really i-numbers)</p>
-<div class="highlight"><pre><span></span><code>  file  owner
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  file  owner
   -----------
   x     WS1
   y     WS1
 </code></pre></div>
+</td></tr></table>
 <p><strong>Workstation (WS)</strong> cache(store the lock status):</p>
-<div class="highlight"><pre><span></span><code>  file/dir  lock  content
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  file/dir  lock  content
   -----------------------
   x         busy  ... //using data right now
   y         idle  ... //holds lock but not using the cached data right now
 </code></pre></div>
+</td></tr></table>
 <h2 id="solution-for-scenario-1-cache-coherence-revealing-writes">Solution for Scenario 1: Cache Coherence (revealing writes)</h2>
 <p>It is to guarantee linearizability AND caching
 Example: WS1 changes file <code>z</code>, then WS2 reads <code>z</code></p>
 <ol>
 <li>WS1 changes file <code>z</code></li>
 </ol>
-<div class="highlight"><pre><span></span><code>request lock  (WS1 -&gt; LS)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>request lock  (WS1 -&gt; LS)
 LS put: owner(z) = WS1
 grant lock (LS -&gt; WS1)
 (WS1: read+cache z data from Petal
        modify z locally
        when done, cached lock in state)
 </code></pre></div>
+</td></tr></table>
 <ol>
 <li>WS2 try read file <code>z</code></li>
 <li>Revoke Lock: <strong>Coherence Protocol Msg</strong></li>
 </ol>
-<div class="highlight"><pre><span></span><code>    request lock  (WS2 -&gt; LS)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    request lock  (WS2 -&gt; LS)
     grant (LS -&gt; WS2)
     revoke (LS -&gt; WS1)
     (write update log of metadata to Petal)
     (write modified z to Petal)
     release lock (WS1 -&gt; LS)
 </code></pre></div>
+</td></tr></table>
 <ol>
 <li>WS2 get the lock, and read <code>z</code> from Petal</li>
 </ol>
@@ -701,16 +777,23 @@ grant lock (LS -&gt; WS1)
 <li>array of updates: block #, new version #, addr, new bytes</li>
 </ul>
 <p>When WS receive lock revoke:</p>
-<div class="highlight"><pre><span></span><code>Play log in the Petal (Petal already store it) (P)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Play log in the Petal (Petal already store it) (P)
 WS send the cached updated blocks to Petal (WS1-P)
 Release the lock (WS1-LS)
 </code></pre></div>
+</td></tr></table>
 <p>Why version number is necessary: for linearizability of the metadata update</p>
-<div class="highlight"><pre><span></span><code>WS1: delete(d/f)(v1)               crash
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>WS1: delete(d/f)(v1)               crash
 WS2:               create(d/f)(v2)
 WS3:                                  recover WS1
 WS3 is recovering WS1&#39;s log -- but it doesn&#39;t look at WS2&#39;s log
 </code></pre></div>
+</td></tr></table>
 <ul>
 <li>When WS1 delete the file, it add a log entry with v1</li>
 <li>when WS2 create a file with same name, the system will give it a version number v2</li>

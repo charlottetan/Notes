@@ -25,7 +25,7 @@
         
           
           
-          <meta name="theme-color" content="#2094f3">
+          <meta name="theme-color" content="">
         
       
     
@@ -39,8 +39,6 @@
       
     
     
-    
-      <link rel="stylesheet" href="../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../stylesheets/headingNumbers.css">
     
@@ -58,7 +56,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="red">
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="dark-grey" data-md-color-accent="red">
   
     
     <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
@@ -200,6 +198,22 @@
 
   
 
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../hashtable/hashtable.html" class="md-tabs__link">
+        System Design
+      </a>
+    </li>
   
 
       
@@ -572,6 +586,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        System Design
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Design" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          System Design
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hashtable/hashtable.html" class="md-nav__link">
+        hashtable
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -609,7 +665,18 @@
 <li>an easy model for programmers: they can write complex transactions while ignoring concurrency</li>
 <li>It allows parallel execution of transactions on different records</li>
 <li>example transactions
-<div class="highlight"><pre><span></span><code>  x and y are bank balances -- records in database tables
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  x and y are bank balances -- records in database tables
   x and y are on different servers (maybe at different banks)
   x and y start out as $10
   T1 and T2 are transactions
@@ -621,14 +688,18 @@
     add(y, -1)      tmp2 = get(y)
   end_xaction       print tmp1, tmp2
                   end_xaction
-</code></pre></div></li>
+</code></pre></div>
+</td></tr></table></li>
 </ul>
 <ul>
 <li>execute concurrent transactions T1 and T2
-<div class="highlight"><pre><span></span><code>T1; T2 : x=11 y=9 &quot;11,9&quot;
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>T1; T2 : x=11 y=9 &quot;11,9&quot;
 T2; T1 : x=11 y=9 &quot;10,10&quot;
 the results for the two differ; either is OK
-</code></pre></div></li>
+</code></pre></div>
+</td></tr></table></li>
 </ul>
 <h2 id="concurrency-control">Concurrency Control</h2>
 <p>Distributed transactions have two big components:   </p>
@@ -677,7 +748,22 @@ the results for the two differ; either is OK
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>TC             A           B
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>TC             A           B
 |----put------&gt;|(lock data)
 |-----------get----------&gt;|(lock data)
 |
@@ -694,6 +780,7 @@ the results for the two differ; either is OK
 |&lt;----ack-----|
 |&lt;-------------ack---------|
 </code></pre></div>
+</td></tr></table>
 <p>Why is this correct so far?
 - Neither A or B can commit unless they both agreed.</p>
 <h3 id="failure-tolerance">Failure tolerance</h3>

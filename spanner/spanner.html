@@ -25,7 +25,7 @@
         
           
           
-          <meta name="theme-color" content="#2094f3">
+          <meta name="theme-color" content="">
         
       
     
@@ -39,8 +39,6 @@
       
     
     
-    
-      <link rel="stylesheet" href="../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../stylesheets/headingNumbers.css">
     
@@ -58,7 +56,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="red">
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="dark-grey" data-md-color-accent="red">
   
     
     <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
@@ -200,6 +198,22 @@
 
   
 
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../hashtable/hashtable.html" class="md-tabs__link">
+        System Design
+      </a>
+    </li>
   
 
       
@@ -572,6 +586,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        System Design
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Design" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          System Design
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hashtable/hashtable.html" class="md-nav__link">
+        hashtable
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -601,7 +657,18 @@
 <li>Strong consistency (External consistency / linearizability / serializability)</li>
 </ul>
 <h2 id="basic-organization">Basic Organization</h2>
-<div class="highlight"><pre><span></span><code>Datacenter A:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Datacenter A:
   &quot;clients&quot; are web servers e.g. for gmail
   data is sharded over multiple servers:
     a-m
@@ -614,6 +681,7 @@ Datacenter B:
 Datacenter C:
   same setup
 </code></pre></div>
+</td></tr></table>
 <h3 id="replication">Replication</h3>
 <ul>
 <li>Replication managed by Paxos; one Paxos group per shard.</li>
@@ -667,14 +735,39 @@ Datacenter C:
 <li>For RO transactions and snapshot reads, every replica tracks <script type="math/tex">t_{safe}</script> for the maximum at which the replica is up-to-date, which depends on the Paxos state machine and if there are prepared but not committed transactions. </li>
 </ul>
 <h2 id="rw-transactions">R/W Transactions</h2>
-<p><div class="highlight"><pre><span></span><code>BEGIN
+<p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>BEGIN
   x = x + 1
   y = y - 1
 END
 </code></pre></div>
+</td></tr></table>
 We don't want any read or write of x or y sneaking between our two ops. After commit, all reads should see our updates.</p>
 <h3 id="two-phase-commit-2pc-with-paxos-replicated-participants">Two-phase commit (2pc) with Paxos-replicated participants.</h3>
-<div class="highlight"><pre><span></span><code>Client picks a unique transaction id (TID).
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Client picks a unique transaction id (TID).
 Client sends each read to Paxos leader of relevant shard (2.1).
   Each shard first acquires a lock on the relevant record.
     May have to wait.
@@ -697,6 +790,7 @@ Each participant leader:
   Log the TC&#39;s decision via Paxos.
   Release the transaction&#39;s locks.
 </code></pre></div>
+</td></tr></table>
 <ul>
 <li>Locking (two-phase locking) ensures serializability.</li>
 <li>2pc widely hated b/c it blocks with locks held if TC fails.<ul>
