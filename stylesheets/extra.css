@@ -19,8 +19,11 @@
     margin-top: .5em;
 }
 
+
 .md-typeset {
-    font-size: 16px;
+    font-size: 15px;
+    font-family: Content-font, Roboto, sans-serif;
+    font-weight: 100;
     line-height: 1.625;
 }
 
@@ -29,19 +32,23 @@ p {
     margin-bottom: .5rem;
 }
 
-
+/* 
 body {
-    font-family : 'Content-font, Roboto, sans-serif'
-}
+    font-family : 'Content-font, Roboto, sans-serif';
+} */
 
-:root > * {
-  
-    /* Code block color shades */
-    --md-code-bg-color: hsla(0, 0%, 96%, 1);
-    --md-code-fg-color: hsla(200, 18%, 26%, 1);
-
+/* :root > * {
+    --md-code-bg-color: rgb(19, 38, 68);
+    --md-code-fg-color:  rgb(205, 217, 227);
 }
 
 .md-typeset a {
     color: red;
+} */
+
+code {
+    font-family: "Source Code Pro", Consolas, Menlo, Monaco, Courier, monospace;
 }
+
+
+h1 { border-bottom: 1px solid black }

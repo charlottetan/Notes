@@ -14,7 +14,7 @@
     
     
       
-        <title>hashtable - RKK1995's notes</title>
+        <title>basics - RKK1995's notes</title>
       
     
     
@@ -40,7 +40,7 @@
     
     
     
-      <link rel="stylesheet" href="../stylesheets/headingNumbers.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
     
       
@@ -92,7 +92,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              hashtable
+              basics
             
           </span>
         </div>
@@ -209,11 +209,25 @@
   
   
   
+    
+
+  
+  
+  
+    
+
+  
+  
+  
     <li class="md-tabs__item">
       <a href="hashtable.html" class="md-tabs__link md-tabs__link--active">
         System Design
       </a>
     </li>
+  
+
+  
+
   
 
       
@@ -604,6 +618,54 @@
     
   
   
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" checked>
+      
+      <label class="md-nav__link" for="__nav_3_1">
+        Concepts
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1_1" type="checkbox" id="__nav_3_1_1" checked>
+      
+      <label class="md-nav__link" for="__nav_3_1_1">
+        hashtable
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="hashtable" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          hashtable
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
@@ -611,9 +673,21 @@
       
       
       <a href="hashtable.html" class="md-nav__link md-nav__link--active">
-        hashtable
+        basics
       </a>
       
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -642,7 +716,7 @@
                 
                 
                 <h1 id="hash-table">Hash Table</h1>
-<h2 id="space-time-complexity">Space / Time Complexity</h2>
+<h3 id="space-time-complexity">Space / Time Complexity</h3>
 <table>
 <thead>
 <tr>
@@ -654,23 +728,31 @@
 <tbody>
 <tr>
 <td align="left">space</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
+<td align="left">O<script type="math/tex">n</script>
+</td>
+<td align="left">O<script type="math/tex">n</script>
+</td>
 </tr>
 <tr>
 <td align="left">insert</td>
-<td align="left">O(1)</td>
-<td align="left">O(n)</td>
+<td align="left">O<script type="math/tex">1</script>
+</td>
+<td align="left">O<script type="math/tex">n</script>
+</td>
 </tr>
 <tr>
 <td align="left">lookup</td>
-<td align="left">O(1)</td>
-<td align="left">O(n)</td>
+<td align="left">O<script type="math/tex">1</script>
+</td>
+<td align="left">O<script type="math/tex">n</script>
+</td>
 </tr>
 <tr>
 <td align="left">delete</td>
-<td align="left">O(1)</td>
-<td align="left">O(n)</td>
+<td align="left">O<script type="math/tex">1</script>
+</td>
+<td align="left">O<script type="math/tex">n</script>
+</td>
 </tr>
 </tbody>
 </table>
@@ -687,20 +769,27 @@
 <li><strong>Single-directional lookups</strong>. While you can look up the <em>value</em> for a given key in O<script type="math/tex">1</script> time, looking up the <em>keys</em> for a given <em>value</em> requires looping through the whole dataset—O<script type="math/tex">n</script> time.</li>
 <li><strong>Not cache-friendly</strong>. Many hash table implementations use <a href="https://www.interviewcake.com/concept/linked-list">linked lists</a>, which don't put data next to each other in memory.</li>
 </ul>
-<h2 id="in-python-27">In Python 2.7</h2>
+<h3 id="in-python-27">In Python 2.7</h3>
 <p>In Python 2.7, hash tables are called dictionaries.</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>light_bulb_to_hours_of_light = {
-  &#39;incandescent&#39;: 1200,
-  &#39;compact fluorescent&#39;: 10000,
-  &#39;LED&#39;: 50000,
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  light_bulb_to_hours_of_light = {
+    &#39;incandescent&#39;: 1200,
+    &#39;compact fluorescent&#39;: 10000,
+    &#39;LED&#39;: 50000,
 }
 </code></pre></div>
 </td></tr></table>
-<h2 id="hash-maps-are-built-on-arrays">Hash maps are built on arrays</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">Boolean</span> <span class="nf">valueOf</span><span class="p">(</span><span class="kt">boolean</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">b</span> <span class="o">?</span> <span class="n">Boolean</span><span class="p">.</span><span class="na">TRUE</span> <span class="p">:</span> <span class="n">Boolean</span><span class="p">.</span><span class="na">FALSE</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<h3 id="hash-maps-are-built-on-arrays">Hash maps are built on arrays</h3>
 <p><a href="https://www.interviewcake.com/concept/array">Arrays</a> are pretty similar to hash maps already. Arrays let you quickly look up the value for a given "key" . . . except the keys are called "indices," and we don't get to pick them—they're always sequential integers <script type="math/tex">0, 1, 2, 3, etc</script>.</p>
 <p>Think of a hash map as a "hack" on top of an array to let us use flexible keys instead of being stuck with sequential integer "indices."</p>
 <p>All we need is a function to convert a key into an array index <script type="math/tex">an integer</script>. That function is called a <a href="https://www.interviewcake.com/concept/hashing"><strong>hashing function</strong></a>.<img alt="A blank array except for a 20, labeled as the value, stored at index 9. To the left the array is the word &quot;lies,&quot; labeled as the key, with an arrow pointing to the right at diamond with a question mark in the middle, labeled as the hashing function. The diamond points to the 9th index of the array." src="https://www.interviewcake.com/images/svgs/cs_for_hackers__hash_tables_lies_key_labeled.svg?bust=204" /></p>
@@ -709,17 +798,17 @@
 <p>Grab the number value for each character and add those up.<img alt="The word &quot;lies&quot; in quotes. Arrows point from each character down to their corresponding number values, which are separated by plus signs and shown in sum to equal 429." src="https://www.interviewcake.com/images/svgs/cs_for_hackers__hash_tables_lies_chars.svg?bust=204" /></p>
 <p>The result is 429. But what if we only have <em>30</em> slots in our array? We'll use a common trick for forcing a number into a specific range: the <a href="https://www.interviewcake.com/concept/modulus">modulus operator <script type="math/tex">%</script>.</a> Modding our sum by 30 ensures we get a whole number that's less than 30 <script type="math/tex">and at least 0</script>:429 \: \% \: 30 = 9429%30=9</p>
 <p>The hashing functions used in modern systems get pretty complicated—the one we used here is a simplified example.</p>
-<h2 id="hash-collisions">Hash collisions</h2>
+<h3 id="hash-collisions">Hash collisions</h3>
 <p>What if two keys hash to the same index in our array? In our example above, look at "lies" and "foes":<img alt="The word &quot;lies&quot; in quotes and the word &quot;foes&quot; in quotes. Arrows point from the characters of each word to their corresponding number values. The sum of the characters of both words is shown to equal 429." src="https://www.interviewcake.com/images/svgs/cs_for_hackers__hash_tables_lies_and_foes_addition.svg?bust=204" /></p>
 <p>They both sum up to 429! So of course they'll have the same answer when we mod by 30:429 \: \% \: 30 = 9429%30=9</p>
 <p>This is called a <strong>hash collision</strong>. There are a few different strategies for dealing with them.</p>
 <p>Here's a common one: instead of storing the actual values in our array, let's have each array slot hold a <em>pointer</em> to a <a href="https://www.interviewcake.com/concept/linked-list"><em>linked list</em></a> holding the values for all the keys that hash to that index:<img alt="An array storing pointers. The pointer at index 9 has an arrow pointing to a linked list to the right of the array. Each linked list node now stores the word as well as its count and a pointer." src="https://www.interviewcake.com/images/svgs/cs_for_hackers__hash_tables_hash_collision_key_val.svg?bust=204" /></p>
 <p>Notice that we included the <em>keys</em> as well as the values in each linked list node. Otherwise we wouldn't know which key was for which value!</p>
 <p>There are other ways to deal with hash collisions. This is just one of them.</p>
-<h2 id="when-hash-table-operations-cost-on-time">When hash table operations cost O<script type="math/tex">n</script> time <a id="when-lookups-cost-o-n"></a></h2>
-<h3 id="hash-collisions_1">Hash collisions</h3>
+<h3 id="when-hash-table-operations-cost-on-time">When hash table operations cost O<script type="math/tex">n</script> time <a id="when-lookups-cost-o-n"></a></h3>
+<h4 id="hash-collisions_1">Hash collisions</h4>
 <p>If <em>all</em> our keys caused hash collisions, we'd be at risk of having to walk through all of our values for a single lookup <script type="math/tex">in the example above, we'd have one big linked list</script>. This is unlikely, but it <em>could</em> happen. That's the worst case.</p>
-<h3 id="dynamic-array-resizing">Dynamic array resizing</h3>
+<h4 id="dynamic-array-resizing">Dynamic array resizing</h4>
 <p>Suppose we keep adding more items to our hash map. As the number of keys and values in our hash map exceeds the number of indices in the underlying array, hash collisions become inevitable.</p>
 <p>To mitigate this, we could expand our underlying array whenever things start to get crowded. That requires allocating a larger array and rehashing all of our existing keys to figure out their new position—O<script type="math/tex">n</script> time.</p>
 <h3 id="sets">Sets</h3>
