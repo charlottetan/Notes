@@ -37,14 +37,14 @@ body {
     font-family : 'Content-font, Roboto, sans-serif';
 } */
 
-/* :root > * {
+:root > * {
     --md-code-bg-color: rgb(19, 38, 68);
     --md-code-fg-color:  rgb(205, 217, 227);
 }
 
 .md-typeset a {
     color: red;
-} */
+}
 
 code {
     font-family: "Source Code Pro", Consolas, Menlo, Monaco, Courier, monospace;
