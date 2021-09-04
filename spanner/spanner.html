@@ -42,6 +42,8 @@
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
+      <link rel="stylesheet" href="../stylesheets/headingNumbers.css">
+    
     
       
 
@@ -65,6 +67,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#spanner-googles-globally-distributed-database" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -435,10 +442,131 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          spanner
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="spanner.html" class="md-nav__link md-nav__link--active">
         spanner
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-organization" class="md-nav__link">
+    Basic Organization
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#replication" class="md-nav__link">
+    Replication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-benefit-of-shard-across-data-center" class="md-nav__link">
+    The benefit of shard across data center
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challenges" class="md-nav__link">
+    Challenges
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    System Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#truetime" class="md-nav__link">
+    TrueTime
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrency-control" class="md-nav__link">
+    Concurrency Control
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rw-transactions" class="md-nav__link">
+    R/W Transactions
+  </a>
+  
+    <nav class="md-nav" aria-label="R/W Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-phase-commit-2pc-with-paxos-replicated-participants" class="md-nav__link">
+    Two-phase commit (2pc) with Paxos-replicated participants.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ro-transactions" class="md-nav__link">
+    R/O Transactions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perspective" class="md-nav__link">
+    Perspective
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -704,6 +832,127 @@
                 </div>
               </div>
             
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-organization" class="md-nav__link">
+    Basic Organization
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#replication" class="md-nav__link">
+    Replication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-benefit-of-shard-across-data-center" class="md-nav__link">
+    The benefit of shard across data center
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challenges" class="md-nav__link">
+    Challenges
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    System Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#truetime" class="md-nav__link">
+    TrueTime
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrency-control" class="md-nav__link">
+    Concurrency Control
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rw-transactions" class="md-nav__link">
+    R/W Transactions
+  </a>
+  
+    <nav class="md-nav" aria-label="R/W Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-phase-commit-2pc-with-paxos-replicated-participants" class="md-nav__link">
+    Two-phase commit (2pc) with Paxos-replicated participants.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ro-transactions" class="md-nav__link">
+    R/O Transactions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perspective" class="md-nav__link">
+    Perspective
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
             
           
           <div class="md-content" data-md-component="content">

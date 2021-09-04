@@ -42,6 +42,8 @@
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
+      <link rel="stylesheet" href="../stylesheets/headingNumbers.css">
+    
     
       
 
@@ -65,6 +67,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#hash-table" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -671,10 +678,77 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          basics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="hashtable.html" class="md-nav__link md-nav__link--active">
         basics
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#space-time-complexity" class="md-nav__link">
+    Space / Time Complexity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-python-27" class="md-nav__link">
+    In Python 2.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash-maps-are-built-on-arrays" class="md-nav__link">
+    Hash maps are built on arrays
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash-collisions" class="md-nav__link">
+    Hash collisions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-hash-table-operations-cost-on-time" class="md-nav__link">
+    When hash table operations cost On time 
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sets" class="md-nav__link">
+    Sets
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -705,6 +779,73 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#space-time-complexity" class="md-nav__link">
+    Space / Time Complexity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-python-27" class="md-nav__link">
+    In Python 2.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash-maps-are-built-on-arrays" class="md-nav__link">
+    Hash maps are built on arrays
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash-collisions" class="md-nav__link">
+    Hash collisions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-hash-table-operations-cost-on-time" class="md-nav__link">
+    When hash table operations cost On time 
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sets" class="md-nav__link">
+    Sets
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -716,6 +857,59 @@
                 
                 
                 <h1 id="hash-table">Hash Table</h1>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">RandomizedSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nums</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="c1"># get val index in list</span>
+            <span class="n">last</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># get the last addition</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nums</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">last</span> <span class="c1"># overwrite val index with last addition</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="n">last</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span> <span class="c1"># update the last addition&#39;s index to it&#39;s new spot</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nums</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="c1"># get rid of the last addition from it&#39;s original spot...it now has a new home elsewhere</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="c1"># original line was &quot;self.pos.pop(val, 0)&quot;. we don&#39;t need pop-or-default semantics here, del will work</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+    <span class="k">def</span> <span class="nf">getRandom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nums</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
 <h3 id="space-time-complexity">Space / Time Complexity</h3>
 <table>
 <thead>
@@ -787,6 +981,79 @@
 <span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">Boolean</span> <span class="nf">valueOf</span><span class="p">(</span><span class="kt">boolean</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="n">b</span> <span class="o">?</span> <span class="n">Boolean</span><span class="p">.</span><span class="na">TRUE</span> <span class="p">:</span> <span class="n">Boolean</span><span class="p">.</span><span class="na">FALSE</span><span class="p">;</span>
 <span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">#counter</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">c</span> <span class="o">+</span> <span class="n">d</span> <span class="c1">#combines two counters together</span>
+
+<span class="n">c</span> <span class="o">-</span> <span class="n">d</span>  <span class="c1">#subtracts and keeps only postiive counts</span>
+
+<span class="n">c</span> <span class="o">&amp;</span> <span class="n">d</span> <span class="c1">#intersection, gives a=1 b=1</span>
+
+<span class="n">c</span> <span class="o">|</span> <span class="n">d</span> <span class="c1">#union, gives a=3,b=2</span>
+
+
+<span class="c1">#set operations</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">x</span> <span class="ow">in</span> <span class="n">s</span>
+<span class="n">s</span> <span class="o">&lt;=</span> <span class="n">t</span> <span class="c1">#is s a subset of t</span>
+<span class="n">s</span> <span class="o">-</span> <span class="n">t</span> <span class="c1">#slements in s that are not in t</span>
+
+<span class="c1">#python has a built in hash function</span>
+<span class="nb">hash</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1">#OrderedDict keeps order of when element was added</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">([</span><span class="n">items</span><span class="p">])</span>
+<span class="n">c</span><span class="o">.</span><span class="n">popitem</span><span class="p">(</span><span class="n">last</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#last=True by default. LIFO if last = true, FIFO if last = False</span>
+<span class="n">c</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="n">pops</span> <span class="n">the</span> <span class="n">item</span> <span class="n">specified</span> 
+<span class="c1">#can implement LRU cache by .pop(item) and reinserting into ordereddict.</span>
+<span class="c1">#when LRU is full do .popitem(last = False)</span>
+
+
+<span class="c1">#defaultdict</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="nb">str</span><span class="p">,</span><span class="nb">list</span><span class="p">,</span><span class="nb">set</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">c</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">c</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 </code></pre></div>
 </td></tr></table></p>
 <h3 id="hash-maps-are-built-on-arrays">Hash maps are built on arrays</h3>

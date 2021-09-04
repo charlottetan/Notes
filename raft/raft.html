@@ -42,6 +42,8 @@
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
+      <link rel="stylesheet" href="../stylesheets/headingNumbers.css">
+    
     
       
 
@@ -65,6 +67,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#raft-in-search-of-an-understandable-consensus-algorithm" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -561,10 +568,137 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          raft
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="raft.html" class="md-nav__link md-nav__link--active">
         raft
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#raft-basics" class="md-nav__link">
+    Raft Basics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-leader-election" class="md-nav__link">
+    1. Leader Election
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-log-replication" class="md-nav__link">
+    2. Log Replication
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Log Replication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-steps" class="md-nav__link">
+    I. Steps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-commit" class="md-nav__link">
+    II. Commit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-inconsistency-handling" class="md-nav__link">
+    III. Inconsistency Handling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-safety" class="md-nav__link">
+    3. Safety
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Safety">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-election-restriction" class="md-nav__link">
+    I. Election Restriction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-committing-entries-from-previous-terms" class="md-nav__link">
+    II. Committing entries from previous terms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-compaction" class="md-nav__link">
+    Log Compaction
+  </a>
+  
+    <nav class="md-nav" aria-label="Log Compaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installsnapshot-rpc" class="md-nav__link">
+    InstallSnapshot RPC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -704,6 +838,133 @@
                 </div>
               </div>
             
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#raft-basics" class="md-nav__link">
+    Raft Basics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-leader-election" class="md-nav__link">
+    1. Leader Election
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-log-replication" class="md-nav__link">
+    2. Log Replication
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Log Replication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-steps" class="md-nav__link">
+    I. Steps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-commit" class="md-nav__link">
+    II. Commit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-inconsistency-handling" class="md-nav__link">
+    III. Inconsistency Handling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-safety" class="md-nav__link">
+    3. Safety
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Safety">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-election-restriction" class="md-nav__link">
+    I. Election Restriction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-committing-entries-from-previous-terms" class="md-nav__link">
+    II. Committing entries from previous terms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-compaction" class="md-nav__link">
+    Log Compaction
+  </a>
+  
+    <nav class="md-nav" aria-label="Log Compaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installsnapshot-rpc" class="md-nav__link">
+    InstallSnapshot RPC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
             
           
           <div class="md-content" data-md-component="content">
