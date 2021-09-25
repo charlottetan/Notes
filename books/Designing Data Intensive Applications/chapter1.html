@@ -1,0 +1,1148 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
+    
+    
+      
+        <title>1. Reliable, scalable, and maintainable applications - RKK1995's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+          
+          
+          <meta name="theme-color" content="">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:""}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra2.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/headingNumbers.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="dark-blue" data-md-color-accent="red">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-reliable-scalable-and-maintainable-applications" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="RKK1995&#39;s notes" class="md-header__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RKK1995's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Reliable, scalable, and maintainable applications
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rkk1995/Notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../index.html" class="md-tabs__link">
+      About the Site
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/Storage/aurora.html" class="md-tabs__link">
+        Papers
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="chapter1.html" class="md-tabs__link md-tabs__link--active">
+        Books
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="RKK1995&#39;s notes" class="md-nav__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    RKK1995's notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rkk1995/Notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        About the Site
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Papers
+        
+      </label>
+      <nav class="md-nav" aria-label="Papers" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Papers
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Storage
+        
+      </label>
+      <nav class="md-nav" aria-label="Storage" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Storage
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/aurora.html" class="md-nav__link">
+        Aurora
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/craq.html" class="md-nav__link">
+        CRAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/dynamo.html" class="md-nav__link">
+        Dynamo
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/farm.html" class="md-nav__link">
+        FaRM
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/frangipani.html" class="md-nav__link">
+        Frangipani
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/gfs.html" class="md-nav__link">
+        GFS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/memcache.html" class="md-nav__link">
+        Memcache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/spanner.html" class="md-nav__link">
+        Spanner
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/tao.html" class="md-nav__link">
+        TAO
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Compute
+        
+      </label>
+      <nav class="md-nav" aria-label="Compute" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Compute
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Compute/distributedTransactions.html" class="md-nav__link">
+        Distributed Transactions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Compute/mapreduce.html" class="md-nav__link">
+        MapReduce
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Cluster Management
+        
+      </label>
+      <nav class="md-nav" aria-label="Cluster Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Cluster Management
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Cluster%20Management/raft.html" class="md-nav__link">
+        Raft
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Cluster%20Management/zookeeper.html" class="md-nav__link">
+        ZooKeeper
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Books
+        
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Books
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" checked>
+      
+      <label class="md-nav__link" for="__nav_3_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Designing Data Intensive Applications
+        
+      </label>
+      <nav class="md-nav" aria-label="Designing Data Intensive Applications" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Designing Data Intensive Applications
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="chapter1.html" class="md-nav__link md-nav__link--active"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            1. Reliable, scalable, and maintainable applications
+          </a>
+        </label>
+      
+      <a href="chapter1.html" class="md-nav__link md-nav__link--active">
+        1. Reliable, scalable, and maintainable applications
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reliability" class="md-nav__link">
+    Reliability
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    Scalability
+  </a>
+  
+    <nav class="md-nav" aria-label="Scalability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#twitter-example" class="md-nav__link">
+    Twitter example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describing-performance" class="md-nav__link">
+    Describing Performance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approaches-for-coping-with-load" class="md-nav__link">
+    Approaches for coping with load
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintainability" class="md-nav__link">
+    Maintainability
+  </a>
+  
+    <nav class="md-nav" aria-label="Maintainability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operability-making-life-easy-for-operations" class="md-nav__link">
+    Operability: making life easy for operations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simplicity-managing-complexity" class="md-nav__link">
+    Simplicity: managing complexity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evolvability-making-change-easy" class="md-nav__link">
+    Evolvability: making change easy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter2.html" class="md-nav__link">
+        2. Data Models and Query Languages
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter3.html" class="md-nav__link">
+        3. Storage and retrieval
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter4.html" class="md-nav__link">
+        4. Encoding and evolution
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter5.html" class="md-nav__link">
+        5. Replication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter6.html" class="md-nav__link">
+        6. Partitioning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter7.html" class="md-nav__link">
+        7. Transactions
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reliability" class="md-nav__link">
+    Reliability
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    Scalability
+  </a>
+  
+    <nav class="md-nav" aria-label="Scalability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#twitter-example" class="md-nav__link">
+    Twitter example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describing-performance" class="md-nav__link">
+    Describing Performance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approaches-for-coping-with-load" class="md-nav__link">
+    Approaches for coping with load
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintainability" class="md-nav__link">
+    Maintainability
+  </a>
+  
+    <nav class="md-nav" aria-label="Maintainability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operability-making-life-easy-for-operations" class="md-nav__link">
+    Operability: making life easy for operations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simplicity-managing-complexity" class="md-nav__link">
+    Simplicity: managing complexity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evolvability-making-change-easy" class="md-nav__link">
+    Evolvability: making change easy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/books/Designing Data Intensive Applications/chapter1.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="1-reliable-scalable-and-maintainable-applications">1. Reliable, scalable, and maintainable applications</h1>
+<p>A data-intensive application is typically built from standard building blocks. They usually need to:</p>
+<ul>
+<li>Store data (<em>databases</em>)</li>
+<li>Speed up reads (<em>caches</em>)</li>
+<li>Search data (<em>search indexes</em>)</li>
+<li>Send a message to another process asynchronously (<em>stream processing</em>)</li>
+<li>Periodically crunch data (<em>batch processing</em>)</li>
+</ul>
+<dl>
+<dt>Reliability</dt>
+<dd>To work <em>correctly</em> even in the face of <em>adversity</em>.</dd>
+<dt>Scalability</dt>
+<dd>Reasonable ways of dealing with growth.</dd>
+<dt>Maintainability</dt>
+<dd>Be able to work on it <em>productively</em>.</dd>
+</dl>
+<h2 id="reliability">Reliability</h2>
+<p>Typical expectations:</p>
+<ul>
+<li>Application performs the function the user expected</li>
+<li>Tolerate the user making mistakes</li>
+<li>Its performance is good</li>
+<li>The system prevents abuse</li>
+</ul>
+<p>Systems that anticipate faults and can cope with them are called <em>fault-tolerant</em> or <em>resilient</em>.</p>
+<p><strong>A fault is usually defined as one component of the system deviating from its spec</strong>, whereas <em>failure</em> is when the system as a whole stops providing the required service to the user.</p>
+<p>You should generally <strong>prefer tolerating faults over preventing faults</strong>.</p>
+<ul>
+<li><strong>Hardware faults</strong>. Until recently redundancy of hardware components was sufficient for most applications. As data volumes increase, more applications use a larger number of machines, proportionally increasing the rate of hardware faults. <strong>There is a move towards systems that tolerate the loss of entire machines</strong>. A system that tolerates machine failure can be patched one node at a time, without downtime of the entire system (<em>rolling upgrade</em>).</li>
+<li><strong>Software errors</strong>. It is unlikely that a large number of hardware components will fail at the same time. Software errors are a systematic error within the system, they tend to cause many more system failures than uncorrelated hardware faults.<ul>
+<li>Cascading failures, where a small fault in one component triggers a fault in another component, which in turn triggers further faults</li>
+</ul>
+</li>
+<li><strong>Human errors</strong>. Humans are known to be unreliable. Configuration errors by operators are a leading cause of outages. You can make systems more reliable:<ul>
+<li>Minimising the opportunities for error: with admin interfaces that make easy to do the "right thing" and discourage the "wrong thing".</li>
+<li>Provide fully featured non-production <em>sandbox</em> environments where people can explore and experiment safely.</li>
+<li>Automated testing. Detailed and clear monitoring / metrics.</li>
+</ul>
+</li>
+</ul>
+<h2 id="scalability">Scalability</h2>
+<p>This is how do we cope with increased load. We need to succinctly describe the current load on the system; only then we can discuss growth questions.</p>
+<h3 id="twitter-example">Twitter example</h3>
+<p>Twitter main operations</p>
+<ul>
+<li>Post tweet: a user can publish a new message to their followers (4.6k req/sec, over 12k req/sec peak)</li>
+<li>Home timeline: a user can view tweets posted by the people they follow (300k req/sec)</li>
+</ul>
+<p>Two ways of implementing those operations:</p>
+<ol>
+<li>Posting a tweet simply inserts the new tweet into a global collection of tweets. When a user requests their home timeline, look up all the people they follow, find all the tweets for those users, and merge them (sorted by time). This could be done with a SQL <code>JOIN</code>.</li>
+<li>Maintain a cache for each user's home timeline. When a user <em>posts a tweet</em>, look up all the people who follow that user, and insert the new tweet into each of their home timeline caches.</li>
+</ol>
+<p>Approach 1, systems struggle to keep up with the load of home timeline queries. So the company switched to approach 2. The average rate of published tweets is almost two orders of magnitude lower than the rate of home timeline reads.</p>
+<p>Downside of approach 2 is that posting a tweet now requires a lot of extra work. Some users have over 30 million followers. A single tweet may result in over 30 million writes to home timelines.</p>
+<p>Twitter moved to an hybrid of both approaches. Tweets continue to be fanned out to home timelines but a small number of users with a very large number of followers are fetched separately and merged with that user's home timeline when it is read, like in approach 1.</p>
+<h3 id="describing-performance">Describing Performance</h3>
+<p>What happens when the load increases:</p>
+<ul>
+<li>How is the performance affected?</li>
+<li>How much do you need to increase your resources?</li>
+</ul>
+<p>In a batch processing system such as Hadoop, we usually care about <em>throughput</em>, or the number of records we can process per second.</p>
+<dl>
+<dt>Throughput</dt>
+<dd>The number of records we can process per second</dd>
+<dt>Response time</dt>
+<dd>Duration until a client receives a response.</dd>
+<dt>Latency</dt>
+<dd>Duration that a request is waiting to be handled.</dd>
+</dl>
+<p>It's common to see the <em>average</em> response time of a service reported. However, the mean is not very good metric if you want to know your "typical" response time, it does not tell you how many users actually experienced that delay.</p>
+<p><strong>Better to use percentiles.</strong></p>
+<ul>
+<li><em>Median</em> (<em>50th percentile</em> or <em>p50</em>). Half of user requests are served in less than the median response time, and the other half take longer than the median</li>
+<li>Percentiles <em>95th</em>, <em>99th</em> and <em>99.9th</em> (<em>p95</em>, <em>p99</em> and <em>p999</em>) are good to figure out how bad your outliners are.</li>
+</ul>
+<p>Amazon describes response time requirements for internal services in terms of the 99.9th percentile because the customers with the slowest requests are often those who have the most data. The most valuable customers.</p>
+<p>On the other hand, optimising for the 99.99th percentile would be too expensive.</p>
+<p><em>Service level objectives</em> (SLOs) and <em>service level agreements</em> (SLAs) are contracts that define the expected performance and availability of a service.
+An SLA may state the median response time to be less than 200ms and a 99th percentile under 1s. <strong>These metrics set expectations for clients of the service and allow customers to demand a refund if the SLA is not met.</strong></p>
+<p>Queueing delays often account for large part of the response times at high percentiles. <strong>It is important to measure times on the client side.</strong></p>
+<p>When generating load artificially, the client needs to keep sending requests independently of the response time.</p>
+<p>In practice, if there are calls in parallel, the end-user request still needs to wait for the slowest of the parallel calls to complete. The chance of getting a slow call increases if an end-user request requires multiple backend calls.</p>
+<h3 id="approaches-for-coping-with-load">Approaches for coping with load</h3>
+<ul>
+<li><em>Scaling up</em> or <em>vertical scaling</em>: Moving to a more powerful machine</li>
+<li><em>Scaling out</em> or <em>horizontal scaling</em>: Distributing the load across multiple smaller machines.</li>
+<li><em>Elastic</em> systems: Automatically add computing resources when detected load increase. Quite useful if load is unpredictable.</li>
+</ul>
+<p>Distributing stateless services across multiple machines is fairly straightforward. Taking stateful data systems from a single node to a distributed setup can introduce a lot of complexity. Until recently it was common wisdom to keep your database on a single node.</p>
+<h2 id="maintainability">Maintainability</h2>
+<p>The majority of the cost of software is in its ongoing maintenance. There are three design principles for software systems:</p>
+<dl>
+<dt>Operability</dt>
+<dd>Make it easy for operation teams to keep the system running.</dd>
+<dt>Simplicity</dt>
+<dd>Easy for new engineers to understand the system by removing as much complexity as possible.</dd>
+<dt>Evolvability</dt>
+<dd>Make it easy for engineers to make changes to the system in the future.</dd>
+</dl>
+<h3 id="operability-making-life-easy-for-operations">Operability: making life easy for operations</h3>
+<p>A good operations team is responsible for</p>
+<ul>
+<li>Monitoring and quickly restoring service if it goes into bad state</li>
+<li>Tracking down the cause of problems</li>
+<li>Keeping software and platforms up to date</li>
+<li>Keeping tabs on how different systems affect each other</li>
+<li>Anticipating future problems</li>
+<li>Establishing good practices and tools for development</li>
+<li>Perform complex maintenance tasks, like platform migration</li>
+<li>Maintaining the security of the system</li>
+<li>Defining processes that make operations predictable</li>
+<li>Preserving the organisation's knowledge about the system</li>
+</ul>
+<p><strong>Good operability means making routine tasks easy.</strong></p>
+<h3 id="simplicity-managing-complexity">Simplicity: managing complexity</h3>
+<p>When complexity makes maintenance hard, budget and schedules are often overrun. There is a greater risk of introducing bugs.</p>
+<p>Making a system simpler means removing <em>accidental</em> complexity, as non inherent in the problem that the software solves (as seen by users).</p>
+<p>One of the best tools we have for removing accidental complexity is <em>abstraction</em> that hides the implementation details behind clean and simple to understand APIs and facades.</p>
+<h3 id="evolvability-making-change-easy">Evolvability: making change easy</h3>
+<p><em>Agile</em> working patterns provide a framework for adapting to change.</p>
+<hr />
+<dl>
+<dt>Functional requirements</dt>
+<dd>What the application should do</dd>
+<dt>Nonfunctional requirements</dt>
+<dd>General properties like security, reliability, compliance, scalability, compatibility and maintainability.</dd>
+</dl>
+<hr />
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../papers/Cluster%20Management/zookeeper.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: ZooKeeper" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              ZooKeeper
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="chapter2.html" class="md-footer__link md-footer__link--next" aria-label="Next: 2. Data Models and Query Languages" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              2. Data Models and Query Languages
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="mailto:theravindu@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link", "navigation.instant", "navigation.tabs", "navigation.tracking", "navigation.top", "search.highlight", "search.share", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.82b56eb2.min.js"></script>
+      
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+    
+  </body>
+</html>

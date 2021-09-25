@@ -42,6 +42,8 @@
     
       <link rel="stylesheet" href="/stylesheets/extra.css">
     
+      <link rel="stylesheet" href="/stylesheets/extra2.css">
+    
       <link rel="stylesheet" href="/stylesheets/headingNumbers.css">
     
     
@@ -58,7 +60,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="dark-grey" data-md-color-accent="red">
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="dark-blue" data-md-color-accent="red">
   
     
     <script>function __prefix(e){return new URL("/",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
@@ -103,36 +105,6 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header__source">
         
@@ -166,7 +138,7 @@
 
   <li class="md-tabs__item">
     <a href="/index.html" class="md-tabs__link">
-      Home
+      About the Site
     </a>
   </li>
 
@@ -184,18 +156,11 @@
   
   
   
-    
-
-  
-  
-  
     <li class="md-tabs__item">
-      <a href="/aurora/aurora.html" class="md-tabs__link">
+      <a href="/papers/Storage/aurora.html" class="md-tabs__link">
         Papers
       </a>
     </li>
-  
-
   
 
   
@@ -214,18 +179,11 @@
   
   
   
-    
-
-  
-  
-  
     <li class="md-tabs__item">
-      <a href="/hashtable/hashtable.html" class="md-tabs__link">
-        System Design
+      <a href="/books/Designing%20Data%20Intensive%20Applications/chapter1.html" class="md-tabs__link">
+        Books
       </a>
     </li>
-  
-
   
 
   
@@ -284,7 +242,7 @@
   
     <li class="md-nav__item">
       <a href="/index.html" class="md-nav__link">
-        Home
+        About the Site
       </a>
     </li>
   
@@ -304,13 +262,17 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       <label class="md-nav__link" for="__nav_2">
-        Papers
         <span class="md-nav__icon md-icon"></span>
+        
+          Papers
+        
       </label>
       <nav class="md-nav" aria-label="Papers" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
-          Papers
+          
+            Papers
+          
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -319,42 +281,23 @@
   
   
     
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
       
       <label class="md-nav__link" for="__nav_2_1">
-        Infrastructure
         <span class="md-nav__icon md-icon"></span>
+        
+          Storage
+        
       </label>
-      <nav class="md-nav" aria-label="Infrastructure" data-md-level="2">
+      <nav class="md-nav" aria-label="Storage" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_1">
           <span class="md-nav__icon md-icon"></span>
-          Infrastructure
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
           
-            
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
-      
-      <label class="md-nav__link" for="__nav_2_1_1">
-        Storage
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Storage" data-md-level="3">
-        <label class="md-nav__title" for="__nav_2_1_1">
-          <span class="md-nav__icon md-icon"></span>
-          Storage
+            Storage
+          
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -363,8 +306,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/aurora/aurora.html" class="md-nav__link">
-        aurora
+      <a href="/papers/Storage/aurora.html" class="md-nav__link">
+        Aurora
       </a>
     </li>
   
@@ -375,8 +318,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/gfs/gfs.html" class="md-nav__link">
-        gfs
+      <a href="/papers/Storage/craq.html" class="md-nav__link">
+        CRAQ
       </a>
     </li>
   
@@ -387,8 +330,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/tao/tao.html" class="md-nav__link">
-        tao
+      <a href="/papers/Storage/dynamo.html" class="md-nav__link">
+        Dynamo
       </a>
     </li>
   
@@ -399,8 +342,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/craq/craq.html" class="md-nav__link">
-        craq
+      <a href="/papers/Storage/farm.html" class="md-nav__link">
+        FaRM
       </a>
     </li>
   
@@ -411,8 +354,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/frangipani/frangipani.html" class="md-nav__link">
-        frangipani
+      <a href="/papers/Storage/frangipani.html" class="md-nav__link">
+        Frangipani
       </a>
     </li>
   
@@ -423,8 +366,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/spanner/spanner.html" class="md-nav__link">
-        spanner
+      <a href="/papers/Storage/gfs.html" class="md-nav__link">
+        GFS
       </a>
     </li>
   
@@ -435,8 +378,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/farm/farm.html" class="md-nav__link">
-        farm
+      <a href="/papers/Storage/memcache.html" class="md-nav__link">
+        Memcache
       </a>
     </li>
   
@@ -447,8 +390,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/memcache/memcache.html" class="md-nav__link">
-        memcached
+      <a href="/papers/Storage/spanner.html" class="md-nav__link">
+        Spanner
       </a>
     </li>
   
@@ -459,8 +402,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/dynamo/dynamo.html" class="md-nav__link">
-        dynamo
+      <a href="/papers/Storage/tao.html" class="md-nav__link">
+        TAO
       </a>
     </li>
   
@@ -480,16 +423,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
       
-      <label class="md-nav__link" for="__nav_2_1_2">
-        Compute
+      <label class="md-nav__link" for="__nav_2_2">
         <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Compute" data-md-level="3">
-        <label class="md-nav__title" for="__nav_2_1_2">
-          <span class="md-nav__icon md-icon"></span>
+        
           Compute
+        
+      </label>
+      <nav class="md-nav" aria-label="Compute" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Compute
+          
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -498,8 +445,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/mapreduce/mapreduce.html" class="md-nav__link">
-        mapreduce
+      <a href="/papers/Compute/distributedTransactions.html" class="md-nav__link">
+        Distributed Transactions
       </a>
     </li>
   
@@ -510,8 +457,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/distributedTransactions/distributedTransactions.html" class="md-nav__link">
-        distributed transactions
+      <a href="/papers/Compute/mapreduce.html" class="md-nav__link">
+        MapReduce
       </a>
     </li>
   
@@ -531,16 +478,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
       
-      <label class="md-nav__link" for="__nav_2_1_3">
-        Cluster Management
+      <label class="md-nav__link" for="__nav_2_3">
         <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Cluster Management" data-md-level="3">
-        <label class="md-nav__title" for="__nav_2_1_3">
-          <span class="md-nav__icon md-icon"></span>
+        
           Cluster Management
+        
+      </label>
+      <nav class="md-nav" aria-label="Cluster Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Cluster Management
+          
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -549,8 +500,8 @@
   
   
     <li class="md-nav__item">
-      <a href="/raft/raft.html" class="md-nav__link">
-        raft
+      <a href="/papers/Cluster%20Management/raft.html" class="md-nav__link">
+        Raft
       </a>
     </li>
   
@@ -561,15 +512,9 @@
   
   
     <li class="md-nav__item">
-      <a href="/zookeeper/zookeeper.html" class="md-nav__link">
-        zookeeper
+      <a href="/papers/Cluster%20Management/zookeeper.html" class="md-nav__link">
+        ZooKeeper
       </a>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -600,36 +545,17 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       <label class="md-nav__link" for="__nav_3">
-        System Design
         <span class="md-nav__icon md-icon"></span>
+        
+          Books
+        
       </label>
-      <nav class="md-nav" aria-label="System Design" data-md-level="1">
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          System Design
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
           
-            
-  
-  
-  
-    
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
-      
-      <label class="md-nav__link" for="__nav_3_1">
-        Concepts
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Concepts" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_1">
-          <span class="md-nav__icon md-icon"></span>
-          Concepts
+            Books
+          
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -641,16 +567,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1_1" type="checkbox" id="__nav_3_1_1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
       
-      <label class="md-nav__link" for="__nav_3_1_1">
-        hashtable
+      <label class="md-nav__link" for="__nav_3_1">
         <span class="md-nav__icon md-icon"></span>
+        
+          Designing Data Intensive Applications
+        
       </label>
-      <nav class="md-nav" aria-label="hashtable" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_1_1">
+      <nav class="md-nav" aria-label="Designing Data Intensive Applications" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
           <span class="md-nav__icon md-icon"></span>
-          hashtable
+          
+            Designing Data Intensive Applications
+          
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -659,15 +589,81 @@
   
   
     <li class="md-nav__item">
-      <a href="/hashtable/hashtable.html" class="md-nav__link">
-        basics
+      <a href="/books/Designing%20Data%20Intensive%20Applications/chapter1.html" class="md-nav__link">
+        1. Reliable, scalable, and maintainable applications
       </a>
     </li>
   
 
           
-        </ul>
-      </nav>
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/books/Designing%20Data%20Intensive%20Applications/chapter2.html" class="md-nav__link">
+        2. Data Models and Query Languages
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/books/Designing%20Data%20Intensive%20Applications/chapter3.html" class="md-nav__link">
+        3. Storage and retrieval
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/books/Designing%20Data%20Intensive%20Applications/chapter4.html" class="md-nav__link">
+        4. Encoding and evolution
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/books/Designing%20Data%20Intensive%20Applications/chapter5.html" class="md-nav__link">
+        5. Replication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/books/Designing%20Data%20Intensive%20Applications/chapter6.html" class="md-nav__link">
+        6. Partitioning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/books/Designing%20Data%20Intensive%20Applications/chapter7.html" class="md-nav__link">
+        7. Transactions
+      </a>
     </li>
   
 
@@ -726,15 +722,6 @@
     
       
       
-        
-        
-      
-      <a href="https://twitter.com/0xSasuke" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
-    
-      
-      
       <a href="mailto:theravindu@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
       </a>
@@ -749,7 +736,7 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "/", "features": ["content.tabs.link", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "/assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "/", "features": ["content.tabs.link", "navigation.instant", "navigation.tabs", "navigation.tracking", "navigation.top", "search.highlight", "search.share", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "/assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
       <script src="/assets/javascripts/bundle.82b56eb2.min.js"></script>

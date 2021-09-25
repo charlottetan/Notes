@@ -1,0 +1,1168 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
+    
+    
+      
+        <title>Memcache - RKK1995's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+          
+          
+          <meta name="theme-color" content="">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:""}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra2.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/headingNumbers.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="dark-blue" data-md-color-accent="red">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#memcache" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="RKK1995&#39;s notes" class="md-header__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RKK1995's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Memcache
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rkk1995/Notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../index.html" class="md-tabs__link">
+      About the Site
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="aurora.html" class="md-tabs__link md-tabs__link--active">
+        Papers
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter1.html" class="md-tabs__link">
+        Books
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="RKK1995&#39;s notes" class="md-nav__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    RKK1995's notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rkk1995/Notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        About the Site
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Papers
+        
+      </label>
+      <nav class="md-nav" aria-label="Papers" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Papers
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Storage
+        
+      </label>
+      <nav class="md-nav" aria-label="Storage" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Storage
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aurora.html" class="md-nav__link">
+        Aurora
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="craq.html" class="md-nav__link">
+        CRAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dynamo.html" class="md-nav__link">
+        Dynamo
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="farm.html" class="md-nav__link">
+        FaRM
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="frangipani.html" class="md-nav__link">
+        Frangipani
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gfs.html" class="md-nav__link">
+        GFS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="memcache.html" class="md-nav__link md-nav__link--active"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            Memcache
+          </a>
+        </label>
+      
+      <a href="memcache.html" class="md-nav__link md-nav__link--active">
+        Memcache
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#history-of-application-scaling" class="md-nav__link">
+    History of Application Scaling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-a-cluster-latency-and-load" class="md-nav__link">
+    In a Cluster: Latency and Load
+  </a>
+  
+    <nav class="md-nav" aria-label="In a Cluster: Latency and Load">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reducing-latency" class="md-nav__link">
+    Reducing Latency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reducing-load" class="md-nav__link">
+    Reducing Load
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-a-region-replication" class="md-nav__link">
+    In a Region: Replication
+  </a>
+  
+    <nav class="md-nav" aria-label="In a Region: Replication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-clusters" class="md-nav__link">
+    New Clusters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#across-regions-consistency" class="md-nav__link">
+    Across Regions: Consistency
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spanner.html" class="md-nav__link">
+        Spanner
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tao.html" class="md-nav__link">
+        TAO
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Compute
+        
+      </label>
+      <nav class="md-nav" aria-label="Compute" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Compute
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Compute/distributedTransactions.html" class="md-nav__link">
+        Distributed Transactions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Compute/mapreduce.html" class="md-nav__link">
+        MapReduce
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Cluster Management
+        
+      </label>
+      <nav class="md-nav" aria-label="Cluster Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Cluster Management
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cluster%20Management/raft.html" class="md-nav__link">
+        Raft
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cluster%20Management/zookeeper.html" class="md-nav__link">
+        ZooKeeper
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Books
+        
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Books
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      <label class="md-nav__link" for="__nav_3_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Designing Data Intensive Applications
+        
+      </label>
+      <nav class="md-nav" aria-label="Designing Data Intensive Applications" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Designing Data Intensive Applications
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter1.html" class="md-nav__link">
+        1. Reliable, scalable, and maintainable applications
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter2.html" class="md-nav__link">
+        2. Data Models and Query Languages
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter3.html" class="md-nav__link">
+        3. Storage and retrieval
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter4.html" class="md-nav__link">
+        4. Encoding and evolution
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter5.html" class="md-nav__link">
+        5. Replication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter6.html" class="md-nav__link">
+        6. Partitioning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter7.html" class="md-nav__link">
+        7. Transactions
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#history-of-application-scaling" class="md-nav__link">
+    History of Application Scaling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-a-cluster-latency-and-load" class="md-nav__link">
+    In a Cluster: Latency and Load
+  </a>
+  
+    <nav class="md-nav" aria-label="In a Cluster: Latency and Load">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reducing-latency" class="md-nav__link">
+    Reducing Latency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reducing-load" class="md-nav__link">
+    Reducing Load
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-a-region-replication" class="md-nav__link">
+    In a Region: Replication
+  </a>
+  
+    <nav class="md-nav" aria-label="In a Region: Replication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-clusters" class="md-nav__link">
+    New Clusters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#across-regions-consistency" class="md-nav__link">
+    Across Regions: Consistency
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/papers/Storage/memcache.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="memcache">Memcache</h1>
+<p><a href="http://nil.csail.mit.edu/6.824/2020/papers/memcache-fb.pdf">Scaling Memcache at Facebook</a></p>
+<p><em>How Facebook scaled a distributed key-value store that supports the world’s largest social network</em></p>
+<h2 id="history-of-application-scaling">History of Application Scaling</h2>
+<p>Typical story of evolution over time:</p>
+<ul>
+<li>Single machine w/ web server + application + DB<ul>
+<li>DB provides persistent storage, crash recovery, transactions, SQL</li>
+<li>application queries DB, formats HTML, &amp;c</li>
+<li>but: as load grows, application takes too much CPU time</li>
+</ul>
+</li>
+<li>Many web FEs, one shared DB<ul>
+<li>an easy change, since web server + app already separate from storage</li>
+<li>FEs are stateless, all sharing (and concurrency control) via DB stateless -&gt; any FE can serve any request, no harm from FE crash</li>
+<li>but: as load grows, need more FEs, soon single DB server is bottleneck</li>
+</ul>
+</li>
+<li>Many web FEs, data sharded over cluster of DBs<ul>
+<li>partition data by key over the DBs; app looks at key (e.g. user), chooses the right DB</li>
+<li>good DB parallelism if no data is super-popular</li>
+<li>painful -- cross-shard transactions and queries probably don't work
+  hard to partition too finely
+  but: DBs are slow, even for reads, why not cache read requests?</li>
+</ul>
+</li>
+<li>Many web FEs, many caches for reads, many DBs for writes<ul>
+<li>cost-effective b/c read-heavy and memcached 10x faster than a DB; memcached just an in-memory hash table, very simple</li>
+<li>complex b/c DB and memcacheds can get out of sync</li>
+<li>fragile b/c cache misses can easily overload the DB
+  (next bottleneck will be DB writes -- hard to solve)</li>
+</ul>
+</li>
+</ul>
+<p>Will partition or replication yield most mc throughput?</p>
+<ul>
+<li>partition: divide keys over mc servers</li>
+<li>replicate: divide clients over mc servers</li>
+<li>partition:<ul>
+<li>(+) more memory-efficient (one copy of each k/v)</li>
+<li>(+) works well if no key is very popular</li>
+<li>(-) each web server must talk to many mc servers (overhead)</li>
+</ul>
+</li>
+<li>replication:<ul>
+<li>(+) good if a few keys are very popular</li>
+<li>(+) fewer TCP connections</li>
+<li>(-)  less total data can be cached</li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p><img alt="overview" src="images/memcache/figure1.png" /></p>
+<ul>
+<li>FB uses mc as a "look-aside" cache</li>
+<li>application determines relationship of mc to DB mc doesn't know anything about DB</li>
+<li>important to read your own writes</li>
+</ul>
+<p><img alt="overview" src="images/memcache/figure2.png" /></p>
+<ul>
+<li>Q: what is the point of regions -- multiple complete replicas?<ul>
+<li>lower RTT to users (east coast, west coast)</li>
+<li>quick local reads, from local mc and DB (though writes are expensive: must be sent to primary)</li>
+<li>maybe hot replica for main site failure?  </li>
+</ul>
+</li>
+<li>Q: why not partition users over regions?<ul>
+<li>i.e. why not east-coast users' data in east-coast region, &amp;c</li>
+<li>then no need to replicate: might cut hardware costs in half!</li>
+<li>but: social net -&gt; not much locality; might work well for e.g. e-mail</li>
+</ul>
+</li>
+<li>Q: why OK performance despite all writes forced to go to the primary region?<ul>
+<li>writes are much rarer than reads</li>
+<li>perhaps 100ms to send write to primary, not so bad for human users</li>
+<li>users do not wait for all effects of writes to finish; i.e. for all stale cached values to be deleted</li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-cluster-latency-and-load">In a Cluster: Latency and Load</h2>
+<h3 id="reducing-latency">Reducing Latency</h3>
+<ul>
+<li>Items are distributed in mc through consistent hashing. Thus web servers have to communicate with many mc servers. N^2 (each web to each mc) (all to all pattern)</li>
+<li>Important practical networking problems:<ul>
+<li>N^2 TCP connections is too much state; thus UDP for client get()s</li>
+<li>UDP is not reliable or orderedl; thus TCP for client set()s and mcrouter to reduce n in n^2</li>
+</ul>
+</li>
+<li>single request per packet is not efficient (for TCP or UDP)<ul>
+<li>per-packet overhead (interrupt &amp;c) is too high</li>
+<li>thus mcrouter batches many requests into each packet</li>
+</ul>
+</li>
+</ul>
+<h3 id="reducing-load">Reducing Load</h3>
+<ul>
+<li>Leases to address two problems: stale sets and thundering herds</li>
+<li>MC gives a lease bound to a specific k to a client to set data back into the cache when the client experiences a cache miss</li>
+<li>Client provides the lease token when setting k in mc</li>
+<li>MC invalidates leases if it receives a delete request</li>
+<li>Thundering herds:<ul>
+<li>one client updates DB and delete()s a key</li>
+<li>lots of clients get() but miss<ul>
+<li>they all fetch from DB</li>
+<li>they all set()</li>
+</ul>
+</li>
+<li>not good: needless DB load</li>
+<li>mc gives just the first missing client a "lease"<ul>
+<li>lease = permission to refresh from DB</li>
+<li>mc tells others "try get() again in a few milliseconds"</li>
+</ul>
+</li>
+<li>effect: only one client reads the DB and does set()<ul>
+<li>others re-try get() later and hopefully hit</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-region-replication">In a Region: Replication</h2>
+<ul>
+<li>Why multiple clusters per region?<ul>
+<li>why not add more and more mc servers to a single cluster?</li>
+<li>(1) adding mc servers to cluster doesn't help single popular keys replicating (one copy per cluster) does help</li>
+<li>(2) more mcs in cluster -&gt; each client req talks to more servers and more in-cast congestion at requesting web servers client requests fetch 20 to 500 keys! over many mc servers MUST request them in parallel (otherwise total latency too large) so all replies come back at the same time network switches, NIC run out of buffers</li>
+<li>(3) hard to build network for single big cluster uniform client/server access so cross-section b/w must be large -- expensive two clusters -&gt; 1/2 the cross-section b/w</li>
+</ul>
+</li>
+<li>But replicating is a waste of RAM for less-popular items!<ul>
+<li>"regional pool" shared by all clusters</li>
+<li>unpopular objects (no need for many copies)</li>
+</ul>
+</li>
+</ul>
+<h3 id="new-clusters">New Clusters</h3>
+<ul>
+<li>Bringing up new mc cluster is a performance problem as new cluster has 0% hit rate. Clients that use it will generate a big spike in DB load. If originally 1% miss rate, adding new cluster will cause misses for 50% -&gt; 50x spike in DB load.</li>
+<li>thus the clients of new cluster first get() from existing cluster and set() into new cluster<ul>
+<li>basically lazy copy of existing cluster to new cluster</li>
+</ul>
+</li>
+</ul>
+<h2 id="across-regions-consistency">Across Regions: Consistency</h2>
+<p><img alt="overview" src="images/memcache/figure6.png" /></p>
+<ul>
+<li>Writes go direct to primary DB, with transactions, so writes are consistent</li>
+<li>Reads eventually consistent but Read-your-own-writes</li>
+<li>How do they keep mc content consistent w/ DB content?<ul>
+<li>DBs send invalidates (delete()s) to all mc servers that might cache; this is McSqueal in Figure 6</li>
+<li>writing client also invalidates mc in local cluster for read-your-own-writes</li>
+</ul>
+</li>
+<li>Writes from a master region<ul>
+<li>To avoid a race condition in which an invalidation arrives to a replica mc before the data has been replicated from the master region, mcsqueal implemented so that each DB will notify mcs in its region to invalidate instead of master sending invalidates to all regions</li>
+</ul>
+</li>
+<li>Writes from a non-master region<ul>
+<li>Consider a user who updates his data from a non-master region when replication lag is excessively large. When this user tries to fetch data, it hits regional replica DB and may see stale data</li>
+<li>Employs a <em>remote marker</em> mechanism to minimalize stale data reads.</li>
+<li>When a web server wishes to update data that affects a key k, that server (1) sets a remote marker <script type="math/tex">r_k</script> in the region (2) performs the write to the master embedding <script type="math/tex">k</script> and <script type="math/tex">r_k</script> to be invalidated in the SQL statement (3) deletes <script type="math/tex">k</script> in the local cluster.</li>
+<li>On a subsequent request for k, a web server will be unable to find the cached data, check whether <script type="math/tex">r_k</script> exists, and direct its query to the master or local region depending on the presence of <script type="math/tex">r_k</script>.</li>
+</ul>
+</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="gfs.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: GFS" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              GFS
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="spanner.html" class="md-footer__link md-footer__link--next" aria-label="Next: Spanner" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Spanner
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="mailto:theravindu@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link", "navigation.instant", "navigation.tabs", "navigation.tracking", "navigation.top", "search.highlight", "search.share", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.82b56eb2.min.js"></script>
+      
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+    
+  </body>
+</html>
