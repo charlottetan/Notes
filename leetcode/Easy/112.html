@@ -70,11 +70,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#python" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -191,6 +186,22 @@
     </li>
   
 
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../System%20Design/topKHeavyHitters.html" class="md-tabs__link">
+        System Design
+      </a>
+    </li>
   
 
       
@@ -673,8 +684,66 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter8.html" class="md-nav__link">
+        8. The Trouble With Distributed Systems
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        <span class="md-nav__icon md-icon"></span>
+        
+          System Design
+        
+      </label>
+      <nav class="md-nav" aria-label="System Design" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          
+            System Design
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../System%20Design/topKHeavyHitters.html" class="md-nav__link">
+        Top K Heavy Hitters
+      </a>
     </li>
   
 
@@ -692,66 +761,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#list" class="md-nav__link">
-    list
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#collectionsdeque" class="md-nav__link">
-    collections.deque
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#set" class="md-nav__link">
-    set
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dict" class="md-nav__link">
-    dict
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    Notes
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -762,278 +771,9 @@
                   </a>
                 
                 
-                <h1 id="python">Python</h1>
-<p>Generally, 'n' is the number of elements currently in the container. 'k' is either the value of a parameter or the number of elements in the parameter.</p>
-<h2 id="list"><a href="https://github.com/rkk1995/SEHandbook/blob/master/basics/time-and-space-complexity/python.md#list"></a>list</h2>
-<p>The Average Case assumes parameters generated uniformly at random.</p>
-<p>Internally, a list is represented as an array; the largest costs come from growing beyond the current allocation size (because everything must move), or from inserting or deleting somewhere near the beginning (because everything after that must move). If you need to add/remove at both ends, consider using a collections.deque instead.</p>
-<table>
-<thead>
-<tr>
-<th align="left">Operation</th>
-<th align="left">Average Case</th>
-<th align="left"><a href="http://en.wikipedia.org/wiki/Amortized_analysis">Amortized Worst Case</a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Copy</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">Append[1]</td>
-<td align="left">O(1)</td>
-<td align="left">O(1)</td>
-</tr>
-<tr>
-<td align="left">Pop last</td>
-<td align="left">O(1)</td>
-<td align="left">O(1)</td>
-</tr>
-<tr>
-<td align="left">Pop intermediate</td>
-<td align="left">O(k)</td>
-<td align="left">O(k)</td>
-</tr>
-<tr>
-<td align="left">Insert</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">Get Item</td>
-<td align="left">O(1)</td>
-<td align="left">O(1)</td>
-</tr>
-<tr>
-<td align="left">Set Item</td>
-<td align="left">O(1)</td>
-<td align="left">O(1)</td>
-</tr>
-<tr>
-<td align="left">Delete Item</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">Iteration</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">Get Slice</td>
-<td align="left">O(k)</td>
-<td align="left">O(k)</td>
-</tr>
-<tr>
-<td align="left">Del Slice</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">Set Slice</td>
-<td align="left">O(k+n)</td>
-<td align="left">O(k+n)</td>
-</tr>
-<tr>
-<td align="left">Extend[1]</td>
-<td align="left">O(k)</td>
-<td align="left">O(k)</td>
-</tr>
-<tr>
-<td align="left"><a href="http://svn.python.org/projects/python/trunk/Objects/listsort.txt">Sort</a></td>
-<td align="left">O(n log n)</td>
-<td align="left">O(n log n)</td>
-</tr>
-<tr>
-<td align="left">Multiply</td>
-<td align="left">O(nk)</td>
-<td align="left">O(nk)</td>
-</tr>
-<tr>
-<td align="left">x in s</td>
-<td align="left">O(n)</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">min(s), max(s)</td>
-<td align="left">O(n)</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">Get Length</td>
-<td align="left">O(1)</td>
-<td align="left">O(1)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="collectionsdeque"><a href="https://github.com/rkk1995/SEHandbook/blob/master/basics/time-and-space-complexity/python.md#collectionsdeque-"></a>collections.deque</h2>
-<p>A deque (double-ended queue) is represented internally as a doubly linked list. (Well, a list of arrays rather than objects, for greater efficiency.) Both ends are accessible, but even looking at the middle is slow, and adding to or removing from the middle is slower still. Can support with Hash Map to get O(1) lookup and removal.</p>
-<table>
-<thead>
-<tr>
-<th align="left">Operation</th>
-<th align="left">Average Case</th>
-<th align="left">Amortized Worst Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Copy</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">append</td>
-<td align="left">O(1)</td>
-<td align="left">O(1)</td>
-</tr>
-<tr>
-<td align="left">appendleft</td>
-<td align="left">O(1)</td>
-<td align="left">O(1)</td>
-</tr>
-<tr>
-<td align="left">pop</td>
-<td align="left">O(1)</td>
-<td align="left">O(1)</td>
-</tr>
-<tr>
-<td align="left">popleft</td>
-<td align="left">O(1)</td>
-<td align="left">O(1)</td>
-</tr>
-<tr>
-<td align="left">extend</td>
-<td align="left">O(k)</td>
-<td align="left">O(k)</td>
-</tr>
-<tr>
-<td align="left">extendleft</td>
-<td align="left">O(k)</td>
-<td align="left">O(k)</td>
-</tr>
-<tr>
-<td align="left">rotate</td>
-<td align="left">O(k)</td>
-<td align="left">O(k)</td>
-</tr>
-<tr>
-<td align="left">remove</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="set"><a href="https://github.com/rkk1995/SEHandbook/blob/master/basics/time-and-space-complexity/python.md#set-"></a>set</h2>
-<p>See dict -- the implementation is intentionally very similar.</p>
-<table>
-<thead>
-<tr>
-<th align="left">Operation</th>
-<th align="left">Average case</th>
-<th align="left">Worst Case</th>
-<th align="left">notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">x in s</td>
-<td align="left">O(1)</td>
-<td align="left">O(n)</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">Union s</td>
-<td align="left">t</td>
-<td align="left"><a href="https://wiki.python.org/moin/TimeComplexity_%28SetCode%29">O(len(s)+len(t))</a></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">Intersection s&amp;t</td>
-<td align="left">O(min(len(s), len(t))</td>
-<td align="left">O(len(s) * len(t))</td>
-<td align="left">replace "min" with "max" if t is not a set</td>
-</tr>
-<tr>
-<td align="left">Multiple intersection s1&amp;s2&amp;..&amp;sn</td>
-<td align="left"></td>
-<td align="left">(n-1)*O(l) where l is max(len(s1),..,len(sn))</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">Difference s-t</td>
-<td align="left">O(len(s))</td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">s.difference_update(t)</td>
-<td align="left">O(len(t))</td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">Symmetric Difference s^t</td>
-<td align="left">O(len(s))</td>
-<td align="left">O(len(s) * len(t))</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">s.symmetric_difference_update(t)</td>
-<td align="left">O(len(t))</td>
-<td align="left">O(len(t) * len(s))</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>As seen in the <a href="http://svn.python.org/projects/python/trunk/Objects/setobject.c">source code</a> the complexities for set difference s-t or s.difference(t) (set_difference()) and in-place set difference s.difference_update(t) (set_difference_update_internal()) are different! The first one is O(len(s)) (for every element in s add it to the new set, if not in t). The second one is O(len(t)) (for every element in t remove it from s). So care must be taken as to which is preferred, depending on which one is the longest set and whether a new set is needed.</li>
-<li>To perform set operations like s-t, both s and t need to be sets. However you can do the method equivalents even if t is any iterable, for example s.difference(l), where l is a list.</li>
-</ul>
-<h2 id="dict"><a href="https://github.com/rkk1995/SEHandbook/blob/master/basics/time-and-space-complexity/python.md#dict-"></a>dict</h2>
-<p>The Average Case times listed for dict objects assume that the hash function for the objects is sufficiently robust to make collisions uncommon. The Average Case assumes the keys used in parameters are selected uniformly at random from the set of all keys.</p>
-<p>Note that there is a fast-path for dicts that (in practice) only deal with str keys; this doesn't affect the algorithmic complexity, but it can significantly affect the constant factors: how quickly a typical program finishes.</p>
-<table>
-<thead>
-<tr>
-<th align="left">Operation</th>
-<th align="left">Average Case</th>
-<th align="left">Amortized Worst Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Copy[2]</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">Get Item</td>
-<td align="left">O(1)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">Set Item[1]</td>
-<td align="left">O(1)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">Delete Item</td>
-<td align="left">O(1)</td>
-<td align="left">O(n)</td>
-</tr>
-<tr>
-<td align="left">Iteration[2]</td>
-<td align="left">O(n)</td>
-<td align="left">O(n)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="notes"><a href="https://github.com/rkk1995/SEHandbook/blob/master/basics/time-and-space-complexity/python.md#notes-"></a>Notes</h2>
-<p>[1] = These operations rely on the "Amortized" part of "Amortized Worst Case". Individual actions may take surprisingly long, depending on the history of the container.</p>
-<p>[2] = For these operations, the worst case <em>n</em> is the maximum size the container ever achieved, rather than just the current size. For example, if N objects are added to a dictionary, then N-1 are deleted, the dictionary will still be sized for N objects (at least) until another insertion is made.</p>
+                  <h1>112</h1>
+                
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/xpDnVSmNFX0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 
               
               
@@ -1057,7 +797,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter7.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: 7. Transactions" rel="prev">
+        <a href="../../books/Designing%20Data%20Intensive%20Applications/chapter8.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: 8. The Trouble With Distributed Systems" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1066,7 +806,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              7. Transactions
+              8. The Trouble With Distributed Systems
             </div>
           </div>
         </a>
