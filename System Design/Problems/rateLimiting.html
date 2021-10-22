@@ -1,0 +1,1581 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
+    
+    
+      
+        <title>Rate Limiting (local and distributed) - RKK1995's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:""}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="red">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rate-limiting-local-and-distributed" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="RKK1995&#39;s notes" class="md-header__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RKK1995's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rate Limiting (local and distributed)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rkk1995/Notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../index.html" class="md-tabs__link">
+      About the Site
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Notes/papers/Storage/aurora.html" class="md-tabs__link">
+        Notes
+      </a>
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="distributedCache.html" class="md-tabs__link md-tabs__link--active">
+        System Design
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="RKK1995&#39;s notes" class="md-nav__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    RKK1995's notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rkk1995/Notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        About the Site
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Notes
+        
+      </label>
+      <nav class="md-nav" aria-label="Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Notes
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Papers
+        
+      </label>
+      <nav class="md-nav" aria-label="Papers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Papers
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Storage
+        
+      </label>
+      <nav class="md-nav" aria-label="Storage" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Storage
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Storage/aurora.html" class="md-nav__link">
+        Aurora
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Storage/craq.html" class="md-nav__link">
+        CRAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Storage/dynamo.html" class="md-nav__link">
+        Dynamo
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Storage/farm.html" class="md-nav__link">
+        FaRM
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Storage/frangipani.html" class="md-nav__link">
+        Frangipani
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Storage/gfs.html" class="md-nav__link">
+        GFS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Storage/memcache.html" class="md-nav__link">
+        Memcache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Storage/spanner.html" class="md-nav__link">
+        Spanner
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Storage/tao.html" class="md-nav__link">
+        TAO
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      <label class="md-nav__link" for="__nav_2_1_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Compute
+        
+      </label>
+      <nav class="md-nav" aria-label="Compute" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Compute
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Compute/distributedTransactions.html" class="md-nav__link">
+        Distributed Transactions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Compute/mapreduce.html" class="md-nav__link">
+        MapReduce
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      <label class="md-nav__link" for="__nav_2_1_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Cluster Management
+        
+      </label>
+      <nav class="md-nav" aria-label="Cluster Management" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Cluster Management
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Cluster%20Management/raft.html" class="md-nav__link">
+        Raft
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/papers/Cluster%20Management/zookeeper.html" class="md-nav__link">
+        ZooKeeper
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Books
+        
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Books
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_1" type="checkbox" id="__nav_2_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_2_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          DDIA
+        
+      </label>
+      <nav class="md-nav" aria-label="DDIA" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            DDIA
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/books/DDIA/chapter1.html" class="md-nav__link">
+        1. Reliable, scalable, and maintainable applications
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/books/DDIA/chapter2.html" class="md-nav__link">
+        2. Data Models and Query Languages
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/books/DDIA/chapter3.html" class="md-nav__link">
+        3. Storage and retrieval
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/books/DDIA/chapter4.html" class="md-nav__link">
+        4. Encoding and evolution
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/books/DDIA/chapter5.html" class="md-nav__link">
+        5. Replication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/books/DDIA/chapter6.html" class="md-nav__link">
+        6. Partitioning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/books/DDIA/chapter7.html" class="md-nav__link">
+        7. Transactions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/books/DDIA/chapter8.html" class="md-nav__link">
+        8. The Trouble With Distributed Systems
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Todo
+        
+      </label>
+      <nav class="md-nav" aria-label="Todo" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Todo
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/todo/articles.html" class="md-nav__link">
+        TODO
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          System Design
+        
+      </label>
+      <nav class="md-nav" aria-label="System Design" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            System Design
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" checked>
+      
+      <label class="md-nav__link" for="__nav_3_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Problems
+        
+      </label>
+      <nav class="md-nav" aria-label="Problems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Problems
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="distributedCache.html" class="md-nav__link">
+        Distributed Cache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="distributedMessageQueue.html" class="md-nav__link">
+        Distributed Message Queue
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notificationService.html" class="md-nav__link">
+        Notification Service
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="rateLimiting.html" class="md-nav__link md-nav__link--active"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            Rate Limiting (local and distributed)
+          </a>
+        </label>
+      
+      <a href="rateLimiting.html" class="md-nav__link md-nav__link--active">
+        Rate Limiting (local and distributed)
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-statement-requirement-clarification" class="md-nav__link">
+    Problem Statement / Requirement Clarification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    Functional Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-functional-requirements" class="md-nav__link">
+    Non-Functional Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-solution" class="md-nav__link">
+    Simple Solution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#token-bucket-algorithm" class="md-nav__link">
+    Token Bucket Algorithm
+  </a>
+  
+    <nav class="md-nav" aria-label="Token Bucket Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leaky-bucket" class="md-nav__link">
+    Leaky Bucket
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-oriented-design" class="md-nav__link">
+    Object Oriented Design
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-into-the-distributed-world" class="md-nav__link">
+    Step Into The Distributed World
+  </a>
+  
+    <nav class="md-nav" aria-label="Step Into The Distributed World">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#message-broadcasting" class="md-nav__link">
+    Message Broadcasting
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Broadcasting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#communication-protocols-tcp-vs-udp" class="md-nav__link">
+    Communication Protocols : TCP vs UDP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-we-integrate-all" class="md-nav__link">
+    How do we integrate all
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-else" class="md-nav__link">
+    What Else?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-final-look" class="md-nav__link">
+    One Final Look
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stepByStepGuide.html" class="md-nav__link">
+        Step By Step Guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="topKHeavyHitters.html" class="md-nav__link">
+        Top K Heavy Hitters
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-statement-requirement-clarification" class="md-nav__link">
+    Problem Statement / Requirement Clarification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    Functional Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-functional-requirements" class="md-nav__link">
+    Non-Functional Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-solution" class="md-nav__link">
+    Simple Solution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#token-bucket-algorithm" class="md-nav__link">
+    Token Bucket Algorithm
+  </a>
+  
+    <nav class="md-nav" aria-label="Token Bucket Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leaky-bucket" class="md-nav__link">
+    Leaky Bucket
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-oriented-design" class="md-nav__link">
+    Object Oriented Design
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-into-the-distributed-world" class="md-nav__link">
+    Step Into The Distributed World
+  </a>
+  
+    <nav class="md-nav" aria-label="Step Into The Distributed World">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#message-broadcasting" class="md-nav__link">
+    Message Broadcasting
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Broadcasting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#communication-protocols-tcp-vs-udp" class="md-nav__link">
+    Communication Protocols : TCP vs UDP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-we-integrate-all" class="md-nav__link">
+    How do we integrate all
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-else" class="md-nav__link">
+    What Else?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-final-look" class="md-nav__link">
+    One Final Look
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/System Design/Problems/rateLimiting.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="rate-limiting-local-and-distributed">Rate Limiting (local and distributed)</h1>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FU4WlwfS3G0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<hr />
+<h2 id="problem-statement-requirement-clarification">Problem Statement / Requirement Clarification</h2>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634777600698.png" /></p>
+<ul>
+<li>Let's imaging we launched a web application. And the application became highly popular. Meaning that thousands of clients send thousands of requests every second to the front-end web service of our application. Everything works well. Until suddenly one or several clients started to send much more requests than they did previously. And this may happen due to a various of reasons.<ul>
+<li>For example, our client is another popular web service and it experienced a sudden traffic spike.</li>
+<li>Or developers of that web service started to run a load test.</li>
+<li>Or this is just a malicious client who tried to DDoS our service.</li>
+</ul>
+</li>
+<li>All these situations may lead to a so called "noisy neighbor problem", when one client utilizes too much shared resources on a service host, like CPU, memory, disk or network I/O.</li>
+<li>And because of this, other clients of our application start to experience higher latency for their requests, or higher rate of failed requests.</li>
+<li>One of the ways to solve a "noisy neighbor problem" is to introduce a rate limiting (also known as throttling).</li>
+<li>Throttling helps to limit the number of requests a client can submit in a given amount of time.</li>
+<li>Requests submitted over the limit are either immediately rejected or their processing is delayed.</li>
+<li>Some questions:<ul>
+<li>This problem does not have a lot of sense. It should be solved by scaling out the cluster of hosts that run our web service. And ideally, by some kind of auto-scaling<ul>
+<li>And the problem with scaling up or scaling out is that it is not happening immediately. Even autoscaling takes time. And by the time scaling process completes it may already be late. Our service may already crash.</li>
+</ul>
+</li>
+<li>How rate limiting can be achieved? Specifically, you mention load balancers and their ability to limit a number of simultaneous requests that load balancer sends to each application server.<ul>
+<li>Load balancers indeed may prevent too many requests to be forwarded to an application server. Load balancer will either reject any request over the limit or send the request to a queue, so that it can be processed later. But the problem with this mechanism - it is indiscriminate. Let's say our web service exposes several different operations. Some of them are fast operations, they take little time to complete. But some operations are slow and heavy and each request may take a lot of processing
+power. Load balancer does not have knowledge about a cost of each operation. And if we want to limit number of requests for a particular operation, we can do this on application server only, not at a load balancer level.</li>
+</ul>
+</li>
+<li>The problem does not seem to be a system design problem. Algorithmic problem?<ul>
+<li>Yes, as we need to define data structures and algorithm to count how many requests client has made so far.</li>
+</ul>
+</li>
+<li>Object-oriented design problem?<ul>
+<li>Probably, as we may need to design a set of classes to manage throttling rules. Rules define an allowed throttling limit for each operation.</li>
+</ul>
+</li>
+<li>So, if we implement throttling for a single host, are we done?<ul>
+<li>In an ideal world - yes. But not in the real world. If we have a load balancer in front of our web service and this load balancer spreads requests evenly across application servers and each request takes the same amount of time to complete.  In this case this is a single instance problem and there is no need in any distributed solution. Application servers do not need to talk to each other. They throttle requests independently. But in the real-world load balancers cannot distribute requests in a perfectly even manner. Plus, as we discussed before different web service operations cost differently. And each application server itself may become slow due to software failures or overheated due to some other background process running on it. All this leads to a conclusion that we will need a solution where application servers will communicate with each other and share information about how many client requests each one of them processed so far.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="functional-requirements">Functional Requirements</h2>
+<ul>
+<li>allowRequest(request)  : For a given request our rate limiting solution should return a boolean value, whether request is throttled or not.</li>
+</ul>
+<h2 id="non-functional-requirements">Non-Functional Requirements</h2>
+<ul>
+<li>Low Latency (We need rate limiter to be fast (as it will be called on every request to the service)</li>
+<li>Accurate (We do not want to throttle customers unless it is absolutely required)</li>
+<li>Scalable (Rate limiter scales out together with the service itself, if we need to add more hosts to the web service cluster, this should not be a problem for the rate limiter)</li>
+</ul>
+<p>What about high availability and fault tolerance? Two common requirements for many distributed systems. Are they important for a rate limiting solution?</p>
+<p>Not so much. If rate limiter cannot make a decision quickly due to any failures, the decision is always not to throttle. If we do not know whether throttle or not -&gt; we do not throttle. Because we may need to introduce rate limiting in many services, the interviewer may ask us to think about ease of integration. So that every service team in the organization can integrate with our rate limiting solution as seamlessly as possible. This is a good requirement.</p>
+<h2 id="simple-solution">Simple Solution</h2>
+<p>It always makes sense to start/mention the simple solution and evolve the solution. Let's implement a solution for a single server.</p>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634778346602.png" /></p>
+<ul>
+<li>The first citizen of the rate limiting solution on the service host is the rules retriever.<ul>
+<li>Each rule specifies a number of requests allowed for a particular client per second.</li>
+<li>These rules are defined by service owners and stored in a database.</li>
+<li>And there is a web service that manages all the operation with rules.</li>
+<li>Rules retriever is a background process that polls Rules service periodically to check if there are any new or modified rules.</li>
+<li>Rules retriever stores rules in memory on the host.</li>
+</ul>
+</li>
+<li>When request comes, the first thing we need to do is to build a client identifier.<ul>
+<li>Let's call it a key, for short.</li>
+<li>This may be a login for registered clients or remote IP address or some combination of attributes that uniquely identify the client.</li>
+<li>The key is then passed to the Rate Limiter component, that is responsible for making a decision.</li>
+<li>Rate Limiter checks the key against rules in the cache.</li>
+<li>And if match is found, Rate Limiter checks if number of requests made by the client for the last second is below a limit specified in the rule.</li>
+</ul>
+</li>
+<li>If threshold is not exceeded, request is passed further for processing.</li>
+<li>If threshold is exceeded, the request is rejected.</li>
+<li>And there are three possible options in this case.<ul>
+<li>Our service may return a specific response status code, for example service unavailable or too many requests.</li>
+<li>Or we can queue this request and process it later.</li>
+<li>Or we can simply drop this request on the floor.</li>
+</ul>
+</li>
+</ul>
+<p>We know we need:  </p>
+<ul>
+<li>A database to store the rules.</li>
+<li>And we need a service on top of this database for all the so-called CRUD operations (create, read, update, delete).</li>
+<li>We know we need a process to retrieve rules periodically and store rules in memory.</li>
+<li>And we need a component that makes a decision.</li>
+<li>You may argue whether we need the client identifier builder as a separate component or should it just be a part of the decision-making component. It is up to you.</li>
+<li>I wanted to present this builder as a separate component to stress the point that client identification is an important step of the whole process.</li>
+</ul>
+<p>From here interview may go in several directions. Interviewer may be interested in the Rate Limiter algorithm and ask us to implement one. Or interviewer may be interested in object-oriented design and ask us to define main classes and interfaces of the throttling library. Or interviewer may ask us to focus on a distributed throttling solution and discuss how service hosts share data between each other.</p>
+<p>Let's discuss each of these possible directions.</p>
+<h2 id="token-bucket-algorithm">Token Bucket Algorithm</h2>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634778763626.png" /></p>
+<ul>
+<li>The token bucket algorithm is based on an analogy of a bucket filled with tokens.</li>
+<li>Each bucket has three characteristics: a maximum amount of tokens it can hold, amount of tokens currently available and a refill rate, the rate at which tokens are added to the bucket.</li>
+<li>Every time request comes, we take a token from the bucket.</li>
+<li>If there are no more tokens available in the bucket, request is rejected.</li>
+<li>The bucket is refilled with a constant rate.</li>
+</ul>
+<p>The beauty of the Token Bucket algorithm is that it simple to understand and simple to implement.</p>
+<ul>
+<li>There are 4 class fields: maximum bucket size, refill rate, number of currently available tokens and timestamp that indicates when bucket was last refilled.</li>
+<li>Constructor accepts two arguments: maximum bucket size and refill rate.</li>
+<li>Number of currently available tokens is set to the maximum bucket size.</li>
+<li>And timestamp is set to the current time in nanoseconds.</li>
+<li>Allow request method has one argument - number of tokens that represent a cost of the operation; usually, the cost is equal to 1, but it may be a larger value as well.</li>
+<li>The first thing we do is refilling the bucket.</li>
+<li>And right after that we check if there are enough tokens in the bucket.</li>
+<li>In case there are not enough tokens, method return false, indicating that request must be throttled.</li>
+<li>Otherwise, we need to decrease number of available tokens by the cost of the request.</li>
+<li>And the last piece is the refill method.</li>
+<li>It calculates how many tokens accumulated since the last refill and increases currently available tokens in the bucket by this number.</li>
+</ul>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634779616875.png" /></p>
+<h3 id="leaky-bucket">Leaky Bucket</h3>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634779418555.png" /></p>
+<p>Leaky Bucket algorithm is opposite of Token Bucket algorithm. Leaky Bucket allows requests at a constant rate, the rate of the leak. There is no concept of a token, the requests go into the bucket and flow out at a constant rate. If there is no space in the bucket for the request, the request is discarded.</p>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634779512562.png" /></p>
+<h2 id="object-oriented-design">Object Oriented Design</h2>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634779795899.png" /></p>
+<ul>
+<li>Job Scheduler interface is responsible for scheduling a job that runs every several seconds and retrieves rules from Rules service.</li>
+<li>RulesCache interface is responsible for storing rules in memory.</li>
+<li>ClientIdentifier builds a key that uniquely identifies a client.</li>
+<li>And RateLimiter is responsible for decision making.</li>
+<li>RetrieveJobScheduler class implements JobScheduler interface.<ul>
+<li>Its responsibility is to instantiate, start and stop the scheduler, and to run retrieve rules task.</li>
+</ul>
+</li>
+<li>TokenBucketCache stores token buckets.<ul>
+<li>We can use something simple, for example Map to store buckets.</li>
+<li>Or utilize 3-rd party cache implementation, like Google Guava cache.</li>
+</ul>
+</li>
+<li>ClientIdentifierBuilder is responsible for building a key based on user identity information (for example login).<ul>
+<li>There can be other implementations as well, for example based on IP address.</li>
+</ul>
+</li>
+<li>And for the RateLimiter interface lets introduce a TokenBucketRateLimiter class, which is responsible for calling allow request on the correspondent bucket for that client.</li>
+<li>And the last important piece is the RetrieveRulesTask, which is responsible for retrieving all the rules for this service.</li>
+</ul>
+<p>Let's look at how these components interact with each other.</p>
+<ul>
+<li>RetrieveJobScheduler runs RetrieveRulesTask, which makes a remote call to the Rules service.</li>
+<li>It then creates token buckets and puts them into the cache.</li>
+<li>When client request comes to the host, RateLimiter first makes a call to the ClientIdentifierBuilder to build a unique identifier for the client.</li>
+<li>And then it passes this key to the cache and retrieves the bucket.</li>
+<li>And the last step to do is to call allow request on the bucket.</li>
+</ul>
+<h2 id="step-into-the-distributed-world">Step Into The Distributed World</h2>
+<ul>
+<li>We have a cluster that consists of 3 hosts. And we want rate limiting solution to allow 4 requests per second for each client. How many tokens should we give to a bucket on every host?</li>
+<li>Should we give 4 divided by 3? And the answer is 4. Each bucket should have 4 tokens initially.</li>
+<li>The reason for this is that all requests for the same bucket may in theory land on the same host.</li>
+<li>Load balancers try to distributed requests evenly, but they do not know anything about keys, and requests for the same key will not be evenly distributed.</li>
+<li>Let's add load balancer into the picture and run a very simple simulation.</li>
+<li>The first request goes to host A, one token is consumed.</li>
+<li>The second request goes to host C and one token is consumed there.</li>
+<li>Two other requests, within the same 1 second interval, go to host B. And take two tokens from the bucket.</li>
+<li>All 4 allowed requests hit the cluster; we should throttle all the remaining requests for this second.</li>
+</ul>
+<p>But we still have tokens available. What should we do?</p>
+<ul>
+<li>We must allow hosts to talk to each other and share how many tokens they consumed altogether.</li>
+<li>In this case host A will see that other two hosts consumed 3 tokens. And host A will subtract this number from its bucket. Leaving it with 0 tokens available.</li>
+<li>Host B will find out that A and C consumed two tokens already. Leaving host B with 0 tokens as well.</li>
+<li>And the same logic applies to host C. Now everything looks correct.</li>
+<li>4 requests have been processed and no more requests allowed.</li>
+</ul>
+<p>We gave each bucket 4 tokens. If many requests for the same bucket hit our cluster exactly at the same second. Does this mean that 12 requests may be processed, instead of only 4 allowed? Or may be a more realistic scenario. Because communication between hosts takes time, until all hosts agree on what that final number of tokens must be, may there be any requests that slip into the system at that
+time?</p>
+<ul>
+<li>Yes. Unfortunately, this is the case.</li>
+<li>We should expect that sometimes our system may be processing more requests than we expect and we need to scale out our cluster accordingly.</li>
+<li>By the way, the token bucket algorithm will still handle this use case well.</li>
+<li>We just need to slightly modify it to allow negative number of available tokens.</li>
+<li>When 12 requests hit the system, buckets will start sharing this information.</li>
+<li>After sharing, every bucket will have -8 tokens and for the duration of the next 2 seconds all requests will be throttled.</li>
+<li>So, on average we processed 12 requests within 3 seconds. Although in reality all 12 were processed within the first second.</li>
+</ul>
+<p>So, communication between hosts is the key. Let's see how this communication can be implemented. By the way, ideas we will discuss next are applicable not only for rate limiting solution, but many other distributed systems that require data sharing between all hosts in a cluster in a real time.</p>
+<h3 id="message-broadcasting">Message Broadcasting</h3>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634780553740.png" /></p>
+<ul>
+<li>The first approach is to <strong>tell everyone everything</strong>. It means that every host in the cluster knows about every other host in the cluster and share messages with each one of them. You may also heard a term full mesh that describes this network topology. How do hosts discover each other? When a new host is added, how does everyone else know? And there are several approaches used for hosts discovery. One option is to use a 3-rd party service which will listen to heartbeats coming from every host. As long as heartbeats come, host is keep registered in the system. If heartbeats stop coming, the service unregister host that is no longer alive. And all hosts in our cluster ask this 3-rd party service for the full list of members. Another option is to resolve some user provided information. For example, user specifies a VIP and because VIP knows about all the hosts behind it, we can use this information to obtain all the members. Or we can rely on a less flexible but still a good option when user provides a list of hosts via some configuration file. We then need a way to deploy this file across all cluster nodes every time this list changes. Full mesh broadcasting is relatively straightforward to implement. But the main problem with this approach is that it is not scalable. Number of messages grows quadratically with respect to the number of hosts in a cluster. Approach works well for small clusters, but we will not be able to support big clusters.</li>
+<li>So, let's investigate some other options that may require less messages to be broadcasted within the cluster. And one such option is to use a <strong>gossip protocol</strong>. This protocol is based on the way that epidemics spread. Computer systems typically implement this type of protocol with a form of random "peer selection": with a given frequency, each machine picks another machine at random and shares data. By the way, rate limiting solution at Yahoo uses this approach.</li>
+<li>Next option is to use <strong>distributed cache cluster</strong>. For example, Redis. Or we can implement custom distributed cache solution.<ul>
+<li>The pros for this approach is that distributed cache cluster is relatively small and our service cluster can scale out independently. This cluster can be shared among many different service teams in the organization. Or each team can setup their own small cluster.</li>
+</ul>
+</li>
+<li>Next approach also relies on a 3-rd party component. A coordination service that helps to choose a leader. Choosing a leader helps to decrease number of messages broadcasted within the cluster. Leader asks everyone to send it all the information. And then it calculates and sends back the final result. So, each host only needs to talk to a leader or a set of leaders, where each leader is responsible for its own range of keys. Consensus algorithms such as Paxos and Raft can be used to implement Coordination Service. Great option, but the main drawback is that we need to setup and maintain Coordination Service. Coordination service is typically a very sophisticated component that has to be very reliable and make sure one and only one leader is elected. But is this really a requirement for our system?<ul>
+<li>Let's say we use a simple algorithm to elect a leader. But because of the simplicity of the algorithm it may not guarantee one and only one leader. So that we may end up with multiple leaders being elected. Is this an issue? Actually, no. Each leader will calculate rate and share with everyone else. This will cause unnecessary messaging overhead, but each leader will have its own correct view of the overall rate.</li>
+</ul>
+</li>
+</ul>
+<h4 id="communication-protocols-tcp-vs-udp">Communication Protocols : TCP vs UDP</h4>
+<p>How do hosts talk to each other. We have two options here: TCP and UDP.</p>
+<ul>
+<li>TCP protocol guarantees delivery of data and also guarantees that packets will be delivered in the same order in which they were sent.</li>
+<li>UDP protocol does not guarantee you are getting all the packets and order is not guaranteed. But because UDP throws all the error-checking stuff out, it is faster.</li>
+</ul>
+<p>So, which one is better? Both are good choices.</p>
+<ul>
+<li>If we want rate limiting solution to be more accurate, but with a little bit of performance overhead, we need to go with TCP.</li>
+<li>If we ok to have a bit less accurate solution, but the one that works faster, UDP should be our choice.</li>
+</ul>
+<h2 id="how-do-we-integrate-all">How do we integrate all</h2>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634780963428.png" /></p>
+<ul>
+<li>There are two options. And they are pretty standard. We can run Rate Limiter as a part of the service process or as its own process (daemon).</li>
+<li>In the first option, Rate Limiter is distributed as a collection of classes, a library that should be integrated with the service code.</li>
+<li>In the second option we have two libraries: the daemon itself and the client, that is responsible for inter-process communication between the service process and the daemon. Client is integrated with the service code.</li>
+<li>What are the pros for the first approach?<ul>
+<li>It is faster, as we do not need to do any inter-process call.</li>
+<li>It is also resilient to the inter-process call failures, because there are no such calls.</li>
+</ul>
+</li>
+<li>What are the pros for the second approach?<ul>
+<li>The second approach is programming language agnostic. It means that Rate Limiter daemon can be written on a programming language that may be different from the language we use for the service implementation. As we do not need to do integration on the code level. Yes, we need to have Rate Limiter client compatible with the service code language. But not the daemon itself.</li>
+<li>Also, Rate Limiter process uses its own memory space. This isolation helps to better control behavior for both the service and the daemon. For example, daemon my store many buckets in memory, but because the service process has its own memory space, the service memory does not need to allocate space for these buckets. Which makes service memory allocation more predictable.</li>
+</ul>
+</li>
+<li>Another good reason, and you may see it happening a lot in practice, service teams tend to be very cautious when you come to them and ask to integrate their service with your super cool library.<ul>
+<li>You will hear tons of questions.<ul>
+<li>Like how much memory and CPU your library consumes?</li>
+<li>What will happen in case of a network partition or any other exceptional scenario?</li>
+<li>Can we see results of the load testing for your library?</li>
+</ul>
+</li>
+<li>These questions are also applicable to the daemon solution.<ul>
+<li>But it is easier to guarantee that the service itself will not be impacted by any bugs that may be in the Rate Limiter library.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>As you may see, strengths of the first approach become weaknesses of the second approach. And vice versa.</li>
+</ul>
+<p>So, which option is better?</p>
+<ul>
+<li>Both are good options and it really depends on the use cases and needs of a particular service team.</li>
+<li>By the way, the second approach, when we have a daemon that communicates with other hosts in the cluster is a quite popular pattern in distributed systems.</li>
+<li>For example, it is widely used to implement auto discovery of service hosts, when hosts in a cluster identify each other.</li>
+</ul>
+<h2 id="what-else">What Else?</h2>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634781311973.png" /></p>
+<ul>
+<li>In theory, it is possible that many token buckets will be created and stored in memory. For example, when millions of clients send requests at the same second. In practice though, we do not need to keep buckets in memory if there are no requests coming from the client for some period of time. For example, client made its first request and we created a bucket. As long as this client continues to send requests and interval between these requests is less than a second or couple of seconds, we keep the bucket in memory. If there are no requests coming for this bucket for several seconds, we can remove the bucket from memory. And bucket will be re-created again when client makes a new request.</li>
+<li>As for failure modes, there may be several of them. Daemon can fail, causing other hosts in the cluster lose visibility of this failed daemon. In the result, the host with a failed daemon leaves the group and continues to throttle requests without talking to other hosts in the cluster. Nothing really bad happens. Just less requests will be throttled in total. And we will have similar results in case of a network partition, when several hosts in the cluster may not be able to broadcast messages to the rest of the group. Just less requests throttled in total. And if you wonder why, just remember our previous example with 3 hosts and 4 tokens. If hosts talk to each other, only 4 requests are allowed across all of them. If hosts do not talk to each other due to let's say network issues, each host will allow 4 requests, 12 in total. So, in case of failures in our rate limiter solution, more requests are allowed and less requests are throttled.</li>
+<li>With regards to rule management, we may need to introduce a self-service tool, so that service teams may create, update and delete their rules when needed.</li>
+<li>As for synchronization, there may be several places where we need it. First, we have synchronization in the token bucket. There is a better way to implement thread-safety in that class, using for example atomic references. Another place that may require synchronization is the token bucket cache. As we mentioned before, if there are too many buckets stored in the cache and we want to delete unused buckets and re-create them when needed, we will end up with synchronization. So, we may need to use concurrent hash map, which is a thread safe equivalent of the hash map in Java. In general, no need to be afraid of the synchronization in both those places. It may become a bottleneck eventually, but only for services with insanely large requests per second rate. For most services out there even the simplest synchronization implementation does not add to much overhead.</li>
+<li>So, what clients of our service should do with throttled calls? There are several options, as always. Clients may queue such requests and re-send them later. Or they can retry throttled requests. But do it in a smart way, and this smart way is called exponential backoff and jitter. Probably too smart. But do not worry, ideas are quite simple. An exponential backoff algorithm retries requests exponentially, increasing the waiting time between retries up to a maximum backoff time. In other words, we retry requests several times, but wait a bit longer with every retry attempt. And jitter adds randomness to retry intervals to spread out the load. If we do not add jitter, backoff algorithm will retry requests at the same time. And jitter helps to separate retries.</li>
+</ul>
+<h2 id="one-final-look">One Final Look</h2>
+<p><img alt="" src="image/Rate%20Limiting%20%28local%20and%20distributed%29/1634781348245.png" /></p>
+<ul>
+<li>Service owners can use a self-service tools for rules management.</li>
+<li>Rules are stored in the database.</li>
+<li>On the service host we have rules retriever that stores retrieved rules in the local cache.</li>
+<li>When request comes, rate limiter client builds client identifier and passes it to the rate limiter to make a decision.</li>
+<li>Rate limiter communicates with a message broadcaster, that talks to other hosts in the cluster.</li>
+</ul>
+<p>We wanted to build a solution that is highly scalable, fast and accurate.</p>
+<ul>
+<li>And at this point I would really like to say that the solution we have built meets all the requirements. But this is not completely true. And the correct answer is "it depends".</li>
+<li>Depends on the number of hosts in the cluster, depends on the number of rules, depends on the request rate.</li>
+<li>For majority of clusters out there, where cluster size is less then several thousands of nodes and number of active buckets per second is less then tens of thousands, gossip communication over UDP will work really fast and is quite accurate.</li>
+<li>In case of a really large clusters, like tens of thousands of hosts, we may no longer rely on host-to-host communication in the service cluster as it becomes costly.</li>
+<li>And we need a separate cluster for making a throttling decision.</li>
+<li>This is a distributed cache option we discussed above. But the drawback of this approach is that it increases latency and operational cost.</li>
+<li>It would be good to have these tradeoff discussions with your interviewer.</li>
+<li>As it demonstrates both breadth and depth of your knowledge and critical thinking.</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="notificationService.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Notification Service" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Notification Service
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="stepByStepGuide.html" class="md-footer__link md-footer__link--next" aria-label="Next: Step By Step Guide" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Step By Step Guide
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="mailto:theravindu@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tracking"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.82b56eb2.min.js"></script>
+      
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+    
+  </body>
+</html>

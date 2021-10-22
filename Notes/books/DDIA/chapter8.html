@@ -1,0 +1,1548 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
+    
+    
+      
+        <title>8. The Trouble With Distributed Systems - RKK1995's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:""}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="red">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8-the-trouble-with-distributed-systems" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="RKK1995&#39;s notes" class="md-header__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RKK1995's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              8. The Trouble With Distributed Systems
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rkk1995/Notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../index.html" class="md-tabs__link">
+      About the Site
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/Storage/aurora.html" class="md-tabs__link md-tabs__link--active">
+        Notes
+      </a>
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../System%20Design/Problems/distributedCache.html" class="md-tabs__link">
+        System Design
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="RKK1995&#39;s notes" class="md-nav__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    RKK1995's notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rkk1995/Notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        About the Site
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Notes
+        
+      </label>
+      <nav class="md-nav" aria-label="Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Notes
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Papers
+        
+      </label>
+      <nav class="md-nav" aria-label="Papers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Papers
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Storage
+        
+      </label>
+      <nav class="md-nav" aria-label="Storage" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Storage
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/aurora.html" class="md-nav__link">
+        Aurora
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/craq.html" class="md-nav__link">
+        CRAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/dynamo.html" class="md-nav__link">
+        Dynamo
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/farm.html" class="md-nav__link">
+        FaRM
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/frangipani.html" class="md-nav__link">
+        Frangipani
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/gfs.html" class="md-nav__link">
+        GFS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/memcache.html" class="md-nav__link">
+        Memcache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/spanner.html" class="md-nav__link">
+        Spanner
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Storage/tao.html" class="md-nav__link">
+        TAO
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      <label class="md-nav__link" for="__nav_2_1_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Compute
+        
+      </label>
+      <nav class="md-nav" aria-label="Compute" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Compute
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Compute/distributedTransactions.html" class="md-nav__link">
+        Distributed Transactions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Compute/mapreduce.html" class="md-nav__link">
+        MapReduce
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      <label class="md-nav__link" for="__nav_2_1_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Cluster Management
+        
+      </label>
+      <nav class="md-nav" aria-label="Cluster Management" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Cluster Management
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Cluster%20Management/raft.html" class="md-nav__link">
+        Raft
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/Cluster%20Management/zookeeper.html" class="md-nav__link">
+        ZooKeeper
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Books
+        
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Books
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_1" type="checkbox" id="__nav_2_2_1" checked>
+      
+      <label class="md-nav__link" for="__nav_2_2_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          DDIA
+        
+      </label>
+      <nav class="md-nav" aria-label="DDIA" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            DDIA
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter1.html" class="md-nav__link">
+        1. Reliable, scalable, and maintainable applications
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter2.html" class="md-nav__link">
+        2. Data Models and Query Languages
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter3.html" class="md-nav__link">
+        3. Storage and retrieval
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter4.html" class="md-nav__link">
+        4. Encoding and evolution
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter5.html" class="md-nav__link">
+        5. Replication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter6.html" class="md-nav__link">
+        6. Partitioning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter7.html" class="md-nav__link">
+        7. Transactions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="chapter8.html" class="md-nav__link md-nav__link--active"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            8. The Trouble With Distributed Systems
+          </a>
+        </label>
+      
+      <a href="chapter8.html" class="md-nav__link md-nav__link--active">
+        8. The Trouble With Distributed Systems
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#faults-and-partial-failures" class="md-nav__link">
+    Faults and Partial Failures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unreliable-networks" class="md-nav__link">
+    Unreliable Networks
+  </a>
+  
+    <nav class="md-nav" aria-label="Unreliable Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detecting-faults" class="md-nav__link">
+    Detecting Faults
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeouts-and-unbounded-delays" class="md-nav__link">
+    Timeouts and unbounded delays
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-congestion-and-queueing" class="md-nav__link">
+    Network congestion and queueing
+  </a>
+  
+    <nav class="md-nav" aria-label="Network congestion and queueing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcp-vs-udp" class="md-nav__link">
+    TCP vs UDP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronous-vs-asynchronous-networks" class="md-nav__link">
+    Synchronous vs asynchronous networks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unreliable-clocks" class="md-nav__link">
+    Unreliable Clocks
+  </a>
+  
+    <nav class="md-nav" aria-label="Unreliable Clocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relying-on-synchronized-clocks" class="md-nav__link">
+    Relying on Synchronized Clocks
+  </a>
+  
+    <nav class="md-nav" aria-label="Relying on Synchronized Clocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#timestamps-for-ordering-events" class="md-nav__link">
+    Timestamps for ordering events
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clock-readings-have-a-confidence-interval" class="md-nav__link">
+    Clock readings have a confidence interval
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-pauses" class="md-nav__link">
+    Process pauses
+  </a>
+  
+    <nav class="md-nav" aria-label="Process pauses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#response-time-guarantees" class="md-nav__link">
+    Response time guarantees
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-truth-and-lies" class="md-nav__link">
+    Knowledge, Truth and Lies
+  </a>
+  
+    <nav class="md-nav" aria-label="Knowledge, Truth and Lies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fencing-tokens" class="md-nav__link">
+    Fencing tokens
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#byzantine-faults" class="md-nav__link">
+    Byzantine faults
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Todo
+        
+      </label>
+      <nav class="md-nav" aria-label="Todo" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Todo
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../todo/articles.html" class="md-nav__link">
+        TODO
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          System Design
+        
+      </label>
+      <nav class="md-nav" aria-label="System Design" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            System Design
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      <label class="md-nav__link" for="__nav_3_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Problems
+        
+      </label>
+      <nav class="md-nav" aria-label="Problems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Problems
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Problems/distributedCache.html" class="md-nav__link">
+        Distributed Cache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Problems/distributedMessageQueue.html" class="md-nav__link">
+        Distributed Message Queue
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Problems/notificationService.html" class="md-nav__link">
+        Notification Service
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Problems/rateLimiting.html" class="md-nav__link">
+        Rate Limiting (local and distributed)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Problems/stepByStepGuide.html" class="md-nav__link">
+        Step By Step Guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Problems/topKHeavyHitters.html" class="md-nav__link">
+        Top K Heavy Hitters
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#faults-and-partial-failures" class="md-nav__link">
+    Faults and Partial Failures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unreliable-networks" class="md-nav__link">
+    Unreliable Networks
+  </a>
+  
+    <nav class="md-nav" aria-label="Unreliable Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detecting-faults" class="md-nav__link">
+    Detecting Faults
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeouts-and-unbounded-delays" class="md-nav__link">
+    Timeouts and unbounded delays
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-congestion-and-queueing" class="md-nav__link">
+    Network congestion and queueing
+  </a>
+  
+    <nav class="md-nav" aria-label="Network congestion and queueing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcp-vs-udp" class="md-nav__link">
+    TCP vs UDP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronous-vs-asynchronous-networks" class="md-nav__link">
+    Synchronous vs asynchronous networks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unreliable-clocks" class="md-nav__link">
+    Unreliable Clocks
+  </a>
+  
+    <nav class="md-nav" aria-label="Unreliable Clocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relying-on-synchronized-clocks" class="md-nav__link">
+    Relying on Synchronized Clocks
+  </a>
+  
+    <nav class="md-nav" aria-label="Relying on Synchronized Clocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#timestamps-for-ordering-events" class="md-nav__link">
+    Timestamps for ordering events
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clock-readings-have-a-confidence-interval" class="md-nav__link">
+    Clock readings have a confidence interval
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-pauses" class="md-nav__link">
+    Process pauses
+  </a>
+  
+    <nav class="md-nav" aria-label="Process pauses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#response-time-guarantees" class="md-nav__link">
+    Response time guarantees
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-truth-and-lies" class="md-nav__link">
+    Knowledge, Truth and Lies
+  </a>
+  
+    <nav class="md-nav" aria-label="Knowledge, Truth and Lies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fencing-tokens" class="md-nav__link">
+    Fencing tokens
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#byzantine-faults" class="md-nav__link">
+    Byzantine faults
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/Notes/books/DDIA/chapter8.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="8-the-trouble-with-distributed-systems">8. The Trouble With Distributed Systems</h1>
+<h2 id="faults-and-partial-failures">Faults and Partial Failures</h2>
+<p>A program on a single computer either works or it doesn't. There is no reason why software should be flaky (non deterministic).</p>
+<p>In a distributed systems we have no choice but to confront the messy reality of the physical world. There will be parts that are broken in an unpredictable way, while others work. Partial failures are <em>nondeterministic</em>. Things will unpredicably fail.</p>
+<p>We need to accept the possibility of partial failure and build fault-tolerant mechanism into the software. <strong>We need to build a reliable system from unreliable components.</strong></p>
+<h2 id="unreliable-networks">Unreliable Networks</h2>
+<p>Focusing on <em>shared-nothing systems</em> the network is the only way machines communicate.</p>
+<p>The internet and most internal networks are <em>asynchronous packet networks</em>. A message is sent and the network gives no guarantees as to when it will arrive, or whether it will arrive at all. Things that could go wrong:</p>
+<ol>
+<li>Request lost</li>
+<li>Request waiting in a queue to be delivered later</li>
+<li>Remote node may have failed</li>
+<li>Remote node may have temporarily stoped responding</li>
+<li>Response has been lost on the network</li>
+<li>The response has been delayed and will be delivered later</li>
+</ol>
+<p>If you send a request to another node and don't receive a response, it is <em>impossible</em> to tell why.</p>
+<p>The usual way of handling this issue is a <em>timeout</em>: after some time you give up waiting and assume that the response is not going to arrive.</p>
+<h3 id="detecting-faults">Detecting Faults</h3>
+<p>Many systems need to automatically detect faulty nodes. For example</p>
+<ul>
+<li>A load balancer needs to stop sending requests to a node that is dead</li>
+<li>In a distributed database with single-leader replication, if the leader fails, one of the followers needs to be promoted to be the new leader</li>
+</ul>
+<p>Nobody is immune to network problems. You do need to know how your software reacts to network problems to ensure that the system can recover from them. It may make sense to deliberately trigger network problems and test the system's response.</p>
+<p>If you want to be sure that a request was successful, you need a positive response from the application itself.</p>
+<p>If something has gone wrong, you have to assume that you will get no response at all.</p>
+<h3 id="timeouts-and-unbounded-delays">Timeouts and unbounded delays</h3>
+<p>A long timeout means a long wait until a node is declared dead. A short timeout detects faults faster, but carries a higher risk of incorrectly declaring a node dead (when it could be a slowdown).</p>
+<p>Premature declaring a node is problematic, if the node is actually alive the action may end up being performed twice.</p>
+<p>When a node is declared dead, its responsibilities need to be transferred to other nodes, which places additional load on other nodes and the network. If the system is already struggling with high load, declaring nodes dead prematurely can make the problem worse. In particular, it could happen that the node actually wasn’t dead but only slow to respond due to overload; transferring its load to other nodes can cause a cascading failure.</p>
+<h3 id="network-congestion-and-queueing">Network congestion and queueing</h3>
+<ul>
+<li>Different nodes try to send packets simultaneously to the same destination, the network switch must queue them and feed them to the destination one by one. The switch will discard packets when filled up.</li>
+<li>If CPU cores are busy, the request is queued by the operative system, until applications are ready to handle it.</li>
+<li>In virtual environments, the operative system is often paused while another virtual machine uses a CPU core. The VM queues the incoming data.</li>
+<li>TCP performs <em>flow control</em>, in which a node limits its own rate of sending in order to avoid overloading a network link or the receiving node. This means additional queuing at the sender. </li>
+<li>Moreover, TCP considers a packet to be lost if it is not acknowledged within some
+timeout (which is calculated from observed round-trip times), and lost packets are
+automatically retransmitted. Although the application does not see the packet loss
+and retransmission, it does see the resulting delay (waiting for the timeout to expire,
+and then waiting for the retransmitted packet to be acknowledged).</li>
+</ul>
+<p>You can choose timeouts experimentally by measuring the distribution of network round-trip times over an extended period.</p>
+<p>Systems can continually measure response times and their variability (<em>jitter</em>), and automatically adjust timeouts according to the observed response time distribution.</p>
+<h4 id="tcp-vs-udp">TCP vs UDP</h4>
+<p>Some latency-sensitive applications, such as videoconferencing and Voice over IP
+(VoIP), use UDP rather than TCP. It’s a trade-off between reliability and variability
+of delays: as UDP does not perform flow control and does not retransmit lost packets,
+it avoids some of the reasons for variable network delays (although it is still suscepti‐
+ble to switch queues and scheduling delays).</p>
+<p>UDP is a good choice in situations where delayed data is worthless. For example, in a
+VoIP phone call, there probably isn’t enough time to retransmit a lost packet before
+its data is due to be played over the loudspeakers. In this case, there’s no point in
+retransmitting the packet—the application must instead fill the missing packet’s time
+slot with silence (causing a brief interruption in the sound) and move on in the
+stream. The retry happens at the human layer instead. (“Could you repeat that please?
+The sound just cut out for a moment.”)</p>
+<h3 id="synchronous-vs-asynchronous-networks">Synchronous vs asynchronous networks</h3>
+<p>A telephone network estabilishes a <em>circuit</em>, we say is <em>synchronous</em> even as the data passes through several routers as it does not suffer from queing. The maximum end-to-end latency of the network is fixed (<em>bounded delay</em>).</p>
+<p>A circuit is a fixed amount of reserved bandwidth which nobody else can use while the circuit is established, whereas packets of a TCP connection opportunistically use whatever network bandwidth is available.</p>
+<p><strong>Using circuits for bursty data transfers wastes network capacity and makes transfer unnecessary slow. By contrast, TCP dynamically adapts the rate of data transfer to the available network capacity.</strong></p>
+<p>The internet shares network bandwidth dynamically. Senders push and jostle with each other to get their packets over the wire as quickly as possible, and the network switches decide which packet to send (i.e., the bandwidth allocation) from one moment to the next. This approach has the downside of queueing, but the advantage is that it maximizes utilization of the wire. The wire has a fixed cost, so if you utilize it better, each byte you send over the wire is cheaper.</p>
+<p>We have to assume that network congestion, queueing, and unbounded delays will happen. Consequently, there's no "correct" value for timeouts, they need to be determined experimentally.</p>
+<h2 id="unreliable-clocks">Unreliable Clocks</h2>
+<p>The time when a message is received is always later than the time when it is sent, we don't know how much later due to network delays. This makes difficult to determine the order of which things happened when multiple machines are involved.</p>
+<p>Each machine on the network has its own clock, slightly faster or slower than the other machines. It is possible to synchronise clocks with Network Time Protocol (NTP).</p>
+<dl>
+<dt>Time-of-day clocks</dt>
+<dd>Return the current date and time according to some calendar (<em>wall-clock time</em>). If the local clock is too far ahead of the NTP server, it may be forcibly reset and appear to jump back to a previous point in time. <strong>This makes it is unsuitable for measuring elapsed time.</strong></dd>
+<dt>Monotonic clocks</dt>
+<dd><code>System.nanoTime()</code>. They are guaranteed to always move forward. The difference between clock reads can tell you how much time elapsed beween two checks. <strong>The <em>absolute</em> value of the clock is meaningless.</strong> NTP allows the clock rate to be sped up or slowed down by up to 0.05%, but <strong>NTP cannot cause the monotonic clock to jump forward or backward</strong>. <strong>In a distributed system, using a monotonic clock for measuring elapsed time (peg: timeouts), is usually fine</strong>.</dd>
+</dl>
+<p>If some piece of software is relying on an accurately synchronised clock, the result is more likely to be silent and subtle data loss than a dramatic crash.</p>
+<p>You need to carefully monitor the clock offsets between all the machines.</p>
+<h3 id="relying-on-synchronized-clocks">Relying on Synchronized Clocks</h3>
+<h4 id="timestamps-for-ordering-events">Timestamps for ordering events</h4>
+<p><img alt="Figure 8-3" src="image/chapter8/1632809542077.png" /></p>
+<p><strong>It is tempting, but dangerous to rely on clocks for ordering of events across multiple nodes.</strong> This usually imply that <em>last write wins</em> (LWW), often used in both multi-leader replication and leaderless databases like Cassandra and Riak, and data-loss may happen.</p>
+<p>The definition of "recent" also depends on local time-of-day clock, which may well be incorrect.</p>
+<p><em>Logical clocks</em>, based on counters instead of oscillating quartz crystal, are safer alternative for ordering events. Logical clocks do not measure time of the day or elapsed time, only relative ordering of events. This contrasts with time-of-the-day and monotic clocks (also known as <em>physical clocks</em>).</p>
+<h4 id="clock-readings-have-a-confidence-interval">Clock readings have a confidence interval</h4>
+<p>It doesn't make sense to think of a clock reading as a point in time, it is more like a range of times, within a confidence internval: for example, 95% confident that the time now is between 10.3 and 10.5.</p>
+<p>The most common implementation of snapshot isolation requires a monotonically increasing transaction ID.</p>
+<p>Spanner implements snapshot isolation across datacenters by using clock's confidence interval. If you have two confidence internvals where</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>A = [A earliest, A latest]
+B = [B earliest, B latest]
+</code></pre></div>
+</td></tr></table>
+<p>And those two intervals do not overlap (<code>A earliest</code> &lt; <code>A latest</code> &lt; <code>B earliest</code> &lt; <code>B latest</code>), then B definetively happened after A.</p>
+<p>Spanner deliberately waits for the length of the confidence interval before commiting a read-write transaction, so their confidence intervals do not overlap.</p>
+<p>Spanner needs to keep the clock uncertainty as small as possible, that's why Google deploys a GPS receiver or atomic clock in each datacenter.</p>
+<h3 id="process-pauses">Process pauses</h3>
+<p>How does a node know that it is still leader?</p>
+<p>One option is for the leader to obtain a <em>lease</em> from other nodes (similar to a lock with a timeout). It will be the leader until the lease expires; to remain leader, the node must periodically renew the lease. If the node fails, another node can takeover when it expires.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">getIncomingRequest</span><span class="p">();</span>
+
+    <span class="o">//</span> <span class="n">Ensure</span> <span class="n">that</span> <span class="n">the</span> <span class="n">lease</span> <span class="n">always</span> <span class="n">has</span> <span class="n">at</span> <span class="n">least</span> <span class="mi">10</span> <span class="n">seconds</span> <span class="n">remaining</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">lease</span><span class="o">.</span><span class="n">expiryTimeMillis</span> <span class="o">-</span> <span class="n">System</span><span class="o">.</span><span class="n">currentTimeMillis</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">lease</span> <span class="o">=</span> <span class="n">lease</span><span class="o">.</span><span class="n">renew</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">lease</span><span class="o">.</span><span class="n">isValid</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">process</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>Suppose we have the above request-handling loop. Whats wrong with this code?</p>
+<ol>
+<li>It's relying on synchronized clocks. The expiry time on the lease is set by a differnet machine, and its being compared to the local system clock. If clocks are out of sync, we can experience weird behavior.</li>
+<li>Even if we change the protocol to only use the local monotonic clock, there is another problem: the code assumes that very little time passes between the point that it checks the time (<code>System.currentTimeMillis()</code>) and the time when the request is processed (<code>process(request)</code>). Normally this code runs very quickly, so the 10 second buffer is more than enough to ensure that the lease doesn't expire in the middle of processing a request.<ol>
+<li>However, what if there is an unexpected pause in the execution of the program? Forexample, imagine the thread stops for 15 seconds around the line <code>lease.isValid()</code> before finally continuing. In that case, it’s likely that the lease will have expired by the time the request is processed, and another node has already taken over as leader. However, there is nothing to tell this thread that it was paused for so long, so this code won’t notice that the lease has expired until the next iteration of the loop by which time it may have already done something unsafe by processing the request.</li>
+</ol>
+</li>
+</ol>
+<p>Process pauses can happen for many reasons.</p>
+<ul>
+<li>Garbage collector (stop the world)</li>
+<li>Virtual machine can be suspended</li>
+<li>In laptops execution may be suspended</li>
+<li>Operating system context-switches</li>
+<li>Synchronous disk access</li>
+<li>Swapping to disk (paging)</li>
+<li>Unix process can be stopped (<code>SIGSTOP</code>)</li>
+</ul>
+<h4 id="response-time-guarantees">Response time guarantees</h4>
+<p>There are systems that require software to respond before a specific <em>deadline</em> (<em>real-time operating system, or RTOS</em>).</p>
+<p>Library functions must document their worst-case execution times; dynamic memory allocation may be restricted or disallowed and enormous amount of testing and measurement must be done.</p>
+<p>Garbage collection could be treated like brief planned outages. If the runtime can warn the application that a node soon requires a GC pause, the application can stop sending new requests to that node and perform GC while no requests are in progress.</p>
+<p>A variant of this idea is to use the garbage collector only for short-lived objects and to restart the process periodically.</p>
+<h2 id="knowledge-truth-and-lies">Knowledge, Truth and Lies</h2>
+<p>A node cannot necessarily trust its own judgement of a situation. Many distributed systems rely on a <em>quorum</em> (voting among the nodes).</p>
+<p>Commonly, the quorum is an absolute majority of more than half of the nodes.</p>
+<h3 id="fencing-tokens">Fencing tokens</h3>
+<p><img alt="Figure 8-4" src="image/chapter8/1632810006517.png" /></p>
+<p>Incorrect implementation of a distributed lock: client 1 believes that it still
+has a valid lease, even though it has expired, and thus corrupts a file in storage.</p>
+<p><img alt="Fencing Tokens" src="image/chapter8/1632809482877.png" /></p>
+<p>Making access to storage safe by allowing writes only in the order of increasing fencing tokens.</p>
+<p>Assume every time the lock server grants a lock or a lease, it also returns a <em>fencing token</em>, which is a number that increases every time a lock is granted (incremented by the lock service). Then we can require every time a client sends a write request to the storage service, it must include its current fencing token.</p>
+<p>The storage server remembers that it has already processed a write with a higher token number, so it rejects the request with the last token.</p>
+<p>If ZooKeeper is used as lock service, the transaciton ID <code>zcid</code> or the node version <code>cversion</code> can be used as a fencing token.</p>
+<h3 id="byzantine-faults">Byzantine faults</h3>
+<p>Fencing tokens can detect and block a node that is <em>inadvertently</em> acting in error.</p>
+<p>Distributed systems become much harder if there is a risk that nodes may "lie" (<em>byzantine fault</em>).</p>
+<p>A system is <em>Byzantine fault-tolerant</em> if it continues to operate correctly even if some of the nodes are malfunctioning.</p>
+<ul>
+<li>Aerospace environments</li>
+<li>Multiple participating organisations, some participants may attempt ot cheat or defraud others</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="chapter7.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: 7. Transactions" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              7. Transactions
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../todo/articles.html" class="md-footer__link md-footer__link--next" aria-label="Next: TODO" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              TODO
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="mailto:theravindu@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tracking"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.82b56eb2.min.js"></script>
+      
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+    
+  </body>
+</html>
