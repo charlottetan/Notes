@@ -40,6 +40,8 @@
     
     
     
+      <link rel="stylesheet" href="../../../stylesheets/dt.css">
+    
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
     
@@ -190,7 +192,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../System%20Design/Problems/distributedCache.html" class="md-tabs__link">
+      <a href="../../../System%20Design/Concepts/backOfTheEnvelope.html" class="md-tabs__link">
         System Design
       </a>
     </li>
@@ -739,66 +741,12 @@
     Handling node outages
   </a>
   
-    <nav class="md-nav" aria-label="Handling node outages">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#follower-failure-catchup-recovery" class="md-nav__link">
-    Follower failure: catchup recovery
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#leader-failure-failover" class="md-nav__link">
-    Leader failure: failover
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#implementation-of-replication-logs" class="md-nav__link">
     Implementation of replication logs
   </a>
-  
-    <nav class="md-nav" aria-label="Implementation of replication logs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#statement-based-replication" class="md-nav__link">
-    Statement-based replication
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write-ahead-log-wal-shipping" class="md-nav__link">
-    Write-ahead log (WAL) shipping
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#logical-row-based-log-replication" class="md-nav__link">
-    Logical (row-based) log replication
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#trigger-based-replication" class="md-nav__link">
-    Trigger-based replication
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -854,73 +802,12 @@
     Use cases for multi-leader replication
   </a>
   
-    <nav class="md-nav" aria-label="Use cases for multi-leader replication">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#multi-datacenter-operation" class="md-nav__link">
-    Multi-datacenter operation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#clients-with-offline-operation" class="md-nav__link">
-    Clients with offline operation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#collaborative-editing" class="md-nav__link">
-    Collaborative editing
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#handling-write-conflicts" class="md-nav__link">
     Handling write conflicts
   </a>
-  
-    <nav class="md-nav" aria-label="Handling write conflicts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#synchronous-vs-asynchronous-conflict-detection" class="md-nav__link">
-    Synchronous vs asynchronous conflict detection
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#conflict-avoidance" class="md-nav__link">
-    Conflict avoidance
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#converging-toward-a-consistent-state" class="md-nav__link">
-    Converging toward a consistent state
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-conflict-resolution" class="md-nav__link">
-    Custom conflict resolution
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -949,26 +836,6 @@
     Writing to the Database When a Node Is Down
   </a>
   
-    <nav class="md-nav" aria-label="Writing to the Database When a Node Is Down">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#read-repair-and-anti-entropy" class="md-nav__link">
-    Read repair and anti-entropy
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quorums-for-reading-and-writing" class="md-nav__link">
-    Quorums for reading and writing
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -976,59 +843,12 @@
     Sloppy quorums and hinted handoff
   </a>
   
-    <nav class="md-nav" aria-label="Sloppy quorums and hinted handoff">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#multi-datacenter-operations" class="md-nav__link">
-    Multi-datacenter operations
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#detecting-concurrent-writes" class="md-nav__link">
     Detecting concurrent writes
   </a>
-  
-    <nav class="md-nav" aria-label="Detecting concurrent writes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#last-write-wins-discarding-concurrent-writes" class="md-nav__link">
-    Last write wins (discarding concurrent writes)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-happens-before-relationship-and-concurrency" class="md-nav__link">
-    The "happens-before" relationship and concurrency
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#capturing-the-happens-before-relationship" class="md-nav__link">
-    Capturing the happens-before relationship
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#merging-concurrently-written-values" class="md-nav__link">
-    Merging concurrently written values
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1197,14 +1017,14 @@
       <label class="md-nav__link" for="__nav_3_1">
         <span class="md-nav__icon md-icon"></span>
         
-          Problems
+          Concepts
         
       </label>
-      <nav class="md-nav" aria-label="Problems" data-md-level="2">
+      <nav class="md-nav" aria-label="Concepts" data-md-level="2">
         <label class="md-nav__title" for="__nav_3_1">
           <span class="md-nav__icon md-icon"></span>
           
-            Problems
+            Concepts
           
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
@@ -1214,7 +1034,117 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/distributedCache.html" class="md-nav__link">
+      <a href="../../../System%20Design/Concepts/backOfTheEnvelope.html" class="md-nav__link">
+        Back of Envelope Calculations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Concepts/encodingAndDecoding.html" class="md-nav__link">
+        Encoding And Decoding
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Real Examples
+        
+      </label>
+      <nav class="md-nav" aria-label="Real Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Real Examples
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Real%20Examples/FacebookIris.html" class="md-nav__link">
+        Iris - Building Mobile-First Infrastructure for Messenger
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Real%20Examples/LinkedInRealTimeVideo.html" class="md-nav__link">
+        LinkedIn Real-Time Interactions on Live Video
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          System Design Interview YT Channel
+        
+      </label>
+      <nav class="md-nav" aria-label="System Design Interview YT Channel" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            System Design Interview YT Channel
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/distributedCache.html" class="md-nav__link">
         Distributed Cache
       </a>
     </li>
@@ -1226,7 +1156,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/distributedMessageQueue.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/distributedMessageQueue.html" class="md-nav__link">
         Distributed Message Queue
       </a>
     </li>
@@ -1238,7 +1168,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/notificationService.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/notificationService.html" class="md-nav__link">
         Notification Service
       </a>
     </li>
@@ -1250,7 +1180,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/rateLimiting.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/rateLimiting.html" class="md-nav__link">
         Rate Limiting (local and distributed)
       </a>
     </li>
@@ -1262,7 +1192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/stepByStepGuide.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/stepByStepGuide.html" class="md-nav__link">
         Step By Step Guide
       </a>
     </li>
@@ -1274,7 +1204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/topKHeavyHitters.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/topKHeavyHitters.html" class="md-nav__link">
         Top K Heavy Hitters
       </a>
     </li>
@@ -1345,66 +1275,12 @@
     Handling node outages
   </a>
   
-    <nav class="md-nav" aria-label="Handling node outages">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#follower-failure-catchup-recovery" class="md-nav__link">
-    Follower failure: catchup recovery
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#leader-failure-failover" class="md-nav__link">
-    Leader failure: failover
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#implementation-of-replication-logs" class="md-nav__link">
     Implementation of replication logs
   </a>
-  
-    <nav class="md-nav" aria-label="Implementation of replication logs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#statement-based-replication" class="md-nav__link">
-    Statement-based replication
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write-ahead-log-wal-shipping" class="md-nav__link">
-    Write-ahead log (WAL) shipping
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#logical-row-based-log-replication" class="md-nav__link">
-    Logical (row-based) log replication
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#trigger-based-replication" class="md-nav__link">
-    Trigger-based replication
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1460,73 +1336,12 @@
     Use cases for multi-leader replication
   </a>
   
-    <nav class="md-nav" aria-label="Use cases for multi-leader replication">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#multi-datacenter-operation" class="md-nav__link">
-    Multi-datacenter operation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#clients-with-offline-operation" class="md-nav__link">
-    Clients with offline operation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#collaborative-editing" class="md-nav__link">
-    Collaborative editing
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#handling-write-conflicts" class="md-nav__link">
     Handling write conflicts
   </a>
-  
-    <nav class="md-nav" aria-label="Handling write conflicts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#synchronous-vs-asynchronous-conflict-detection" class="md-nav__link">
-    Synchronous vs asynchronous conflict detection
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#conflict-avoidance" class="md-nav__link">
-    Conflict avoidance
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#converging-toward-a-consistent-state" class="md-nav__link">
-    Converging toward a consistent state
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-conflict-resolution" class="md-nav__link">
-    Custom conflict resolution
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1555,26 +1370,6 @@
     Writing to the Database When a Node Is Down
   </a>
   
-    <nav class="md-nav" aria-label="Writing to the Database When a Node Is Down">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#read-repair-and-anti-entropy" class="md-nav__link">
-    Read repair and anti-entropy
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quorums-for-reading-and-writing" class="md-nav__link">
-    Quorums for reading and writing
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -1582,59 +1377,12 @@
     Sloppy quorums and hinted handoff
   </a>
   
-    <nav class="md-nav" aria-label="Sloppy quorums and hinted handoff">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#multi-datacenter-operations" class="md-nav__link">
-    Multi-datacenter operations
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#detecting-concurrent-writes" class="md-nav__link">
     Detecting concurrent writes
   </a>
-  
-    <nav class="md-nav" aria-label="Detecting concurrent writes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#last-write-wins-discarding-concurrent-writes" class="md-nav__link">
-    Last write wins (discarding concurrent writes)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-happens-before-relationship-and-concurrency" class="md-nav__link">
-    The "happens-before" relationship and concurrency
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#capturing-the-happens-before-relationship" class="md-nav__link">
-    Capturing the happens-before relationship
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#merging-concurrently-written-values" class="md-nav__link">
-    Merging concurrently written values
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         

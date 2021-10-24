@@ -40,6 +40,8 @@
     
     
     
+      <link rel="stylesheet" href="../../../stylesheets/dt.css">
+    
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
     
@@ -190,7 +192,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../System%20Design/Problems/distributedCache.html" class="md-tabs__link">
+      <a href="../../../System%20Design/Concepts/backOfTheEnvelope.html" class="md-tabs__link">
         System Design
       </a>
     </li>
@@ -756,26 +758,6 @@
     Single-Object and Multi-Object Operations
   </a>
   
-    <nav class="md-nav" aria-label="Single-Object and Multi-Object Operations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#single-object-writes" class="md-nav__link">
-    Single-object writes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-need-for-multi-object-transactions" class="md-nav__link">
-    The need for multi-object transactions
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -796,19 +778,6 @@
     Read committed
   </a>
   
-    <nav class="md-nav" aria-label="Read committed">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementing-read-committed" class="md-nav__link">
-    Implementing read committed
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -816,66 +785,12 @@
     Snapshot Isolation and Repeatable Read
   </a>
   
-    <nav class="md-nav" aria-label="Snapshot Isolation and Repeatable Read">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementing-snapshot-isolation" class="md-nav__link">
-    Implementing snapshot isolation
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#preventing-lost-updates" class="md-nav__link">
     Preventing lost updates
   </a>
-  
-    <nav class="md-nav" aria-label="Preventing lost updates">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#atomic-write-operations" class="md-nav__link">
-    Atomic write operations
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#explicit-locking" class="md-nav__link">
-    Explicit locking
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#automatically-detecting-lost-updates" class="md-nav__link">
-    Automatically detecting lost updates
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#compare-and-set" class="md-nav__link">
-    Compare-and-set
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#conflict-resolution-and-replication" class="md-nav__link">
-    Conflict resolution and replication
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -904,26 +819,6 @@
     Actual serial execution
   </a>
   
-    <nav class="md-nav" aria-label="Actual serial execution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#encapsulating-transactions-in-stored-procedures" class="md-nav__link">
-    Encapsulating transactions in stored procedures
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#partitioning" class="md-nav__link">
-    Partitioning
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -931,66 +826,12 @@
     Two-phase locking (2PL)
   </a>
   
-    <nav class="md-nav" aria-label="Two-phase locking (2PL)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementation-of-two-phase-locking" class="md-nav__link">
-    Implementation of Two-phase locking
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#predicate-locks" class="md-nav__link">
-    Predicate locks
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#index-range-locks" class="md-nav__link">
-    Index-range locks
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#serializable-snapshot-isolation-ssi" class="md-nav__link">
     Serializable snapshot isolation (SSI)
   </a>
-  
-    <nav class="md-nav" aria-label="Serializable snapshot isolation (SSI)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pesimistic-versus-optimistic-concurrency-control" class="md-nav__link">
-    Pesimistic versus optimistic concurrency control
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#decisions-based-on-an-outdated-premise" class="md-nav__link">
-    Decisions based on an outdated premise
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-of-serializable-snapshot-isolation" class="md-nav__link">
-    Performance of serializable snapshot isolation
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1121,14 +962,14 @@
       <label class="md-nav__link" for="__nav_3_1">
         <span class="md-nav__icon md-icon"></span>
         
-          Problems
+          Concepts
         
       </label>
-      <nav class="md-nav" aria-label="Problems" data-md-level="2">
+      <nav class="md-nav" aria-label="Concepts" data-md-level="2">
         <label class="md-nav__title" for="__nav_3_1">
           <span class="md-nav__icon md-icon"></span>
           
-            Problems
+            Concepts
           
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
@@ -1138,7 +979,117 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/distributedCache.html" class="md-nav__link">
+      <a href="../../../System%20Design/Concepts/backOfTheEnvelope.html" class="md-nav__link">
+        Back of Envelope Calculations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Concepts/encodingAndDecoding.html" class="md-nav__link">
+        Encoding And Decoding
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Real Examples
+        
+      </label>
+      <nav class="md-nav" aria-label="Real Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Real Examples
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Real%20Examples/FacebookIris.html" class="md-nav__link">
+        Iris - Building Mobile-First Infrastructure for Messenger
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/Real%20Examples/LinkedInRealTimeVideo.html" class="md-nav__link">
+        LinkedIn Real-Time Interactions on Live Video
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          System Design Interview YT Channel
+        
+      </label>
+      <nav class="md-nav" aria-label="System Design Interview YT Channel" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            System Design Interview YT Channel
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/distributedCache.html" class="md-nav__link">
         Distributed Cache
       </a>
     </li>
@@ -1150,7 +1101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/distributedMessageQueue.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/distributedMessageQueue.html" class="md-nav__link">
         Distributed Message Queue
       </a>
     </li>
@@ -1162,7 +1113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/notificationService.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/notificationService.html" class="md-nav__link">
         Notification Service
       </a>
     </li>
@@ -1174,7 +1125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/rateLimiting.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/rateLimiting.html" class="md-nav__link">
         Rate Limiting (local and distributed)
       </a>
     </li>
@@ -1186,7 +1137,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/stepByStepGuide.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/stepByStepGuide.html" class="md-nav__link">
         Step By Step Guide
       </a>
     </li>
@@ -1198,7 +1149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System%20Design/Problems/topKHeavyHitters.html" class="md-nav__link">
+      <a href="../../../System%20Design/System%20Design%20Interview%20YT%20Channel/topKHeavyHitters.html" class="md-nav__link">
         Top K Heavy Hitters
       </a>
     </li>
@@ -1262,26 +1213,6 @@
     Single-Object and Multi-Object Operations
   </a>
   
-    <nav class="md-nav" aria-label="Single-Object and Multi-Object Operations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#single-object-writes" class="md-nav__link">
-    Single-object writes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-need-for-multi-object-transactions" class="md-nav__link">
-    The need for multi-object transactions
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -1302,19 +1233,6 @@
     Read committed
   </a>
   
-    <nav class="md-nav" aria-label="Read committed">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementing-read-committed" class="md-nav__link">
-    Implementing read committed
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -1322,66 +1240,12 @@
     Snapshot Isolation and Repeatable Read
   </a>
   
-    <nav class="md-nav" aria-label="Snapshot Isolation and Repeatable Read">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementing-snapshot-isolation" class="md-nav__link">
-    Implementing snapshot isolation
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#preventing-lost-updates" class="md-nav__link">
     Preventing lost updates
   </a>
-  
-    <nav class="md-nav" aria-label="Preventing lost updates">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#atomic-write-operations" class="md-nav__link">
-    Atomic write operations
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#explicit-locking" class="md-nav__link">
-    Explicit locking
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#automatically-detecting-lost-updates" class="md-nav__link">
-    Automatically detecting lost updates
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#compare-and-set" class="md-nav__link">
-    Compare-and-set
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#conflict-resolution-and-replication" class="md-nav__link">
-    Conflict resolution and replication
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1410,26 +1274,6 @@
     Actual serial execution
   </a>
   
-    <nav class="md-nav" aria-label="Actual serial execution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#encapsulating-transactions-in-stored-procedures" class="md-nav__link">
-    Encapsulating transactions in stored procedures
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#partitioning" class="md-nav__link">
-    Partitioning
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -1437,66 +1281,12 @@
     Two-phase locking (2PL)
   </a>
   
-    <nav class="md-nav" aria-label="Two-phase locking (2PL)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementation-of-two-phase-locking" class="md-nav__link">
-    Implementation of Two-phase locking
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#predicate-locks" class="md-nav__link">
-    Predicate locks
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#index-range-locks" class="md-nav__link">
-    Index-range locks
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#serializable-snapshot-isolation-ssi" class="md-nav__link">
     Serializable snapshot isolation (SSI)
   </a>
-  
-    <nav class="md-nav" aria-label="Serializable snapshot isolation (SSI)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pesimistic-versus-optimistic-concurrency-control" class="md-nav__link">
-    Pesimistic versus optimistic concurrency control
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#decisions-based-on-an-outdated-premise" class="md-nav__link">
-    Decisions based on an outdated premise
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-of-serializable-snapshot-isolation" class="md-nav__link">
-    Performance of serializable snapshot isolation
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
