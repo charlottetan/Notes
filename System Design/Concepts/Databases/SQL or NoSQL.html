@@ -14,7 +14,7 @@
     
     
       
-        <title>SQL or NoSQL - RKK1995's notes</title>
+        <title>SQL vs NoSQL - RKK1995's notes</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sql-or-nosql" class="md-skip">
+        <a href="#sql-vs-nosql" class="md-skip">
           Skip to content
         </a>
       
@@ -99,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SQL or NoSQL
+              SQL vs NoSQL
             
           </span>
         </div>
@@ -838,6 +838,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../ConnectionTypes.html" class="md-nav__link">
+        Connection Types
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../DNS.html" class="md-nav__link">
         DNS
       </a>
@@ -879,14 +891,14 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7" type="checkbox" id="__nav_3_2_7" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_8" type="checkbox" id="__nav_3_2_8" checked>
       
-      <label class="md-nav__link" for="__nav_3_2_7">
+      <label class="md-nav__link" for="__nav_3_2_8">
         Databases
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Databases" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_7">
+        <label class="md-nav__title" for="__nav_3_2_8">
           <span class="md-nav__icon md-icon"></span>
           Databases
         </label>
@@ -897,8 +909,20 @@
   
   
     <li class="md-nav__item">
-      <a href="index.html" class="md-nav__link">
-        Databases
+      <a href="HBase.html" class="md-nav__link">
+        HBase
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="MySQL%20BinLog.html" class="md-nav__link">
+        MySQL BinLog
       </a>
     </li>
   
@@ -918,9 +942,66 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SQL vs NoSQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="SQL%20or%20NoSQL.html" class="md-nav__link md-nav__link--active">
-        SQL or NoSQL
+        SQL vs NoSQL
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reasons-for-sql" class="md-nav__link">
+    Reasons for SQL
+  </a>
+  
+    <nav class="md-nav" aria-label="Reasons for SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#facebook" class="md-nav__link">
+    Facebook
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reasons-for-nosql" class="md-nav__link">
+    Reasons for NoSQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -931,8 +1012,20 @@
   
   
     <li class="md-nav__item">
-      <a href="test.html" class="md-nav__link">
-        test
+      <a href="Scaling%20SQL%20Detailed.html" class="md-nav__link">
+        Scaling SQL Detailed
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Scaling%20SQL%20and%20NoSQL.html" class="md-nav__link">
+        Scaling SQL and NoSQL
       </a>
     </li>
   
@@ -952,14 +1045,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_8" type="checkbox" id="__nav_3_2_8" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_9" type="checkbox" id="__nav_3_2_9" >
       
-      <label class="md-nav__link" for="__nav_3_2_8">
+      <label class="md-nav__link" for="__nav_3_2_9">
         Misc
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Misc" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_8">
+        <label class="md-nav__title" for="__nav_3_2_9">
           <span class="md-nav__icon md-icon"></span>
           Misc
         </label>
@@ -1012,11 +1105,50 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
       
       <label class="md-nav__link" for="__nav_3_3">
+        Components
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Components" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Components
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Components/KeyGenerationService.html" class="md-nav__link">
+        Key Generation Service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      <label class="md-nav__link" for="__nav_3_4">
         System Design Interview YT Channel
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="System Design Interview YT Channel" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_3">
+        <label class="md-nav__title" for="__nav_3_4">
           <span class="md-nav__icon md-icon"></span>
           System Design Interview YT Channel
         </label>
@@ -1108,18 +1240,30 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
       
-      <label class="md-nav__link" for="__nav_3_4">
+      <label class="md-nav__link" for="__nav_3_5">
         Examples
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Examples" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_4">
+        <label class="md-nav__title" for="__nav_3_5">
           <span class="md-nav__icon md-icon"></span>
           Examples
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Examples/dropbox.html" class="md-nav__link">
+        Dropbox
+      </a>
+    </li>
+  
+
           
             
   
@@ -1147,14 +1291,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" >
       
-      <label class="md-nav__link" for="__nav_3_5">
+      <label class="md-nav__link" for="__nav_3_6">
         Real World Examples
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Real World Examples" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_5">
+        <label class="md-nav__title" for="__nav_3_6">
           <span class="md-nav__icon md-icon"></span>
           Real World Examples
         </label>
@@ -1168,14 +1312,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5_1" type="checkbox" id="__nav_3_5_1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_1" type="checkbox" id="__nav_3_6_1" >
       
-      <label class="md-nav__link" for="__nav_3_5_1">
+      <label class="md-nav__link" for="__nav_3_6_1">
         Facebook
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Facebook" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_5_1">
+        <label class="md-nav__title" for="__nav_3_6_1">
           <span class="md-nav__icon md-icon"></span>
           Facebook
         </label>
@@ -1201,14 +1345,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5_1_2" type="checkbox" id="__nav_3_5_1_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_1_2" type="checkbox" id="__nav_3_6_1_2" >
       
-      <label class="md-nav__link" for="__nav_3_5_1_2">
+      <label class="md-nav__link" for="__nav_3_6_1_2">
         TAO
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="TAO" data-md-level="4">
-        <label class="md-nav__title" for="__nav_3_5_1_2">
+        <label class="md-nav__title" for="__nav_3_6_1_2">
           <span class="md-nav__icon md-icon"></span>
           TAO
         </label>
@@ -1246,14 +1390,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5_2" type="checkbox" id="__nav_3_5_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_2" type="checkbox" id="__nav_3_6_2" >
       
-      <label class="md-nav__link" for="__nav_3_5_2">
+      <label class="md-nav__link" for="__nav_3_6_2">
         LinkedIn
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="LinkedIn" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_5_2">
+        <label class="md-nav__title" for="__nav_3_6_2">
           <span class="md-nav__icon md-icon"></span>
           LinkedIn
         </label>
@@ -1285,14 +1429,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5_3" type="checkbox" id="__nav_3_5_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_3" type="checkbox" id="__nav_3_6_3" >
       
-      <label class="md-nav__link" for="__nav_3_5_3">
+      <label class="md-nav__link" for="__nav_3_6_3">
         Netflix
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Netflix" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_5_3">
+        <label class="md-nav__title" for="__nav_3_6_3">
           <span class="md-nav__icon md-icon"></span>
           Netflix
         </label>
@@ -1347,6 +1491,48 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reasons-for-sql" class="md-nav__link">
+    Reasons for SQL
+  </a>
+  
+    <nav class="md-nav" aria-label="Reasons for SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#facebook" class="md-nav__link">
+    Facebook
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reasons-for-nosql" class="md-nav__link">
+    Reasons for NoSQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1362,37 +1548,31 @@
                   </a>
                 
                 
-                <h1 id="sql-or-nosql">SQL or NoSQL</h1>
-<p><img alt="" src="image/SQL%20or%20NoSQL/1635526595054.png" /></p>
-<p>Reasons for SQL:</p>
+                <h1 id="sql-vs-nosql">SQL vs NoSQL</h1>
+<h2 id="reasons-for-sql">Reasons for SQL</h2>
 <ul>
-<li>Structured data</li>
-<li>Strict schema</li>
-<li>Relational data</li>
-<li>Need for complex joins</li>
-<li>Transactions</li>
-<li>Clear patterns for scaling</li>
-<li>More established: developers, community, code, tools, etc</li>
-<li>Lookups by index are very fast</li>
+<li>Structured/Relational data</li>
+<li>ACID properties</li>
+<li>Require multiple indexes</li>
+<li>Need for complex dynamic queries + analytics</li>
+<li>Writes scaled by sharding / Reads scaled by replication</li>
+<li>MySQL auto-incrementing columns for primary keys (unique IDs)<ul>
+<li>but MySQL can’t guarantee uniqueness across physical and logical databases.</li>
 </ul>
-<p>Reasons for NoSQL:</p>
+</li>
+</ul>
+<h3 id="facebook">Facebook</h3>
+<p>There are many reasons why we use MySQL at Facebook. MySQL is amenable to automation, making it easy for a small team to manage thousands of MySQL servers while providing high-quality service. The automation includes backup, restore, failover, schema changes, and replacing failed hardware. MySQL also has flexible and extensible replication features, including asynchronous replication and lossless semi-synchronous replication, which makes it possible to do failover without losing data.</p>
+<p>Semisynchronous replication falls between asynchronous and fully synchronous replication. The source waits until at least one replica has received and logged the events (the required number of replicas is configurable), and then commits the transaction. The source does not wait for all replicas to acknowledge receipt, and it requires only an acknowledgement from the replicas, not that the events have been fully executed and committed on the replica side. Semisynchronous replication therefore guarantees that if the source crashes, all the transactions that it has committed have been transmitted to at least one replica.</p>
+<h2 id="reasons-for-nosql">Reasons for NoSQL</h2>
 <ul>
-<li>Semi-structured data</li>
-<li>Dynamic or flexible schema</li>
-<li>Non-relational data</li>
+<li>Common types : Key-Value, Document, Wide-Column, Graph</li>
+<li>Dynamic schemas /Non-relational data</li>
 <li>No need for complex joins</li>
-<li>Store many TB (or PB) of data</li>
-<li>Very data intensive workload</li>
-<li>Very high throughput for IOPS</li>
+<li>Easily scaled for writes / reads by simply adding more servers. Consistent hashing</li>
 </ul>
-<p>Sample data well-suited for NoSQL:</p>
-<ul>
-<li>Rapid ingest of clickstream and log data</li>
-<li>Leaderboard or scoring data</li>
-<li>Temporary data, such as a shopping cart</li>
-<li>Frequently accessed ('hot') tables</li>
-<li>Metadata/lookup tables</li>
-</ul>
+<h2 id="example">Example</h2>
+<p>If you need to store a list, you can store it in both k/v and mysql. In k/v, you can have a key and the value is the list. It's great if the list doesn't change often and you often have to read the whole list. If you store as multiple rows in mysql, getting the whole list is more expensive but getting 1 row is easier, adding a row also easier, etc. There are many things to discuss here.</p>
                 
               
               
@@ -1412,7 +1592,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Databases" rel="prev">
+        <a href="MySQL%20BinLog.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: MySQL BinLog" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1421,20 +1601,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Databases
+              MySQL BinLog
             </div>
           </div>
         </a>
       
       
         
-        <a href="test.html" class="md-footer__link md-footer__link--next" aria-label="Next: test" rel="next">
+        <a href="Scaling%20SQL%20Detailed.html" class="md-footer__link md-footer__link--next" aria-label="Next: Scaling SQL Detailed" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              test
+              Scaling SQL Detailed
             </div>
           </div>
           <div class="md-footer__button md-icon">
