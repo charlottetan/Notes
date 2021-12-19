@@ -9,23 +9,19 @@
       
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
     
     
       
-        <title>112 - RKK1995's notes</title>
+        <title>Large-Scale Low-Latency Storage for the Social Network - RKK1995's notes</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ca7ac06f.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ca7ac06f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#4051b5">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.f1a3b89f.min.css">
         
       
     
@@ -40,9 +36,9 @@
     
     
     
-      <link rel="stylesheet" href="../../stylesheets/dt.css">
+      <link rel="stylesheet" href="../../../stylesheets/dt.css">
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
     
       
@@ -55,18 +51,27 @@
   
     
     
+      
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="red">
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="blue">
   
     
-    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#large-scale-low-latency-storage-for-the-social-network" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -75,7 +80,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../index.html" title="RKK1995&#39;s notes" class="md-header__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+    <a href="../../../index.html" title="RKK1995&#39;s notes" class="md-header__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -94,14 +99,66 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              112
+              Large-Scale Low-Latency Storage for the Social Network
             
           </span>
         </div>
       </div>
     </div>
     
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="dark-blue" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+      </form>
     
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     
     
       <div class="md-header__source">
@@ -135,7 +192,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../index.html" class="md-tabs__link">
+    <a href="../../../index.html" class="md-tabs__link">
       About the Site
     </a>
   </li>
@@ -160,7 +217,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../Notes/papers/Storage/aurora.html" class="md-tabs__link">
+      <a href="../../../Notes/papers/Storage/aurora.html" class="md-tabs__link">
         Notes
       </a>
     </li>
@@ -174,13 +231,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../System%20Design/Template.html" class="md-tabs__link">
+      <a href="../../Template.html" class="md-tabs__link md-tabs__link--active">
         System Design
       </a>
     </li>
@@ -207,7 +266,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="RKK1995&#39;s notes" class="md-nav__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
+    <a href="../../../index.html" title="RKK1995&#39;s notes" class="md-nav__button md-logo" aria-label="RKK1995's notes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -239,7 +298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../index.html" class="md-nav__link">
+      <a href="../../../index.html" class="md-nav__link">
         About the Site
       </a>
     </li>
@@ -317,7 +376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Storage/aurora.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Storage/aurora.html" class="md-nav__link">
         Aurora
       </a>
     </li>
@@ -329,7 +388,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Storage/craq.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Storage/craq.html" class="md-nav__link">
         CRAQ
       </a>
     </li>
@@ -341,7 +400,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Storage/dynamo.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Storage/dynamo.html" class="md-nav__link">
         Dynamo
       </a>
     </li>
@@ -353,7 +412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Storage/farm.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Storage/farm.html" class="md-nav__link">
         FaRM
       </a>
     </li>
@@ -365,7 +424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Storage/frangipani.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Storage/frangipani.html" class="md-nav__link">
         Frangipani
       </a>
     </li>
@@ -377,7 +436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Storage/gfs.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Storage/gfs.html" class="md-nav__link">
         GFS
       </a>
     </li>
@@ -389,7 +448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Storage/memcache.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Storage/memcache.html" class="md-nav__link">
         Memcache
       </a>
     </li>
@@ -401,7 +460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Storage/spanner.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Storage/spanner.html" class="md-nav__link">
         Spanner
       </a>
     </li>
@@ -413,7 +472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Storage/tao.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Storage/tao.html" class="md-nav__link">
         TAO
       </a>
     </li>
@@ -452,7 +511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Compute/distributedTransactions.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Compute/distributedTransactions.html" class="md-nav__link">
         Distributed Transactions
       </a>
     </li>
@@ -464,7 +523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Compute/mapreduce.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Compute/mapreduce.html" class="md-nav__link">
         MapReduce
       </a>
     </li>
@@ -503,7 +562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Cluster%20Management/raft.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Cluster%20Management/raft.html" class="md-nav__link">
         Raft
       </a>
     </li>
@@ -515,7 +574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/papers/Cluster%20Management/zookeeper.html" class="md-nav__link">
+      <a href="../../../Notes/papers/Cluster%20Management/zookeeper.html" class="md-nav__link">
         ZooKeeper
       </a>
     </li>
@@ -581,7 +640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/books/DDIA/chapter1.html" class="md-nav__link">
+      <a href="../../../Notes/books/DDIA/chapter1.html" class="md-nav__link">
         1. Reliable, scalable, and maintainable applications
       </a>
     </li>
@@ -593,7 +652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/books/DDIA/chapter2.html" class="md-nav__link">
+      <a href="../../../Notes/books/DDIA/chapter2.html" class="md-nav__link">
         2. Data Models and Query Languages
       </a>
     </li>
@@ -605,7 +664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/books/DDIA/chapter3.html" class="md-nav__link">
+      <a href="../../../Notes/books/DDIA/chapter3.html" class="md-nav__link">
         3. Storage and retrieval
       </a>
     </li>
@@ -617,7 +676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/books/DDIA/chapter4.html" class="md-nav__link">
+      <a href="../../../Notes/books/DDIA/chapter4.html" class="md-nav__link">
         4. Encoding and evolution
       </a>
     </li>
@@ -629,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/books/DDIA/chapter5.html" class="md-nav__link">
+      <a href="../../../Notes/books/DDIA/chapter5.html" class="md-nav__link">
         5. Replication
       </a>
     </li>
@@ -641,7 +700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/books/DDIA/chapter6.html" class="md-nav__link">
+      <a href="../../../Notes/books/DDIA/chapter6.html" class="md-nav__link">
         6. Partitioning
       </a>
     </li>
@@ -653,7 +712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/books/DDIA/chapter7.html" class="md-nav__link">
+      <a href="../../../Notes/books/DDIA/chapter7.html" class="md-nav__link">
         7. Transactions
       </a>
     </li>
@@ -665,7 +724,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/books/DDIA/chapter8.html" class="md-nav__link">
+      <a href="../../../Notes/books/DDIA/chapter8.html" class="md-nav__link">
         8. The Trouble With Distributed Systems
       </a>
     </li>
@@ -710,7 +769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Notes/todo/articles.html" class="md-nav__link">
+      <a href="../../../Notes/todo/articles.html" class="md-nav__link">
         TODO
       </a>
     </li>
@@ -735,12 +794,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       <label class="md-nav__link" for="__nav_3">
         System Design
@@ -758,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Template.html" class="md-nav__link">
+      <a href="../../Template.html" class="md-nav__link">
         Template
       </a>
     </li>
@@ -791,7 +852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/CDN.html" class="md-nav__link">
+      <a href="../../Concepts/CDN.html" class="md-nav__link">
         CDN
       </a>
     </li>
@@ -803,7 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Cache.html" class="md-nav__link">
+      <a href="../../Concepts/Cache.html" class="md-nav__link">
         Cache
       </a>
     </li>
@@ -815,7 +876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Communication.html" class="md-nav__link">
+      <a href="../../Concepts/Communication.html" class="md-nav__link">
         Communication
       </a>
     </li>
@@ -827,7 +888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/ConnectionTypes.html" class="md-nav__link">
+      <a href="../../Concepts/ConnectionTypes.html" class="md-nav__link">
         Connection Types
       </a>
     </li>
@@ -839,7 +900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/DNS.html" class="md-nav__link">
+      <a href="../../Concepts/DNS.html" class="md-nav__link">
         DNS
       </a>
     </li>
@@ -851,7 +912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Load%20Balancer.html" class="md-nav__link">
+      <a href="../../Concepts/Load%20Balancer.html" class="md-nav__link">
         Load Balancer
       </a>
     </li>
@@ -863,7 +924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Reverse%20Proxy.html" class="md-nav__link">
+      <a href="../../Concepts/Reverse%20Proxy.html" class="md-nav__link">
         Reverse Proxy
       </a>
     </li>
@@ -896,7 +957,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Databases/HBase.html" class="md-nav__link">
+      <a href="../../Concepts/Databases/HBase.html" class="md-nav__link">
         HBase
       </a>
     </li>
@@ -908,7 +969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Databases/MySQL%20BinLog.html" class="md-nav__link">
+      <a href="../../Concepts/Databases/MySQL%20Binlog-and-Replication.html" class="md-nav__link">
         MySQL BinLog
       </a>
     </li>
@@ -920,7 +981,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Databases/SQL%20or%20NoSQL.html" class="md-nav__link">
+      <a href="../../Concepts/Databases/SQL%20or%20NoSQL.html" class="md-nav__link">
         SQL vs NoSQL
       </a>
     </li>
@@ -932,7 +993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Databases/Scaling%20SQL%20Detailed.html" class="md-nav__link">
+      <a href="../../Concepts/Databases/Scaling%20SQL%20Detailed.html" class="md-nav__link">
         Scaling SQL Detailed
       </a>
     </li>
@@ -944,7 +1005,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Databases/Scaling%20SQL%20and%20NoSQL.html" class="md-nav__link">
+      <a href="../../Concepts/Databases/Scaling%20SQL%20and%20NoSQL.html" class="md-nav__link">
         Scaling SQL and NoSQL
       </a>
     </li>
@@ -983,7 +1044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Misc/backOfTheEnvelope.html" class="md-nav__link">
+      <a href="../../Concepts/Misc/backOfTheEnvelope.html" class="md-nav__link">
         Back of Envelope Calculations
       </a>
     </li>
@@ -995,7 +1056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Concepts/Misc/encodingAndDecoding.html" class="md-nav__link">
+      <a href="../../Concepts/Misc/encodingAndDecoding.html" class="md-nav__link">
         Encoding And Decoding
       </a>
     </li>
@@ -1040,7 +1101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Components/KeyGenerationService.html" class="md-nav__link">
+      <a href="../../Components/KeyGenerationService.html" class="md-nav__link">
         Key Generation Service
       </a>
     </li>
@@ -1079,7 +1140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/System%20Design%20Interview%20YT%20Channel/distributedCache.html" class="md-nav__link">
+      <a href="../../System%20Design%20Interview%20YT%20Channel/distributedCache.html" class="md-nav__link">
         Distributed Cache
       </a>
     </li>
@@ -1091,7 +1152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/System%20Design%20Interview%20YT%20Channel/distributedMessageQueue.html" class="md-nav__link">
+      <a href="../../System%20Design%20Interview%20YT%20Channel/distributedMessageQueue.html" class="md-nav__link">
         Distributed Message Queue
       </a>
     </li>
@@ -1103,7 +1164,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/System%20Design%20Interview%20YT%20Channel/notificationService.html" class="md-nav__link">
+      <a href="../../System%20Design%20Interview%20YT%20Channel/notificationService.html" class="md-nav__link">
         Notification Service
       </a>
     </li>
@@ -1115,7 +1176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/System%20Design%20Interview%20YT%20Channel/rateLimiting.html" class="md-nav__link">
+      <a href="../../System%20Design%20Interview%20YT%20Channel/rateLimiting.html" class="md-nav__link">
         Rate Limiting (local and distributed)
       </a>
     </li>
@@ -1127,7 +1188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/System%20Design%20Interview%20YT%20Channel/stepByStepGuide.html" class="md-nav__link">
+      <a href="../../System%20Design%20Interview%20YT%20Channel/stepByStepGuide.html" class="md-nav__link">
         Step By Step Guide
       </a>
     </li>
@@ -1139,7 +1200,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/System%20Design%20Interview%20YT%20Channel/topKHeavyHitters.html" class="md-nav__link">
+      <a href="../../System%20Design%20Interview%20YT%20Channel/topKHeavyHitters.html" class="md-nav__link">
         Top K Heavy Hitters
       </a>
     </li>
@@ -1178,7 +1239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Examples/dropbox.html" class="md-nav__link">
+      <a href="../../Examples/dropbox.html" class="md-nav__link">
         Dropbox
       </a>
     </li>
@@ -1190,7 +1251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Examples/trendingTopics.html" class="md-nav__link">
+      <a href="../../Examples/trendingTopics.html" class="md-nav__link">
         Trending Topics
       </a>
     </li>
@@ -1206,12 +1267,14 @@
             
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" checked>
       
       <label class="md-nav__link" for="__nav_3_6">
         Real World Examples
@@ -1227,12 +1290,14 @@
             
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_1" type="checkbox" id="__nav_3_6_1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_1" type="checkbox" id="__nav_3_6_1" checked>
       
       <label class="md-nav__link" for="__nav_3_6_1">
         Facebook
@@ -1250,7 +1315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Real%20World%20Examples/Facebook/FacebookIris.html" class="md-nav__link">
+      <a href="FacebookIris.html" class="md-nav__link">
         Iris - Building Mobile-First Infrastructure for Messenger
       </a>
     </li>
@@ -1260,38 +1325,79 @@
             
   
   
-  
     
-    <li class="md-nav__item md-nav__item--nested">
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_1_2" type="checkbox" id="__nav_3_6_1_2" >
+        
       
-      <label class="md-nav__link" for="__nav_3_6_1_2">
-        TAO
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="TAO" data-md-level="4">
-        <label class="md-nav__title" for="__nav_3_6_1_2">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Large-Scale Low-Latency Storage for the Social Network
           <span class="md-nav__icon md-icon"></span>
-          TAO
         </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../System%20Design/Real%20World%20Examples/Facebook/TAO/Wormhole.html" class="md-nav__link">
+      
+      <a href="Wormhole.html" class="md-nav__link md-nav__link--active">
         Large-Scale Low-Latency Storage for the Social Network
       </a>
-    </li>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
-
-          
-        </ul>
-      </nav>
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#messages" class="md-nav__link">
+    Messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graph-data-challenges" class="md-nav__link">
+    Graph Data Challenges
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tao" class="md-nav__link">
+    TAO
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wormhole" class="md-nav__link">
+    Wormhole
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1328,7 +1434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Real%20World%20Examples/LinkedIn/LinkedInRealTimeVideo.html" class="md-nav__link">
+      <a href="../LinkedIn/LinkedInRealTimeVideo.html" class="md-nav__link">
         LinkedIn Real-Time Interactions on Live Video
       </a>
     </li>
@@ -1367,7 +1473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../System%20Design/Real%20World%20Examples/Netflix/ScalingPush.html" class="md-nav__link">
+      <a href="../Netflix/ScalingPush.html" class="md-nav__link">
         Scaling Push Messages
       </a>
     </li>
@@ -1399,19 +1505,144 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#messages" class="md-nav__link">
+    Messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graph-data-challenges" class="md-nav__link">
+    Graph Data Challenges
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tao" class="md-nav__link">
+    TAO
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wormhole" class="md-nav__link">
+    Wormhole
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/leetcode/Easy/112.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/rkk1995/Notes/edit/master/docs/System Design/Real World Examples/Facebook/Wormhole.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                  <h1>112</h1>
-                
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/xpDnVSmNFX0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <h1 id="large-scale-low-latency-storage-for-the-social-network">Large-Scale Low-Latency Storage for the Social Network</h1>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5RfFhMwRAic" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2 id="messages">Messages</h2>
+<ul>
+<li>Large historical dataset</li>
+<li>Mostly append data</li>
+<li>Private data<ul>
+<li>Low amount of viewers</li>
+</ul>
+</li>
+<li>Hbase + caches<ul>
+<li>Hbase works well for write intensive workloads</li>
+</ul>
+</li>
+</ul>
+<h2 id="graph-data-challenges">Graph Data Challenges</h2>
+<ul>
+<li>Low MS resposne times &lt; 1 MS</li>
+<li>Read your own writes</li>
+<li>1000x reads to writes</li>
+<li>Highly interconnected data<ul>
+<li>Fan out</li>
+<li>Worldwide scope</li>
+</ul>
+</li>
+<li>PB of data</li>
+</ul>
+<h2 id="tao">TAO</h2>
+<ul>
+<li>Distributed graph storage system</li>
+<li>Read and write through cache</li>
+</ul>
+<p><img alt="" src="image/Wormhole/1635540316069.png" /></p>
+<ul>
+<li>Many frontend and backend clusters in a region</li>
+<li>TAO serves as L1 and L2 cache</li>
+<li>If data not in TAO Follower, requests data from TAO Leader, which fetches from MySQL</li>
+<li>TAO followers offer redundant copy of data. Serves hottest data. Allows linearly scaling reads by simply adding more TAO followers.</li>
+<li>TAO leaders only have a single copy per region. Less accessed data but prevents load on database and thundering herds.</li>
+<li>TAO is basically write through cache</li>
+</ul>
+<p><img alt="" src="image/Wormhole/1635540478125.png" /></p>
+<ul>
+<li>Someone from remote region writing data. Follower -&gt; Leader -&gt; Main Leader -&gt; Main SQL -&gt; Async replication to Follower SQL</li>
+<li>Multiple requests in single RPG from Leaders in each region. Helps hide latency by batching.</li>
+<li>Leads into cache consistency model. Since it's write through, cache in posters cluster is immediately updated even before it reaches local database.</li>
+<li><strong>Requires stickying user to cluster</strong>.</li>
+</ul>
+<h2 id="wormhole">Wormhole</h2>
+<p>How does it handle worldwide cache invalidation?</p>
+<p><img alt="" src="image/Wormhole/1635540663676.png" /></p>
+<ul>
+<li>Pub-sub system</li>
+<li>Subscribe to certain events of data changes</li>
+<li>Tails MySQL binlog consuming SQL comments</li>
+</ul>
+<p>Also can be used for ETL to data warehouses. </p>
+<p><img alt="" src="image/Wormhole/1635540703324.png" /></p>
+<h2 id="conclusion">Conclusion</h2>
+<ul>
+<li>Social graph data needs WW realtime access</li>
+<li>Distributed caching can hide latency issues<ul>
+<li>But creates consistency solutions</li>
+</ul>
+</li>
+<li>TAO/MySQL/Wormhole is FB solution</li>
+</ul>
                 
               
               
@@ -1431,7 +1662,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../../System%20Design/System%20Design%20Interview%20YT%20Channel/topKHeavyHitters.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Top K Heavy Hitters" rel="prev">
+        <a href="FacebookIris.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Iris - Building Mobile-First Infrastructure for Messenger" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1440,11 +1671,26 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Top K Heavy Hitters
+              Iris - Building Mobile-First Infrastructure for Messenger
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../LinkedIn/LinkedInRealTimeVideo.html" class="md-footer__link md-footer__link--next" aria-label="Next: LinkedIn Real-Time Interactions on Live Video" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              LinkedIn Real-Time Interactions on Live Video
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
@@ -1477,10 +1723,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tracking"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tracking", "search.highlight", "search.share"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.82b56eb2.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.82b56eb2.min.js"></script>
       
         <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
       

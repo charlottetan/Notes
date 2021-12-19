@@ -23,10 +23,6 @@
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
         
-          
-          
-          <meta name="theme-color" content="#4051b5">
-        
       
     
     
@@ -55,13 +51,17 @@
   
     
     
+      
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="red">
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="blue">
   
     
     <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -106,7 +106,59 @@
       </div>
     </div>
     
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="dark-blue" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+      </form>
     
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     
     
       <div class="md-header__source">
@@ -821,15 +873,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-data-model-5-min" class="md-nav__link">
-    (4) Data Model [5 min]
+  <a href="#4-high-level-design-5-10-min" class="md-nav__link">
+    (4) High Level Design [5-10 min]
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-high-level-design-5-10-min" class="md-nav__link">
-    (5) High Level Design [5-10 min]
+  <a href="#5-data-model-5-min" class="md-nav__link">
+    (5) Data Model [5 min]
   </a>
   
 </li>
@@ -843,15 +895,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#data-partitioning-replication" class="md-nav__link">
-    Data Partitioning / Replication
+  <a href="#database-scaling" class="md-nav__link">
+    Database scaling
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#cache" class="md-nav__link">
-    Cache
+  <a href="#message-queues" class="md-nav__link">
+    Message Queues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caches" class="md-nav__link">
+    Caches
   </a>
   
 </li>
@@ -864,15 +923,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#purging-or-db-cleanup" class="md-nav__link">
-    Purging or DB Cleanup
+  <a href="#communication" class="md-nav__link">
+    Communication
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#metrics" class="md-nav__link">
-    Metrics
+  <a href="#error-cases" class="md-nav__link">
+    Error cases
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdn" class="md-nav__link">
+    CDN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loggingmetrics" class="md-nav__link">
+    Logging/Metrics
   </a>
   
 </li>
@@ -1033,7 +1106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Concepts/Databases/MySQL%20BinLog.html" class="md-nav__link">
+      <a href="Concepts/Databases/MySQL%20Binlog-and-Replication.html" class="md-nav__link">
         MySQL BinLog
       </a>
     </li>
@@ -1386,37 +1459,10 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_1_2" type="checkbox" id="__nav_3_6_1_2" >
-      
-      <label class="md-nav__link" for="__nav_3_6_1_2">
-        TAO
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="TAO" data-md-level="4">
-        <label class="md-nav__title" for="__nav_3_6_1_2">
-          <span class="md-nav__icon md-icon"></span>
-          TAO
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-  
-  
-  
     <li class="md-nav__item">
-      <a href="Real%20World%20Examples/Facebook/TAO/Wormhole.html" class="md-nav__link">
+      <a href="Real%20World%20Examples/Facebook/Wormhole.html" class="md-nav__link">
         Large-Scale Low-Latency Storage for the Social Network
       </a>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -1564,15 +1610,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-data-model-5-min" class="md-nav__link">
-    (4) Data Model [5 min]
+  <a href="#4-high-level-design-5-10-min" class="md-nav__link">
+    (4) High Level Design [5-10 min]
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-high-level-design-5-10-min" class="md-nav__link">
-    (5) High Level Design [5-10 min]
+  <a href="#5-data-model-5-min" class="md-nav__link">
+    (5) Data Model [5 min]
   </a>
   
 </li>
@@ -1586,15 +1632,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#data-partitioning-replication" class="md-nav__link">
-    Data Partitioning / Replication
+  <a href="#database-scaling" class="md-nav__link">
+    Database scaling
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#cache" class="md-nav__link">
-    Cache
+  <a href="#message-queues" class="md-nav__link">
+    Message Queues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caches" class="md-nav__link">
+    Caches
   </a>
   
 </li>
@@ -1607,15 +1660,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#purging-or-db-cleanup" class="md-nav__link">
-    Purging or DB Cleanup
+  <a href="#communication" class="md-nav__link">
+    Communication
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#metrics" class="md-nav__link">
-    Metrics
+  <a href="#error-cases" class="md-nav__link">
+    Error cases
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdn" class="md-nav__link">
+    CDN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loggingmetrics" class="md-nav__link">
+    Logging/Metrics
   </a>
   
 </li>
@@ -1646,20 +1713,30 @@
 <h2 id="1-gather-requirements-1-2-min">(1) Gather Requirements [1-2 min]</h2>
 <p>Ask questions to help define what parts of the system we will focus on.</p>
 <ol>
-<li>Who will use</li>
+<li>Users/Customers<ol>
+<li>Who will use? How will system be used?</li>
+<li>Do we need very low latency? (Usually serve from Memory then)</li>
+</ol>
+</li>
 <li>Usage patterns<ol>
-<li>What data do we store?</li>
+<li>What data do we store? Does the data change alot?</li>
 <li>Real time or delayed data ok? Stale data okay?</li>
 <li>Read your own writes usually a must otherwise confusing</li>
 <li>Do we need to push notifications?</li>
 </ol>
 </li>
+<li>Scale (use answers for capacity estimation)<ol>
+<li>How many users?</li>
+<li>How many data points?</li>
+</ol>
+</li>
+<li>Open source technologies ok? Cost of development?</li>
 </ol>
 <h2 id="2-functional-non-functional-requirements-5-min">(2) Functional + Non Functional Requirements [5 min]</h2>
 <ol>
 <li>Functional requirements<ol>
-<li>What should users be able to do? What should the service do?</li>
-<li>Define API</li>
+<li>Actions the systems will make. Expand to make more extensible.</li>
+<li>countViewEvent -&gt; countEvent -&gt; processEvent -&gt; processEvents</li>
 <li>How to prevent abuse? API Key for greater limits</li>
 </ol>
 </li>
@@ -1668,6 +1745,7 @@
 <li>Scalability</li>
 <li>Performance (Low latency)</li>
 <li>Durable (if required)</li>
+<li>What features should we ensure (payment always processed, data not lost, etc)</li>
 </ol>
 </li>
 </ol>
@@ -1690,44 +1768,95 @@
 </ol>
 </li>
 </ol>
-<h2 id="4-data-model-5-min">(4) Data Model [5 min]</h2>
+<h2 id="4-high-level-design-5-10-min">(4) High Level Design [5-10 min]</h2>
+<ul>
+<li>"Hey I'm going to solve problem for small scale. 1 server is going to handle it. Then once I've fixed the solution I will work on scaling it up."</li>
+<li>Explain high level data flow for <strong>each operation in functional requirements</strong>.</li>
+<li>Stateful vs Stateless web tier: stateful has to deal with sticky session and other compleixty, stateless is more robust and scalable too.</li>
+</ul>
+<h2 id="5-data-model-5-min">(5) Data Model [5 min]</h2>
 <p>Think about the nature of our data</p>
 <ol>
 <li>How many records do we store? (Capacity Estimations)</li>
 <li>Size of each object? (Capacity Estimations)</li>
+<li>. Raw data or aggregated data?</li>
 <li>Relationship between records?</li>
 <li>Read vs Write heavy?</li>
 </ol>
 <p>Defining the data model in the early part of the interview will clarify how data will flow between different system components. Later, it will guide for data partitioning and management. The candidate should identify various system entities, how they will interact with each other, and different aspects of data management like storage, transportation, encryption, etc.</p>
-<p>Which database system should we use? Will NoSQL like <a href="https://en.wikipedia.org/wiki/Apache_Cassandra">Cassandra</a> best fit our needs, or should we use a MySQL-like solution? What kind of block storage should we use to store photos and videos?</p>
-<p>See <a href="Concepts/Databases/SQL%20or%20NoSQL.html">SQL or NoSQL</a></p>
-<h2 id="5-high-level-design-5-10-min">(5) High Level Design [5-10 min]</h2>
+<p>Which database system should we use? Will Non Relational like <a href="https://en.wikipedia.org/wiki/Apache_Cassandra">Cassandra</a> best fit our needs, or should we use a relational-like solution? What kind of block storage should we use to store photos and videos? SQL consider if we have lots of tables, joins, need for consistency and transactions.</p>
 <ul>
-<li>Alternatives and tradeoffs considered</li>
-<li>Responsibilities of each component</li>
-<li>Explain high level data flow for <strong>each operation in functional requirements</strong>.</li>
+<li>Relational is harder to scale since it offers more guarantees. Does not mean its not as scalable, but more work and may lose guarantees.<ul>
+<li>Availability, Consistency, Txn, Schema, Scalability, joins, ACID properties</li>
+<li>Writes scaled by sharding / Reads scaled by replication</li>
+<li>MySQL auto-incrementing columns for primary keys (unique IDs)</li>
 </ul>
+</li>
+<li>Non Relational<ul>
+<li>Easily scaled for writes / reads by simply adding more servers and using Consistent hashing.</li>
+</ul>
+</li>
+</ul>
+<p>See <a href="Concepts/Databases/SQL%20or%20NoSQL.html">SQL or NoSQL</a></p>
 <h2 id="6-deep-dive-15-20-min">(6) Deep Dive [15-20 min]</h2>
-<ol>
-<li>Scaling the algorithm</li>
+<ul>
 <li>Scaling individual components:<ul>
 <li>Use Non Functional Requirements to drive this.</li>
 <li>Availability, Consistency and Scale story for each component</li>
 <li>Consistency and availability patterns</li>
 </ul>
 </li>
-<li>Sample questions<ol>
-<li>Since we will be storing a massive amount of data, how should we partition our data to distribute it to multiple databases? Should we try to store all the data of a user on the same database? What issue could it cause?</li>
-<li>How will we handle hot users who tweet a lot or follow lots of people?</li>
-<li>Since users’ timeline will contain the most recent (and relevant) tweets, should we try to store our data so that it is optimized for scanning the latest tweets?</li>
-<li>How much and at which layer should we introduce cache to speed things up?</li>
-<li>What components need better load balancing?</li>
-</ol>
+</ul>
+<h3 id="database-scaling">Database scaling</h3>
+<ul>
+<li>Data access patterns. Do we need seperate hot/cold storage?<ul>
+<li>DB cleanup processor?</li>
+</ul>
 </li>
-<li>Think about the following components, how they would fit in and how it would help<ul>
-<li>Load Balancers [Active-Passive, Active-Active, Layer 4, Layer 7]</li>
-<li>Caches<ul>
-<li>Client caching, CDN caching, Web server caching, Database caching, Application caching, Cache @Query level, Cache @Object level</li>
+<li>Vertical vs Horizontal. Usually Vertical not as cost efficient, reliable, or scalable.</li>
+<li>When sharding in H, most important factor is sharding key.<ul>
+<li>Resharding, Celebrity, Join/Denormalization.</li>
+<li>Consider Proximity Server. We store data in DB but create Quad Tree in memory.<ul>
+<li>Maybe we cannot fit entire Quad Tree on server. Shard so each quad tree contains 1/10th of original quad tree. How to shard?</li>
+<li>If we shard on regionid, we may have hot regions. NY machines will have alot more queries/data than SA machines<ul>
+<li>Although not applicable to Quad Tree, one approach to deal with hot partitions is to include event time into the partition key. All events for one minute go to one host and over time the load is distributed.</li>
+</ul>
+</li>
+<li>If we shard on locationId, we have to fan out to all hosts containing each quad tree to aggregate results. Each quad tree will contain random elemsensts</li>
+<li><strong>Tradeoff</strong></li>
+</ul>
+</li>
+<li>Consistent Hashing</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>MySQL<ul>
+<li>Cluster proxy that routes traffic to correct shard. To know the shards, can use a configuration service which maintains a connection to all shards using ZooKeeper ephemeral nodes.</li>
+<li>Shard proxy can sit infront of a database and cache queries, monitor health, and publish metrics.</li>
+<li>Replication with async, semisync, sync</li>
+<li>Complex, FB uses many optimizations and extensive cache layer. Also moved to LSM which has less write amplification w/ RocksDB.</li>
+</ul>
+</li>
+<li>NoSQL<ul>
+<li>Utilizes gossip protocol instead of a cluster proxy w/ configuration service.</li>
+<li>Uses consistent hashing to pick the node to write the data. Data is replicated to next 2-3 nodes in the ring.</li>
+<li>Can increase read/write quorum.</li>
+</ul>
+</li>
+<li>Mention utilizing multiple data centers per shard.</li>
+</ul>
+<h3 id="message-queues">Message Queues</h3>
+<ul>
+<li>Asynchronous communication between web servers. Servse as a buffer and distributes requests.</li>
+<li>If consumer is unavailable, message will not be lost. Fire and forget.</li>
+<li>There are many benefits of batching: it increases throughput, it helps to save on cost, request compression is more effective. But there are drawbacks as well. It introduces some complexity both on the client and the server side. For example think of a scenario when partitioner service processes a batch request and several events from the batch fail, while other succeed. Should we re-send the whole batch?</li>
+</ul>
+<h3 id="caches">Caches</h3>
+<ul>
+<li>For data that is read heavy (data access patterns!)</li>
+<li>Seperate cache tier? Yes, better performance, ability to scale independently</li>
+<li>Persistence?</li>
 <li>Eviction policies:<ul>
 <li>LRU</li>
 <li>LFU</li>
@@ -1741,79 +1870,57 @@
 <li>Refresh ahead</li>
 </ul>
 </li>
-<li>ReadYourOwnWrites: Cache in your own region always updated on writes.<ul>
+<li>Consistency? ReadYourOwnWrites:<ul>
+<li>Cache in your own region always updated on writes. Tie user to a specific cache cluster.</li>
 <li>SQL Binlog used to replicate cache invalidations to other servers.</li>
 </ul>
 </li>
+<li>Client caching, CDN caching, Web server caching, Database caching, Application caching, Cache @Query level, Cache @Object level</li>
 </ul>
-</li>
-<li>Application layer scaling [Microservices, Service Discovery]</li>
-<li>CDN [Push vs Pull]</li>
-<li>Error cases
-      - Write Ahead Log for services that keep in memory data structures</li>
-<li>DB [RDBMS, NoSQL]
-    - RDBMS
-      - Master-slave, Master-master, Federation, Sharding, Denormalization, SQL Tuning
-    - NoSQL
-      - Key-Value, Wide-Column, Graph, Document
-      - Fast-lookups:<br />
-        - RAM  [Bounded size] =&gt; Redis, Memcached
-        - AP [Unbounded size] =&gt; Cassandra, RIAK, Voldemort
-        - CP [Unbounded size] =&gt; HBase, MongoDB, Couchbase, DynamoDB</li>
-<li>Metrics</li>
-<li>DNS</li>
-<li>Reverse Proxy</li>
-<li>Asynchronism<ul>
-<li>Message Queues</li>
-<li>Task Queues</li>
-</ul>
-</li>
-<li>Communication
-      - TCP
-      - UDP
-      - REST
-      - RPC
-      - Thrift
-      - GraphQL</li>
-</ul>
-</li>
-<li>Identify Bottleneckes
-    - Is there any single point of failure in our system? What are we doing to mitigate it?
-    - Do we have enough replicas of the data so that we can still serve our users if we lose a few servers?
-    - Similarly, do we have enough copies of different services running such that a few failures will not cause a total system shutdown?
-    - How are we monitoring the performance of our service? Do we get alerts whenever critical components fail or their performance degrades?</li>
-</ol>
-<h3 id="data-partitioning-replication">Data Partitioning / Replication</h3>
-<p><strong>Range Based Partitioning</strong>: We can store URLs in separate partitions based on the hash key's first letter. Hence we save all the URLs starting with the letter 'A' (and 'a') in one partition, save those that start with the letter 'B' in another partition, and so on. This approach is called range-based partitioning. We can even combine certain less frequently occurring letters into one database partition. Thus, we should develop a static partitioning scheme to always store/find a URL in a predictable manner.</p>
-<p>The main problem with this approach is that it can lead to unbalanced DB servers. For example, we decide to put all URLs starting with the letter 'E' into a DB partition, but later we realize that we have too many URLs that start with the letter 'E.'</p>
-<p><strong>Hash-Based Partitioning</strong>: In this scheme, we take a hash of the object we are storing. We then calculate which partition to use based upon the hash. In our case, we can take the hash of the 'key' or the short link to determine the partition in which we store the data object.</p>
-<p>Our hashing function will randomly distribute URLs into different partitions (e.g., our hashing function can always map any 'key' to a number between [1...256]). This number would represent the partition in which we store our object. Consistent hashing to deal with overloaded partitions</p>
-<h3 id="cache">Cache</h3>
-<p>How much cache memory should we have? We can start with 20% of daily traffic and, based on clients' usage patterns, we can adjust how many cache servers we need. As estimated above, we need 170GB of memory to cache 20% of daily traffic. Since a modern-day server can have 256GB of memory, we can easily fit all the cache into one machine. Alternatively, we can use a couple of smaller servers to store all these hot URLs.</p>
-<p>Which cache eviction policy would best fit our needs? When the cache is full, and we want to replace a link with a newer/hotter URL, how would we choose? Least Recently Used (LRU) can be a reasonable policy for our system. Under this policy, we discard the least recently used URL first. We can use a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/LinkedHashMap.html">Linked Hash Map</a> or a similar data structure to store our URLs and Hashes, which will also keep track of the URLs that have been accessed recently.</p>
-<p>To further increase the efficiency, we can replicate our caching servers to distribute the load between them.</p>
-<p>How can each cache replica be updated? Whenever there is a cache miss, our servers would be hitting a backend database. Whenever this happens, we can update the cache and pass the new entry to all the cache replicas. Each replica can update its cache by adding the new entry. If a replica already has that entry, it can simply ignore it. We can give a lease to requester on cache misses to prevent thundering herd to the DB.</p>
 <h3 id="load-balancer">Load Balancer</h3>
-<p>We can add a Load balancing layer at three places in our system:</p>
-<ol>
-<li>Between Clients and Application servers</li>
-<li>Between Application Servers and database servers</li>
-<li>Between Application Servers and Cache servers</li>
-</ol>
-<p>Initially, we could use a simple Round Robin approach that distributes incoming requests equally among backend servers. This LB is simple to implement and does not introduce any overhead. Another benefit of this approach is that if a server is dead, LB will take it out of the rotation and stop sending any traffic to it.</p>
-<p>A problem with Round Robin LB is that we do not consider the server load. As a result, if a server is overloaded or slow, the LB will not stop sending new requests to that server. To handle this, a more intelligent LB solution can be placed that periodically queries the backend server about its load and adjusts traffic based on that.</p>
-<h3 id="purging-or-db-cleanup">Purging or DB Cleanup</h3>
-<p>Should entries stick around forever, or should they be purged? If a user-specified expiration time is reached, what should happen to the link?</p>
-<p>If we chose to continuously search for expired links to remove them, it would put a lot of pressure on our database. Instead, we can slowly remove expired links and do a lazy cleanup. Our service will ensure that only expired links will be deleted, although some expired links can live longer but will never be returned to users.</p>
 <ul>
-<li>Whenever a user tries to access an expired link, we can delete the link and return an error to the user.</li>
-<li>A separate Cleanup service can run periodically to remove expired links from our storage and cache. This service should be very lightweight and scheduled to run only when the user traffic is expected to be low.</li>
-<li>We can have a default expiration time for each link (e.g., two years).</li>
-<li>After removing an expired link, we can put the key back in the key-DB to be reused.</li>
-<li>Should we remove links that haven't been visited in some length of time, say six months? This could be tricky. Since storage is getting cheap, we can decide to keep links forever.</li>
+<li>Between clients and application servers, application servers and database/cache servers.</li>
+<li>Layer 4 vs Layer 7 - transport vs application. Layer 7 has more info at cost of time and computing resources.</li>
+<li>Pros<ul>
+<li>Prevents requests going to unhealthy servers. Eliminates single point of failure</li>
+<li>SSL termination - decrypt incoming requests and encrypt server responses</li>
+<li>Sticky sessions</li>
 </ul>
-<h3 id="metrics">Metrics</h3>
-<p>We should publish core metrics for our service which will help us gain insights to make better business and technical decisions.</p>
+</li>
+<li>Cons<ul>
+<li>Can become performance bottleneck, increased complexity, need for multiple to prevent SPoF</li>
+</ul>
+</li>
+<li>Primary/Seconday load balancer to address SpoF</li>
+</ul>
+<h3 id="communication">Communication</h3>
+<ul>
+<li>TCP: ordered, more overhead, has seq numbers and checksum fields for each packet</li>
+<li>UDP: unordered, less latency, less overhead</li>
+<li>Short Poll vs Long Poll vs Websocket</li>
+<li>JSON vs Thrift. Saving space on the wire. 50% reductions Field tags vs field names.</li>
+</ul>
+<h3 id="error-cases">Error cases</h3>
+<ul>
+<li>Write Ahead Log for services that keep in memory data structures</li>
+<li>Timeouts on service calls set to speed of 1% slowest requests. Maybe hit a bad server.</li>
+<li>Retry mechanism. Exponential backoff with jitter.</li>
+</ul>
+<h3 id="cdn">CDN</h3>
+<ul>
+<li>Lightens DB load by serving static content (images, videso, CSS, JS)</li>
+<li>Push vs Pull?<ul>
+<li>Push better for small traffic. Pull allows user demanded data to be populated with TTL.</li>
+</ul>
+</li>
+<li>Generally costly. Charged for data transfer in/out so should not cache infrequently used assets.</li>
+</ul>
+<h3 id="loggingmetrics">Logging/Metrics</h3>
+<ul>
+<li>Host level metrics: CPU/Memory/Disk I/O</li>
+<li>Aggregated level metrics: performance of entire database/cache tier</li>
+<li>Business metrics: DAU, retention, revenue</li>
+</ul>
                 
               
               
@@ -1894,7 +2001,7 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tracking"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tracking", "search.highlight", "search.share"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.82b56eb2.min.js"></script>
